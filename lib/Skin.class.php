@@ -1,5 +1,5 @@
 <?php
-/**	Die Skin-Klasse verarbeitet alle Informationen für die Ausgabe/ Verarbeitung eines
+/**	Die Skin-Klasse verarbeitet alle Informationen fÃ¼r die Ausgabe/ Verarbeitung eines
  * 	Skins (HTML-Struktur). Hierbei lassen sich enthaltene Variablen in Form
  * 	von {VARIABLENNAME} durch neue Werte ersetzen.
  *
@@ -28,23 +28,23 @@ class Skin
 
 	var $skin_loop_replace;		// Speichert in einem assoziativen Array
 								// alle Variablennamen sowie ein untergeordnetes
-								// Array mit den enthaltenen Daten für den Masseneinsatz
+								// Array mit den enthaltenen Daten fÃ¼r den Masseneinsatz
 
 	// Konstanten
-	const REPLACE = 0;    // Wert um alte Daten mit neuen Daten zu überschreiben
-	const ATTACH  = 1;    // Wert um neue Daten an alte Daten anzuhängen
+	const REPLACE = 0;    // Wert um alte Daten mit neuen Daten zu Ã¼berschreiben
+	const ATTACH  = 1;    // Wert um neue Daten an alte Daten anzuhÃ¤ngen
 	const PREPEND = 2;    // Wert um neue Daten vor alten Daten voranzustellen
 
 
 	// Konstruktor
-	/**	Konstruktor der Skin-Klasse. $skin_filename ist optional und wird nur benötigt, wenn sich der Name der HTML-Datei vom Dateiname der aufrufenden Datei unterscheidet!
+	/**	Konstruktor der Skin-Klasse. $skin_filename ist optional und wird nur benÃ¶tigt, wenn sich der Name der HTML-Datei vom Dateiname der aufrufenden Datei unterscheidet!
 	 * 
 	 *	@param	String		$skin_filepath		Name der HTML-Datei, wenn dieser nicht gleich der aufrufenden Datei ist
 	 *	@return Skin Object
 	 *	@access	public
 	 *	@since	24.03.2011 - MBU
 	 */
-	function Skin($skin_filepath = '')
+	function __construct($skin_filepath = '')
 	{
 		$this->skin_data 			= '';
 		$this->skin_var_replace 	= array();
@@ -72,9 +72,9 @@ class Skin
 
 	
 	// Methoden
-	/**	Setzt den HTML-Inhalt des Skin auf den übergebenen String $data. $method gibt an, wie mit
-	 * 	dem übergebenen Inhalt gearbeitet werden soll. Per Default wird der Wert ersetzt (REPLACE).
-	 * 	Zur Auswahl stehen auch ATTACH (anhängen) und PREPEND(voranstellen) an den potenziell bereits
+	/**	Setzt den HTML-Inhalt des Skin auf den Ã¼bergebenen String $data. $method gibt an, wie mit
+	 * 	dem Ã¼bergebenen Inhalt gearbeitet werden soll. Per Default wird der Wert ersetzt (REPLACE).
+	 * 	Zur Auswahl stehen auch ATTACH (anhÃ¤ngen) und PREPEND(voranstellen) an den potenziell bereits
 	 * 	gesetzten Inhalt.
 	 *
 	 * 	@param	String		$data		HTML-Konstrukt
@@ -100,7 +100,7 @@ class Skin
 		}
 	}
 
-	/**	Lädt den Inhalt einer Datei und setzt darauf den Skin fest
+	/**	LÃ¤dt den Inhalt einer Datei und setzt darauf den Skin fest
 	 *
 	 * 	@param	String		$filepath		Dateiname der zu ladenden Datei im SKINPATH-Verzeichniss oder Pfad zur Datei
 	 * 	@return	void
@@ -130,12 +130,12 @@ class Skin
 
 	/**	Legt fest, welchen Wert $value eine eingebettete Variable $varname aus dem Skin bei der
 	 * 	Verarbeitung erhalten soll. $method gibt an, wie der neue Wert verarbeitet werden soll.
-	 * 	Möglich sind REPLACE (ersetzt potentiell bereits gesetzte Werte), ATTACH (hängt den neuen
-	 * 	Wert an den potenziell bereits gesetzten Wert an) und PREPEND (fügt den neuen Wert vor die
+	 * 	M?glich sind REPLACE (ersetzt potentiell bereits gesetzte Werte), ATTACH (h?ngt den neuen
+	 * 	Wert an den potenziell bereits gesetzten Wert an) und PREPEND (f?gt den neuen Wert vor die
 	 * 	potenziell bereits gesetzen Werte ein).
 	 *
 	 * 	@param	String		$varname			Name der eingebetteten Variable (nicht case-sensitive)
-	 * 	@param	MIXED		$value				Ein String, der den Wert angibt oder ein Array für einen Loop-Wert
+	 * 	@param	MIXED		$value				Ein String, der den Wert angibt oder ein Array f?r einen Loop-Wert
 	 * 	@param	int			$method				Verarbeitungsmethodik (default: REPLACE)
 	 * 	@return	boolean		Erfolgreich aufgenommen
 	 * 	@access	public
@@ -186,11 +186,11 @@ class Skin
 	}
 	
 	
-	/**	Alias für Skin::setSkinVar(), da CodeCharge eine Funktion mit gleicher Aufgabe nutzt die setVar() heißt 
+	/**	Alias f?r Skin::setSkinVar(), da CodeCharge eine Funktion mit gleicher Aufgabe nutzt die setVar() hei?t 
 	 * 
 	 * 	@param	String		$varname 		Name der eingebetteten Variable (nicht case-sensitive)
 	 * 	@param	String		$value			Ein String, der den Wert angibt
-	 * 	@return	boolean ausgeführt
+	 * 	@return	boolean ausgef?hrt
 	 * 	@access	public
 	 * 	@since	24.03.2011 - MBU
 	 * 	@see	Skin::setSkinVar()
@@ -200,15 +200,15 @@ class Skin
 		return $this->setSkinVar($varname, $value, self::REPLACE);
 	}
 
-	/**	Liefert den Skin wieder. Der optionale Parameter $process_runtimes gibt an, wie häufig eine Parsung
-	 *	durchgeführt werden soll. Per Default wird nur einmal die Skin-Daten geparst und Variablen ersetzt.
-	 *	Durch Erhöhung der Durchlaufvariable können auch Variablen, die als Werte mit übergeben wurden
-	 *	ersetzt werden. Wird die Durchlaufvariable auf kleiner 1 gesetzt, erhält man den Skin ungeparst wieder.
-	 *	Mit dem Parameter $clean_up kann man darüber hinaus auch noch steuern, ob übrig bleibende Variablen
-	 *	entfernd werden sollen vor der Rückgabe. Per Default wird dieses durchgeführt.
+	/**	Liefert den Skin wieder. Der optionale Parameter $process_runtimes gibt an, wie h?ufig eine Parsung
+	 *	durchgef?hrt werden soll. Per Default wird nur einmal die Skin-Daten geparst und Variablen ersetzt.
+	 *	Durch Erh?hung der Durchlaufvariable k?nnen auch Variablen, die als Werte mit ?bergeben wurden
+	 *	ersetzt werden. Wird die Durchlaufvariable auf kleiner 1 gesetzt, erh?lt man den Skin ungeparst wieder.
+	 *	Mit dem Parameter $clean_up kann man dar?ber hinaus auch noch steuern, ob ?brig bleibende Variablen
+	 *	entfernd werden sollen vor der R?ckgabe. Per Default wird dieses durchgef?hrt.
 	 *
-	 *	@param	bool		$clean_up				Gibt an, ob nicht ersetzte Variablen gelöscht werden sollen (default: true)
-	 *	@param	int			$process_runtimes		Durchläufe des Parsers (default: 1)
+	 *	@param	bool		$clean_up				Gibt an, ob nicht ersetzte Variablen gel?scht werden sollen (default: true)
+	 *	@param	int			$process_runtimes		Durchl?ufe des Parsers (default: 1)
 	 *	@return	String		HTML-Ausgabe
 	 *	@access	public
 	 *	@since	24.03.2011 - MBU
@@ -240,7 +240,7 @@ class Skin
 	
 	
 	// private Methoden
-	/**	Parst den übergebenen Skin auf Grundlage der gesetzten Variablenwerte.
+	/**	Parst den ?bergebenen Skin auf Grundlage der gesetzten Variablenwerte.
 	 *
 	 * 	@param	String		$skin_data			Den zu parsenden String
 	 * 	@return	String 		geparster String
@@ -256,7 +256,7 @@ class Skin
 	}
 
 
-	/**	Liefert den Replace-Wert einer Variable zurück
+	/**	Liefert den Replace-Wert einer Variable zur?ck
 	 *
 	 * 	@param	Array			$preg_match 			Das Match-Array des preg-Vergleichs
 	 * 	@return	String			Wert
@@ -271,7 +271,7 @@ class Skin
 			return $preg_match[0];
 	}
 
-	/**	Liefert den Replace-Wert für die Loop-Variable zurück
+	/**	Liefert den Replace-Wert f?r die Loop-Variable zur?ck
 	 *
 	 * 	@param	Array			$preg_match				Das Match-Array des preg-Vergleichs
 	 * 	@return	String			Wert
@@ -351,7 +351,7 @@ class Skin
 		}
 
 
-		// Weitere Anpassungen durchführen
+		// Weitere Anpassungen durchf?hren
 		if(strlen($id))
 			$SelectBox->setId($id);
 
