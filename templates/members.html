@@ -1,0 +1,67 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+	  <a data-toggle="collapse" href="#filters"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
+	</div>
+	<div class="panel-body collapse" id="filters">
+		<div class="col-md-6">
+			<label for="search">Person suchen:</label><br>
+			<div class="col-md-8 col-xs-8" style="padding: 0;">
+				<input class="form-control" type="text" name="search" id="search" placeholder="Suche...">
+			</div>
+			<div class="col-md-2 col-xs-2" style="padding: 0;">
+				<button type="button" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i> Suche</button>
+			</div>
+			<br>&nbsp;
+		</div>
+		<div class="col-md-3">
+			<label>Status:</label><br>
+			<label for="state_aktiv">aktiv:</label> <input type="checkbox" name="state[]" value="aktiv" id="state_aktiv">&nbsp;&nbsp;&nbsp;
+			<label for="state_passiv">passiv:</label> <input type="checkbox" name="state[]" value="passiv" id="state_passiv">&nbsp;&nbsp;&nbsp;
+			<label for="state_ehemalig">Ehemalig:</label> <input type="checkbox" name="state[]" value="ehemalig" id="state_ehemalig"><br>
+			<label for="state_vorstand">Vorstand:</label> <input type="checkbox" name="state[]" value="vorstand" id="state_vorstand">&nbsp;&nbsp;&nbsp;
+			<label for="state_ausbildung">Ausbildung:</label> <input type="checkbox" name="state[]" value="ausbildung" id="state_ausbildung"><br>
+			<label for="state_verstorben">verstorben:</label> <input type="checkbox" name="state[]" value="verstorben" id="state_verstorben">
+			<br>&nbsp;
+		</div>
+		<div class="col-md-3">
+			<label>Geschlecht:</label><br>
+			<label for="gender_m">männlich:</label> <input type="checkbox" name="gender[]" value="m" id="gender_m">&nbsp;&nbsp;&nbsp;
+			<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender[]" value="w" id="gender_w"><br>
+			<br>
+			<label>Altersgruppe:</label><br>
+			<label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age[]" value="adult" id="age_adult">&nbsp;&nbsp;&nbsp;
+			<label for="age_child">Kind:</label> <input type="checkbox" name="age[]" value="child" id="age_child">
+			<br>&nbsp;
+		</div>
+	</div>
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <!-- <th>#</th> -->
+      <th><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th>Adresse</th>
+      <th><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th>Kontaktdaten</th>
+    </tr>
+  </thead>
+  <tbody>
+  {S:ROWS}
+    <tr>
+      <!-- <td>{MEMBER_ID}</td> -->
+      <td>{LASTNAME}{DEAD}<br><span class="birthname">{BIRTHNAME}</span></td>
+      <td>{FIRSTNAME}</td>
+      <td>{GENDER}</td>
+      <td>{STREET}<br>{ZIP} {CITY}</td>
+      <td>{BIRTHDATE}<br>{AGE}</td>
+      <td>{STATE}</td>
+      <td>{CONTACT}</td>
+    </tr>
+    {E:ROWS}
+  </tbody>
+</table>
