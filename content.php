@@ -1,10 +1,9 @@
 <?php
 
 define('RelativePath', '.');
-include_once(RelativePath.'/lib/rb.php');
-include_once(RelativePath.'/lib/Skin.class.php');
-include_once(RelativePath.'/cfg/database.php');
-include_once(RelativePath.'/lib/utils.php');
+require_once(RelativePath.'/common.inc.php');
+
+
 
 $records = R::getAll( 'SELECT * FROM spz_members' );
 
@@ -12,7 +11,7 @@ $Skin = new Skin(RelativePath.'/templates/members.html');
 
 
 $rows = array();
-/*foreach ($records as &$record)
+foreach ($records as &$record)
 {
 	$row = $record;
 
@@ -42,6 +41,6 @@ $rows = array();
 	
 	$rows[] = $row;
 }
-$Skin->setSkinVar('ROWS', $rows);*/
+$Skin->setSkinVar('ROWS', $rows);
 
 echo $Skin;

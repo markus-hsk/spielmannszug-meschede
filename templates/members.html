@@ -37,30 +37,30 @@
 </div>
 
 
-<table class="table table-striped">
+<table class="table table-striped responsive">
   <thead>
     <tr>
       <!-- <th>#</th> -->
-      <th><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th>Adresse</th>
-      <th><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th>Kontaktdaten</th>
+      <th scope="col"><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col"><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col"><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col">Adresse</th>
+      <th scope="col"><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col"><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+      <th scope="col">Kontaktdaten</th>
     </tr>
   </thead>
   <tbody>
   {S:ROWS}
     <tr>
       <!-- <td>{MEMBER_ID}</td> -->
-      <td>{LASTNAME}{DEAD}<br><span class="birthname">{BIRTHNAME}</span></td>
-      <td>{FIRSTNAME}</td>
-      <td>{GENDER}</td>
-      <td>{STREET}<br>{ZIP} {CITY}</td>
-      <td>{BIRTHDATE}<br>{AGE}</td>
-      <td>{STATE}</td>
-      <td>{CONTACT}</td>
+      <td data-label="Nachname">{LASTNAME}{DEAD}<br><span class="birthname">{BIRTHNAME}</span></td>
+      <td data-label="Vorname">{FIRSTNAME}</td>
+      <td data-label="Geschlecht">{GENDER}</td>
+      <td data-label="Adresse">{STREET}<br>{ZIP} {CITY}</td>
+      <td data-label="Geburtstag">{BIRTHDATE}<br>{AGE}</td>
+      <td data-label="Status">{STATE}</td>
+      <td data-label="Kontaktdaten">{CONTACT}</td>
     </tr>
     {E:ROWS}
   </tbody>

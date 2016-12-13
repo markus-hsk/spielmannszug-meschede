@@ -1,5 +1,7 @@
 <?php
-function getAge($date, $until = '') {
+
+function getAge($date, $until = '')
+{
 	if($until == '')
 		$until = time();
 	

@@ -94,8 +94,13 @@ if($max_input_vars > 0 && count($_POST) >= $max_input_vars)
 // Versionsnummer
 define('VERSION', '0.0.1');
 
+
 // Weitere Includes tätigen
 require_once(RelativePath.'/lib/Skin.class.php');
+require_once(RelativePath.'/lib/rb.php');
 
+
+// Datenbank initialisieren
+R::setup('mysql:host='.DB_HOST.':'.DB_PORT.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
 
 ?>

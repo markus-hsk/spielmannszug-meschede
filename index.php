@@ -1,9 +1,8 @@
 <?php
 
 define('RelativePath', '.');
+require_once(RelativePath.'/common.inc.php');
 
-include_once(RelativePath.'/lib/Skin.class.php');
-	
+
 $Skin = new Skin(RelativePath.'/template.html');
-
 echo $Skin;
