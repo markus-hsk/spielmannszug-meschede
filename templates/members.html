@@ -52,15 +52,15 @@
   </thead>
   <tbody>
   {S:ROWS}
-    <tr>
+    <tr class="simple">
       <!-- <td>{MEMBER_ID}</td> -->
-      <td data-label="Nachname">{LASTNAME}{DEAD}<br><span class="birthname">{BIRTHNAME}</span></td>
+      <td data-label="Nachname" class="responsive_bolder">{LASTNAME}{DEAD} <br><span class="birthname">{BIRTHNAME}</span></td>
       <td data-label="Vorname">{FIRSTNAME}</td>
-      <td data-label="Geschlecht">{GENDER}</td>
-      <td data-label="Adresse">{STREET}<br>{ZIP} {CITY}</td>
-      <td data-label="Geburtstag">{BIRTHDATE}<br>{AGE}</td>
-      <td data-label="Status">{STATE}</td>
-      <td data-label="Kontaktdaten">{CONTACT}</td>
+      <td data-label="Geschlecht" class="hideResponsiveSimple">{GENDER}</td>
+      <td data-label="Adresse" class="hideResponsiveSimple"><div>{STREET} <br>{ZIP} {CITY}</div></td>
+      <td data-label="Geburtstag" class="hideResponsiveSimple">{BIRTHDATE} <br>{AGE}</td>
+      <td data-label="Status" class="hideResponsiveSimple">{STATE}</td>
+      <td data-label="Kontaktdaten" class="hideResponsiveSimple"><div>{CONTACT}</div></td>
     </tr>
     {E:ROWS}
   </tbody>

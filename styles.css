@@ -17,6 +17,10 @@
 	white-space: nowrap;
 }
 
+.table td > div {
+	display: inline-block;
+}
+
 
 
 /** Responsive Table http://codepen.io/maddesigns/full/pHqnt */
@@ -40,8 +44,42 @@
 	table.responsive td:before {
 		content: attr(data-label) ": ";
 		display: inline-block;
-		font-weight: bold;
+		font-weight: normal;
+		color: #337ab7;
+		vertical-align: top;
 		width: 12em;
+	}
+
+	table.responsive td > br {
+		display:none;
+    	content: ' '
+	}
+
+	table.responsive td > br:after {
+		content: ', '
+	}
+
+	table.responsive td.responsive_bolder {
+		font-weight: bolder;
+	}
+
+	table.responsive tr.simple td.hideResponsiveSimple {
+		display: none;
+	}
+
+	table.responsive tr.extended td.hideResponsiveExtended {
+		display: none;
+	}
+
+	table.responsive td:first-of-type {
+		border-top-width: 3px;
+	}
+
+	table.responsive .simpleswitcher {
+		position: absolute;
+		top: 30px;
+		right: 0px;
+		outline: 1px solid red;
 	}
 }
 
