@@ -3,6 +3,28 @@
  */
 
 
+var current_page = '';
+function loadPage()
+{
+	var url  = window.location.href;
+	var page = url.indexOf("#") !== -1 ? url.substring(url.indexOf("#")+1) : 'mitglieder';
+
+	if(current_page == page)
+		return true;
+
+	switch(page)
+	{
+		default:
+			console.error('Page ' + page + ' not available');
+
+		case 'mitglieder':
+			loadContent('content.php', {}, getMembers);
+			break;
+	}
+
+	current_page = page;
+}
+
 function loadContent(url, params, callback)
 {
 	$("#mainview").hide();
@@ -27,16 +49,6 @@ function loadContent(url, params, callback)
 }
 
 
-function searchMembers()
-{
-	var params = {
-		filter: $('#search').val()
-	};
-
-	loadContent('content.php', params);
-}
-
-
 var members = null;
 var members_sortby = 'LASTNAME ASC';
 function getMembers()
@@ -58,6 +70,10 @@ function getMembers()
 	var state_vorstand   = $('#state_vorstand').prop("checked");
 	var state_ausbildung = $('#state_ausbildung').prop("checked");
 	var state_verstorben = $('#state_verstorben').prop("checked");
+	var gender_male		 = $('#gender_m').prop("checked");
+	var gender_female	 = $('#gender_w').prop("checked");
+	var adult		 	 = $('#age_adult').prop("checked");
+	var child	 		 = $('#age_child').prop("checked");
 
 	var output = '';
 	var shown_members = 0;
@@ -74,6 +90,9 @@ function getMembers()
 		if(member.CURRENT_STATE == 'Vorstand'	&& !state_aktiv && !state_vorstand)		continue;
 		if(member.CURRENT_STATE == 'Verstorben'	&& !state_verstorben)					continue;
 		if(member.CURRENT_STATE == 'Ausbildung'	&& !state_ausbildung)					continue;
+
+		if(member.GENDER == 'w' && !gender_female)										continue;
+		if(member.GENDER == 'm' && !gender_male)										continue;
 
 		var member_id = member.MEMBER_ID;
 		var lastname = member.LASTNAME;
@@ -93,7 +112,8 @@ function getMembers()
 
 		if(member.DEATHDATE == null || !member.DEATHDATE.length || member.DEATHDATE == '0000-00-00')
 		{
-			var age = birthdate != null ? '(' + getAge(birthdate, null) + ')' : '';
+			var age = birthdate != null ? getAge(birthdate, null) : 999;
+			var age_output = birthdate != null ? '(' + getAge(birthdate, null) + ')' : '';
 			var deadsign = '';
 			var state = member.CURRENT_STATE;
 		}
@@ -106,15 +126,20 @@ function getMembers()
 			if(birthdate != null)
 			{
 				birthdate_output += ' -';
-				var age = deathdate_output + ' (' + getAge(birthdate, deathdate) + ')';
+				var age = getAge(birthdate, deathdate);
+				var age_output = deathdate_output + ' (' + getAge(birthdate, deathdate) + ')';
 			}
 			else
 			{
-				var age = '- ' + deathdate_output;
+				var age = 999;
+				var age_output = '- ' + deathdate_output;
 			}
 
 			var state = 'verstorben';
 		}
+
+		if(age >= 18 && !adult)		continue;
+		if(age < 18  && !child)		continue;
 
 		var contact = '';
 
