@@ -21,6 +21,14 @@
 	display: inline-block;
 }
 
+a.sorter {
+	text-decoration: none;
+}
+
+a.active_sorter {
+	color: orange;
+}
+
 
 
 /** Responsive Table http://codepen.io/maddesigns/full/pHqnt */

@@ -41,13 +41,12 @@
 	<thead>
 	<tr>
 		<!-- <th>#</th> -->
-		<th scope="col"><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-		<th scope="col"><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-		<th scope="col"><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i
-				class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#" class="sorter" id="SORTER_LASTNAME" onclick="membersSortBy('LASTNAME');">Nachname <i class="fa fa-fw fa-sort sortindicator" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#" class="sorter" id="SORTER_FIRSTNAME" onclick="membersSortBy('FIRSTNAME');">Vorname <i class="fa fa-fw fa-sort sortindicator" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#" class="sorter" id="SORTER_GENDER" onclick="membersSortBy('GENDER');"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-fw fa-sort sortindicator" aria-hidden="true"></i></a></th>
 		<th scope="col">Adresse</th>
-		<th scope="col"><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-		<th scope="col"><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#" class="sorter" id="SORTER_BIRTHDATE" onclick="membersSortBy('BIRTHDATE');">Geburtstag <i class="fa fa-fw fa-sort sortindicator" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#" class="sorter" id="SORTER_STATE" onclick="membersSortBy('STATE');">Status <i class="fa fa-fw fa-sort sortindicator" aria-hidden="true"></i></a></th>
 		<th scope="col">Kontaktdaten</th>
 	</tr>
 	</thead>
