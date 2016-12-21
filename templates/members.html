@@ -6,10 +6,10 @@
 		<div class="col-md-6">
 			<label for="search">Person suchen:</label><br>
 			<div class="col-md-8 col-xs-8" style="padding: 0;">
-				<input class="form-control" type="text" name="search" id="search" placeholder="Suche...">
+				<input class="form-control" type="text" name="search" id="search" placeholder="Suche..." id="search">
 			</div>
 			<div class="col-md-2 col-xs-2" style="padding: 0;">
-				<button type="button" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i> Suche</button>
+				<button type="button" class="btn btn-default" onclick="searchMembers();"><i class="fa fa-search" aria-hidden="true"></i> Suche</button>
 			</div>
 			<br>&nbsp;
 		</div>
@@ -38,30 +38,18 @@
 
 
 <table class="table table-striped responsive">
-  <thead>
-    <tr>
-      <!-- <th>#</th> -->
-      <th scope="col"><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col"><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col"><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col">Adresse</th>
-      <th scope="col"><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col"><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
-      <th scope="col">Kontaktdaten</th>
-    </tr>
-  </thead>
-  <tbody>
-  {S:ROWS}
-    <tr class="simple">
-      <!-- <td>{MEMBER_ID}</td> -->
-      <td data-label="Nachname" class="responsive_bolder">{LASTNAME}{DEAD} <br><span class="birthname">{BIRTHNAME}</span></td>
-      <td data-label="Vorname">{FIRSTNAME}</td>
-      <td data-label="Geschlecht" class="hideResponsiveSimple">{GENDER}</td>
-      <td data-label="Adresse" class="hideResponsiveSimple"><div>{STREET} <br>{ZIP} {CITY}</div></td>
-      <td data-label="Geburtstag" class="hideResponsiveSimple">{BIRTHDATE} <br>{AGE}</td>
-      <td data-label="Status" class="hideResponsiveSimple">{STATE}</td>
-      <td data-label="Kontaktdaten" class="hideResponsiveSimple"><div>{CONTACT}</div></td>
-    </tr>
-    {E:ROWS}
-  </tbody>
+	<thead>
+	<tr>
+		<!-- <th>#</th> -->
+		<th scope="col"><a href="#">Nachname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#">Vorname <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i
+				class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col">Adresse</th>
+		<th scope="col"><a href="#">Geburtstag <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col"><a href="#">Status <i class="fa fa-sort" aria-hidden="true"></i></a></th>
+		<th scope="col">Kontaktdaten</th>
+	</tr>
+	</thead>
+	<tbody id="memberlist"></tbody>
 </table>

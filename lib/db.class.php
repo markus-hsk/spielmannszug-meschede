@@ -6,63 +6,40 @@
  * Time: 14:01
  */
 
+require_once(RelativePath.'/lib/rb.php');
 
 final class DB
 {
-	protected static $Instance = null;
+	protected static $connected = false;
 
-	private function __construct() {}
-	private function __clone() {}
 
-	protected function connect()
+	public static function init()
+	{}
+
+
+	private static function connect()
 	{
-
-	}
-
-
-
-	public static function query($sql, $values)
-	{
-		foreach($values as $varname => $value)
+		if(!static::$connected)
 		{
-			str_replace("$varname", $dbValue->get())
+			R::setup('mysql:host='.DB_HOST.':'.DB_PORT.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+			static::$connected = true;
 		}
+
+		return true;
 	}
 
-}
 
 
-
-
-
-
-
-
-
-abstract class dbValue
-{
-	protected $value;
-
-	abstract function __construct($value, $options = null);
-
-	function get()
+	/*public static function query($sql)
 	{
-		return $this->value;
-	}
-}
 
-class dbInteger extends dbValue
-{
-	public function __construct($value, $options = null)
-	{
-		$this->value = (int) $value;
-	}
-}
+	}*/
 
-class dbFloat extends dbValue
-{
-	public function __construct($value, $options = null)
+
+	public static function getRecords($sql)
 	{
-		$this->value = (float) $value;
+		static::connect();
+
+		return R::getAll( $sql );
 	}
 }

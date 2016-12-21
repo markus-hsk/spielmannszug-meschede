@@ -165,6 +165,11 @@ class Skin
 			}
 			else
 			{
+				if(is_a($value, 'Skin'))
+				{
+					$value = $value->getSkin();
+				}
+
 				switch($method)
 				{
 					case self::ATTACH:

@@ -97,10 +97,14 @@ define('VERSION', '0.0.1');
 
 // Weitere Includes tätigen
 require_once(RelativePath.'/lib/Skin.class.php');
-require_once(RelativePath.'/lib/rb.php');
+require_once(RelativePath.'/lib/db.class.php');
 
 
 // Datenbank initialisieren
-R::setup('mysql:host='.DB_HOST.':'.DB_PORT.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
+DB::init();
+
+
+// Zugriffsberechtigung erfragen
+// @todo
 
 ?>
