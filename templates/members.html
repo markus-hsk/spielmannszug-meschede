@@ -5,32 +5,26 @@
 	<div class="panel-body collapse" id="filters">
 		<div class="col-md-6">
 			<label for="search">Person suchen:</label><br>
-			<div class="col-md-8 col-xs-8" style="padding: 0;">
-				<input class="form-control" type="text" name="search" id="search" placeholder="Suche..." id="search">
-			</div>
-			<div class="col-md-2 col-xs-2" style="padding: 0;">
-				<button type="button" class="btn btn-default" onclick="searchMembers();"><i class="fa fa-search" aria-hidden="true"></i> Suche</button>
-			</div>
+			<input class="form-control" type="text" name="search" id="search" placeholder="Suche..." id="search" onkeyup="getMembers();">
 			<br>&nbsp;
 		</div>
 		<div class="col-md-3">
 			<label>Status:</label><br>
-			<label for="state_aktiv">aktiv:</label> <input type="checkbox" name="state[]" value="aktiv" id="state_aktiv">&nbsp;&nbsp;&nbsp;
-			<label for="state_passiv">passiv:</label> <input type="checkbox" name="state[]" value="passiv" id="state_passiv">&nbsp;&nbsp;&nbsp;
-			<label for="state_ehemalig">Ehemalig:</label> <input type="checkbox" name="state[]" value="ehemalig" id="state_ehemalig"><br>
-			<label for="state_vorstand">Vorstand:</label> <input type="checkbox" name="state[]" value="vorstand" id="state_vorstand">&nbsp;&nbsp;&nbsp;
-			<label for="state_ausbildung">Ausbildung:</label> <input type="checkbox" name="state[]" value="ausbildung" id="state_ausbildung"><br>
-			<label for="state_verstorben">verstorben:</label> <input type="checkbox" name="state[]" value="verstorben" id="state_verstorben">
-			<br>&nbsp;
+			<input type="radio" name="state[]" value="aktiv" id="state_aktiv" onchange="getMembers();" checked> <label for="state_aktiv">aktiv</label><br>
+			<input type="radio" name="state[]" value="passiv" id="state_passiv" onchange="getMembers();"> <label for="state_passiv">passiv</label><br>
+			<input type="radio" name="state[]" value="ehemalig" id="state_ehemalig" onchange="getMembers();"> <label for="state_ehemalig">Ehemalig</label><br>
+			<input type="radio" name="state[]" value="vorstand" id="state_vorstand" onchange="getMembers();"> <label for="state_vorstand">Vorstand</label><br>
+			<input type="radio" name="state[]" value="ausbildung" id="state_ausbildung" onchange="getMembers();"> <label for="state_ausbildung">Ausbildung</label><br>
+			<input type="radio" name="state[]" value="verstorben" id="state_verstorben" onchange="getMembers();"> <label for="state_verstorben">verstorben</label>
 		</div>
 		<div class="col-md-3">
 			<label>Geschlecht:</label><br>
-			<label for="gender_m">männlich:</label> <input type="checkbox" name="gender[]" value="m" id="gender_m">&nbsp;&nbsp;&nbsp;
-			<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender[]" value="w" id="gender_w"><br>
+			<label for="gender_m">männlich:</label> <input type="checkbox" name="gender[]" value="m" id="gender_m" onchange="getMembers();">&nbsp;&nbsp;&nbsp;
+			<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender[]" value="w" id="gender_w" onchange="getMembers();"><br>
 			<br>
 			<label>Altersgruppe:</label><br>
-			<label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age[]" value="adult" id="age_adult">&nbsp;&nbsp;&nbsp;
-			<label for="age_child">Kind:</label> <input type="checkbox" name="age[]" value="child" id="age_child">
+			<label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age[]" value="adult" id="age_adult" onchange="getMembers();">&nbsp;&nbsp;&nbsp;
+			<label for="age_child">Kind:</label> <input type="checkbox" name="age[]" value="child" id="age_child" onchange="getMembers();">
 			<br>&nbsp;
 		</div>
 	</div>

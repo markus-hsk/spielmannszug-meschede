@@ -50,10 +50,30 @@ function getMembers()
 	// Einträge sortieren
 	sortMembers();
 
+	// Filter ermitteln
+	var search_string    = $('#search').val();
+	var state_aktiv      = $('#state_aktiv').prop("checked");
+	var state_passiv     = $('#state_passiv').prop("checked");
+	var state_ehemalig   = $('#state_ehemalig').prop("checked");
+	var state_vorstand   = $('#state_vorstand').prop("checked");
+	var state_ausbildung = $('#state_ausbildung').prop("checked");
+	var state_verstorben = $('#state_verstorben').prop("checked");
+
 	var output = '';
+	var shown_members = 0;
 	for(i = 0; i < members.length; i++)
 	{
 		var member = members[i];
+
+		if(search_string.length && (member.LASTNAME + ' ' + member.FIRSTNAME + ' ' + member.BIRTHNAME + ' ' + member.CITY + ' ' + member.STREET + ' ' + member.ZIP).indexOf(search_string) === -1)
+			continue;
+
+		if(member.CURRENT_STATE == 'aktiv'  	&& !state_aktiv)						continue;
+		if(member.CURRENT_STATE == 'passiv' 	&& !state_passiv && !state_ehemalig)	continue;
+		if(member.CURRENT_STATE == 'ehemalig'	&& !state_ehemalig)						continue;
+		if(member.CURRENT_STATE == 'Vorstand'	&& !state_aktiv && !state_vorstand)		continue;
+		if(member.CURRENT_STATE == 'Verstorben'	&& !state_verstorben)					continue;
+		if(member.CURRENT_STATE == 'Ausbildung'	&& !state_ausbildung)					continue;
 
 		var member_id = member.MEMBER_ID;
 		var lastname = member.LASTNAME;
@@ -112,9 +132,12 @@ function getMembers()
 							'<div>' + contact + '</div>' +
 						'</td>' +
 					'</tr>';
+
+		shown_members++;
 	}
 
 	$('#memberlist').html(output);
+	$('#footer_container').html('Anzahl Mitglieder: ' + shown_members + ' von ' + members.length);
 }
 
 function getMembersFromServer()
