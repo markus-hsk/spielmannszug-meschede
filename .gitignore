@@ -1,1 +1,4 @@
 '.idea' 
+/.buildpath
+/.project
+/cfg/config.inc.php
