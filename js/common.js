@@ -9,7 +9,7 @@ function loadPage()
 	var url  = window.location.href;
 	var page = url.indexOf("#") !== -1 ? url.substring(url.indexOf("#")+1) : 'mitglieder';
 
-	if(current_page == page)
+	if(current_page != '' && current_page == page)
 		return true;
 
 	switch(page)
@@ -19,6 +19,10 @@ function loadPage()
 
 		case 'mitglieder':
 			loadContent('content.php', {}, getMembers);
+			break;
+			
+		case 'statsnow':
+			loadContent('statsnow.php', {}, getCurrentStats);
 			break;
 	}
 
@@ -55,7 +59,7 @@ function getMembers()
 {
 	if(members === null)
 	{
-		getMembersFromServer();
+		getMembersFromServer(getMembers);
 		return;
 	}
 
@@ -165,7 +169,7 @@ function getMembers()
 	$('#footer_container').html('Anzahl Mitglieder: ' + shown_members + ' von ' + members.length);
 }
 
-function getMembersFromServer()
+function getMembersFromServer(callback)
 {
 	$.ajax({
 			   url:  'memberlist.php',
@@ -174,7 +178,7 @@ function getMembersFromServer()
 							  {
 								  members = data;
 
-								  getMembers();
+								  callback();
 							  });
 }
 
@@ -264,4 +268,115 @@ function getAge(birthdate, until)
 	var ageDifMs = until.getTime() - birthdate.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+
+
+function getCurrentStats()
+{
+	if(members === null)
+	{
+		getMembersFromServer(getCurrentStats);
+		return;
+	}
+
+	
+	var state_aktiv      = $('#state_aktiv').prop("checked");
+	var state_passiv     = $('#state_passiv').prop("checked");
+	var state_ehemalig   = $('#state_ehemalig').prop("checked");
+	var state_vorstand   = $('#state_vorstand').prop("checked");
+	var state_ausbildung = $('#state_ausbildung').prop("checked");
+	var state_verstorben = $('#state_verstorben').prop("checked");
+	
+	if($('#mode_gender').prop("checked"))
+		var mode = 'gender'
+	else
+		var mode = 'age';
+	
+	var total = 0;
+	var female = 0;
+	var male = 0;
+	var adult = 0;
+	var child = 0;
+	var total_age = 0;
+	
+	for(i = 0; i < members.length; i++)
+	{
+		var member = members[i];
+
+		if(member.CURRENT_STATE == 'aktiv'  	&& !state_aktiv)						continue;
+		if(member.CURRENT_STATE == 'passiv' 	&& !state_passiv && !state_ehemalig)	continue;
+		if(member.CURRENT_STATE == 'ehemalig'	&& !state_ehemalig)						continue;
+		if(member.CURRENT_STATE == 'Vorstand'	&& !state_aktiv && !state_vorstand)		continue;
+		if(member.CURRENT_STATE == 'Verstorben'	&& !state_verstorben)					continue;
+		if(member.CURRENT_STATE == 'Ausbildung'	&& !state_ausbildung)					continue;
+
+		total++;
+		
+		if(member.GENDER == 'w')
+			female++;
+		else
+			male++;
+		
+		if(member.AGE > 18)
+			adult++;
+		else
+			child++;
+		total_age = total_age + member.AGE; 
+	}
+	
+	var avg_age = Math.round(total_age / total, 1);
+	
+	switch(mode)
+	{
+		case 'gender':
+			var title = 'Geschlechterverteilung';
+			var subtitle = '';
+			var data = [{ name: 'Frauen', y: female, color: '#0000FF' },{ name: 'Männer', y: male, color: '#FF0000'}];
+			break;
+			
+		case 'age':
+			var title = 'Altersverteilung';
+			var subtitle = 'Durchschnitt: ' + avg_age + ' Jahre';
+			var data = [{ name: 'Erwachsen', y: adult, color: '#0000FF' },{ name: 'Kind', y: child, color: '#FF0000'}];
+			break;
+	}
+	
+	
+	Highcharts.chart('chartcontainer', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            height: 300
+        },
+        title: {
+            text: title
+        },
+        subtitle: {
+            text: subtitle
+        },
+        tooltip: {
+            pointFormat: '{point.y:.0f} von {point.total:.0f} = {point.percentage:.1f}%'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: false,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}<br>{point.y:.0f}/{point.total:.0f}<br>{point.percentage:.1f}%',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Verteilung',
+            colorByPoint: true,
+            data: data
+        }]
+    });
 }

@@ -12,5 +12,19 @@ require_once(RelativePath.'/common.inc.php');
 $sql = 'SELECT * FROM spz_members';
 $records = DB::getRecords( $sql );
 
+foreach($records as &$record)
+{
+	// Zusätzliche Daten
+	if(!strlen($record['DEATHDATE']) || $record['DEATHDATE'] == '0000-00-00')
+	{
+		$record['AGE'] = getAge($record['BIRTHDATE']);
+	}
+	else
+	{
+		$deathdate = strtotime($record['DEATHDATE']);
+		$record['AGE'] = getAge($record['BIRTHDATE'], $deathdate);
+	}
+}
+
 header('Content-Type: application/json');
 echo json_encode($records);
