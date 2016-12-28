@@ -98,6 +98,7 @@ define('VERSION', '0.0.1');
 // Weitere Includes tätigen
 require_once(RelativePath.'/lib/Skin.class.php');
 require_once(RelativePath.'/lib/db.class.php');
+require_once(RelativePath.'/lib/Member.class.php');
 
 
 // Datenbank initialisieren
