@@ -31,16 +31,16 @@
 							   aria-expanded="false"><i class="fa fa-fw fa-user" aria-hidden="true"></i> Mitglieder <span
 									class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#mitglieder" onclick="loadPage();"><i class="fa fa-fw fa-list" aria-hidden="true"></i> Liste</a></li>
-								<li><a href="#ehrungen" onclick="loadPage();"><i class="fa fa-fw fa-bookmark" aria-hidden="true"></i> Ehrungen</a></li>
-								<li><a href="#vorstand" onclick="loadPage();"><i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Vorstand</a></li>
+								<li><a href="#mitglieder" onclick="loadPage('mitglieder');"><i class="fa fa-fw fa-list" aria-hidden="true"></i> Liste</a></li>
+								<li><a href="#ehrungen" onclick="loadPage('ehrungen');"><i class="fa fa-fw fa-bookmark" aria-hidden="true"></i> Ehrungen</a></li>
+								<li><a href="#vorstand" onclick="loadPage('vorstand');"><i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Vorstand</a></li>
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">Statistik</li>
-								<li><a href="#statsnow" onclick="loadPage();"><i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i> Aktuell</a></li>
-								<li><a href="#statstime" onclick="loadPage();"><i class="fa fa-fw fa-bar-chart" aria-hidden="true"></i> Historie</a></li>
+								<li><a href="#statsnow" onclick="loadPage('statsnow');"><i class="fa fa-fw fa-pie-chart" aria-hidden="true"></i> Aktuell</a></li>
+								<li><a href="#statstime" onclick="loadPage('statstime');"><i class="fa fa-fw fa-bar-chart" aria-hidden="true"></i> Historie</a></li>
 							</ul>
 						</li>
-						<li><a href="#auftritte" onclick="loadPage();"><i class="fa fa-fw fa-microphone" aria-hidden="true"></i> Auftritte</a></li>
+						<li><a href="#auftritte" onclick="loadPage('auftritte');"><i class="fa fa-fw fa-microphone" aria-hidden="true"></i> Auftritte</a></li>
 
 					</ul>
 				</div><!--/.nav-collapse -->
@@ -74,9 +74,13 @@
 		<script src="./js/common.js"></script>
 
 		<script type="text/javascript">
-			jQuery(document).ready(function(){
-				loadPage();
-			});
+			jQuery(document).ready(function()
+								   {
+									   var url  = window.location.href;
+									   var page = url.indexOf("#") !== -1 ? url.substring(url.indexOf("#") + 1) : 'mitglieder';
+
+									   loadPage(page);
+								   });
 		</script>
 	</body>
 </html>

@@ -4,11 +4,8 @@
 
 
 var current_page = '';
-function loadPage()
+function loadPage(page)
 {
-	var url  = window.location.href;
-	var page = url.indexOf("#") !== -1 ? url.substring(url.indexOf("#")+1) : 'mitglieder';
-
 	if(current_page != '' && current_page == page)
 		return true;
 
