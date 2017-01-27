@@ -107,7 +107,8 @@ angular.module('spzdb',	// So heißt die App
 				$("#mainview").hide();
 				$("#loader").show();
 
-				me.mode = 'gender';
+				me.mode          = 'gender';
+				me.stateselector = '';
 
 				me.filter_open       = false;
 				me.filters           = {};
@@ -136,21 +137,38 @@ angular.module('spzdb',	// So heißt die App
 
 					if(me.mode == 'gender')
 					{
-						me.labels       = ['weiblich', 'männlich'];
-						me.colors		= ['#F781F3', '#5882FA'];
-						me.data         = [0, 0];
+						me.labels        = ['weiblich', 'männlich'];
+						me.colors        = ['#F781F3', '#5882FA'];
+						me.data          = [0, 0];
+						me.stateselector = '';
 					}
 					else if(me.mode == 'age')
 					{
-						me.labels       = ['Erwachsene', 'Kinder'];
-						me.colors		= ['#0000ff', '#ff0000'];
-						me.data         = [0, 0];
+						me.labels        = ['Erwachsene', 'Kinder'];
+						me.colors        = ['#0000ff', '#ff0000'];
+						me.data          = [0, 0];
+						me.stateselector = '';
 					}
 					else if(me.mode == 'state')
 					{
-						me.labels       = ['aktiv', 'passiv', 'Ausbildung'];
-						me.colors		= ['#0000ff', '#FFA500', '#26802E'];
-						me.data         = [0, 0, 0];
+						me.labels        = ['aktiv', 'passiv', 'Ausbildung'];
+						me.colors        = ['#0000ff', '#FFA500', '#26802E'];
+						me.data          = [0, 0, 0];
+						me.stateselector = 'hidden';
+					}
+					else if(me.mode == 'duration')
+					{
+						me.labels        = ['0-10 Jahre', '10-20 Jahre', '20-30 Jahre', '>30 Jahre'];
+						me.colors        = ['#0000ff', '#FFA500', '#26802E', '#FF0000'];
+						me.data          = [0, 0, 0, 0];
+						me.stateselector = 'hidden';
+					}
+					else if(me.mode == 'instrument')
+					{
+						me.labels        = ['Flöte', 'Trommel'];
+						me.colors        = ['#0000ff', '#ff0000'];
+						me.data          = [0, 0];
+						me.stateselector = '';
 					}
 
 					me.values = [];
@@ -166,6 +184,8 @@ angular.module('spzdb',	// So heißt die App
 
 										   if(me.mode == 'state')
 										   		usefilters.state = 'alle';
+										   else if(me.mode == 'duration')
+										   		usefilters.state = 'aktiv';
 										   var members = memberService.getList(usefilters, '');
 
 										   me.total = 0;
@@ -194,13 +214,33 @@ angular.module('spzdb',	// So heißt die App
 											   else if(me.mode == 'state')
 											   {
 												   if(member.CURRENT_STATE == 'aktiv' || member.CURRENT_STATE == 'Vorstand')
-												   		me.data[0]++;
+													   me.data[0]++;
 												   else if(member.CURRENT_STATE == 'passiv')
-												   		me.data[1]++;
+													   me.data[1]++;
 												   else if(member.CURRENT_STATE == 'Ausbildung')
+													   me.data[2]++;
+												   else
+													   continue;
+											   }
+											   else if(me.mode == 'duration')
+											   {
+												   if(member.AKTIV_JAHRE < 10)
+												   		me.data[0]++;
+												   else if(member.AKTIV_JAHRE < 20)
+												   		me.data[1]++;
+												   else if(member.AKTIV_JAHRE < 30)
 												   		me.data[2]++;
 												   else
-												   		continue;
+												   		me.data[3]++;
+											   }
+											   else if(me.mode == 'instrument')
+											   {
+												   if(member.INSTRUMENT == 'Flöte')
+													   me.data[0]++;
+												   else
+													   me.data[1]++;
+
+												   total_age += member.AGE;
 											   }
 
 											   me.total++;
@@ -398,7 +438,7 @@ angular.module('spzdb',	// So heißt die App
 							  });
 				}
 
-				console.log('memberService->getList() Return', list);
+				debugSpzDb('memberService->getList() Return', list);
 
 				return list;
 			};

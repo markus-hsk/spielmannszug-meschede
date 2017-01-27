@@ -1,9 +1,11 @@
 <div>
-	<h3>Aktuelle Mitgliederstatistik</h3>
+	<h3>Aktuelle Mitgliederstatistik nach</h3>
 	<p>
-		<button type="button" class="btn btn-{{mode == 'gender' ? 'success' : 'default'}}" ng-click="setMode('gender')"><i class="fa fa-venus-mars" aria-hidden="true"></i> Nach Geschlecht</button>
-		<button type="button" class="btn btn-{{mode == 'age' ? 'success' : 'default'}}" ng-click="setMode('age')"><i class="fa fa-users" aria-hidden="true"></i> Nach Alter</button>
-		<button type="button" class="btn btn-{{mode == 'state' ? 'success' : 'default'}}" ng-click="setMode('state')"><i class="fa fa-link" aria-hidden="true"></i> Nach Status</button>
+		<button type="button" class="btn btn-{{mode == 'gender' ? 'success' : 'default'}}" ng-click="setMode('gender')"><i class="fa fa-venus-mars" aria-hidden="true"></i> Geschlecht</button>
+		<button type="button" class="btn btn-{{mode == 'age' ? 'success' : 'default'}}" ng-click="setMode('age')"><i class="fa fa-users" aria-hidden="true"></i> Alter</button>
+		<button type="button" class="btn btn-{{mode == 'state' ? 'success' : 'default'}}" ng-click="setMode('state')"><i class="fa fa-link" aria-hidden="true"></i> Status</button>
+		<button type="button" class="btn btn-{{mode == 'duration' ? 'success' : 'default'}}" ng-click="setMode('duration')"><i class="fa fa-clock-o" aria-hidden="true"></i> aktive Jahre</button>
+		<button type="button" class="btn btn-{{mode == 'instrument' ? 'success' : 'default'}}" ng-click="setMode('instrument')"><i class="fa fa-music" aria-hidden="true"></i> Instrument</button>
 	</p>
 	<hr>
 
@@ -41,7 +43,7 @@
 		<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="chartoptions" chart-legend="true" style="max-width:500px;"></canvas>
 	</div>
 
-	<div class="{{mode == 'state' ? 'hidden' : ''}}">
+	<div class="{{stateselector}}">
 		&nbsp;<hr>&nbsp;
 		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_alle" ng-change="load()" value="alle"> <label for="state_alle">Alle</label></div>
 		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="load()" value="aktiv"> <label for="state_aktiv">aktiv</label></div>

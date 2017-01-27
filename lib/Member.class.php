@@ -73,6 +73,8 @@ class Member
 
 		$data_array['AGE']		= $this->getAge();
 		$data_array['STATES']	= $this->getMembershipStates();
+		$data_array['AKTIV_JAHRE']	= rand(0,40);
+		$data_array['NSTRUMENT']	= rand(0,40);
 
 		return $data_array;
 	}
