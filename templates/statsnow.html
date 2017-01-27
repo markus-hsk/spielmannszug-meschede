@@ -1,19 +1,36 @@
-<div class="panel panel-default">
-	<div class="panel-heading">
-	  <a data-toggle="collapse" href="#filters"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Status</h3></a>
+<div>
+	<h3>Aktuelle Mitgliederstatistik</h3>
+	<h5>
+		<button type="button" class="btn btn-lg btn-{{mode == 'gender' ? 'success' : 'default'}}"><i class="fa fa-venus-mars" aria-hidden="true"></i> Nach Geschlecht</button>
+		<button type="button" class="btn btn-lg btn-{{mode == 'age' ? 'success' : 'default'}}"><i class="fa fa-users" aria-hidden="true"></i> Nach Alter</button></h5>
+	<hr>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		  <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
+		</div>
+		<div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
+			<input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="filterList()" value="aktiv"> <label for="state_aktiv">aktiv</label><br>
+			<input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="filterList()" value="passiv"> <label for="state_passiv">passiv</label><br>
+			<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
+			<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
+			<input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="filterList()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label><br>
+			<input type="radio" name="state" ng-model="filters.state" id="state_verstorben" ng-change="filterList()" value="verstorbene"> <label for="state_verstorben">verstorben</label>
+		</div>
 	</div>
-	<div class="panel-body collapse" id="filters">
-		<input type="radio" name="state[]" value="aktiv" id="state_aktiv" onchange="getCurrentStats();" checked> <label for="state_aktiv">aktiv</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="state[]" value="passiv" id="state_passiv" onchange="getCurrentStats();"> <label for="state_passiv">passiv</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="state[]" value="ehemalig" id="state_ehemalig" onchange="getCurrentStats();"> <label for="state_ehemalig">Ehemalig</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="state[]" value="vorstand" id="state_vorstand" onchange="getCurrentStats();"> <label for="state_vorstand">Vorstand</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="state[]" value="ausbildung" id="state_ausbildung" onchange="getCurrentStats();"> <label for="state_ausbildung">Ausbildung</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-		<input type="radio" name="state[]" value="verstorben" id="state_verstorben" onchange="getCurrentStats();"> <label for="state_verstorben">verstorben</label>
+
+	<div class="col-md-2">
+		<input type="radio" name="mode" value="gender" id="mode_gender" ng-model="mode" ng-change="load()" value="gender"> <label for="mode_gender">Nach Geschlecht</label><br>
+		<input type="radio" name="mode" value="age" id="mode_age" ng-model="mode" ng-change="load()" value="age"> <label for="mode_age">Nach Alter</label><br>
+	</div>
+	<div class="col-md-8" id="chartcontainer">
+		<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
 	</div>
 </div>
 
-<div class="col-md-2">
-	<input type="radio" name="mode[]" value="gender" id="mode_gender" onchange="getCurrentStats();" checked> <label for="mode_gender">Nach Geschlecht</label><br>
-	<input type="radio" name="mode[]" value="age" id="mode_age" onchange="getCurrentStats();"> <label for="mode_age">Nach Alter</label><br>
-</div>
-<div class="col-md-8" id="chartcontainer"></div>
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<div>
+	<h3>Mitgliederliste {{filters.state}}</h3>
+	<hr>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		  <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
+		</div>
+		<div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
+			<div class="col-md-6">
+				<label for="search">Person suchen:</label><br>
+				<input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()">
+				<br>&nbsp;
+			</div>
+			<div class="col-md-3">
+				<label>Status:</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="filterList()" value="aktiv"> <label for="state_aktiv">aktiv</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="filterList()" value="passiv"> <label for="state_passiv">passiv</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="filterList()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_verstorben" ng-change="filterList()" value="verstorbene"> <label for="state_verstorben">verstorben</label>
+			</div>
+			<div class="col-md-3">
+				<label>Geschlecht:</label><br>
+				<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+				<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_w" id="gender_w" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>
+				<br>
+				<label>Altersgruppe:</label><br>
+				<label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age" id="age_adult" value="adult" ng-model="filters.age_adult" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+				<label for="age_child">Kind:</label> <input type="checkbox" name="age" id="age_child" value="child" ng-model="filters.age_child" ng-change="filterList()" ng-true-value="1" ng-false-value="0">
+				<br>&nbsp;
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-striped responsive">
+		<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col"><a href="" class="sorter {{current_sort_field == 'LASTNAME' ? 'active_sorter' : ''}}" id="SORTER_LASTNAME" ng-click="sortBy('LASTNAME')">Nachname <i class="fa fa-fw {{current_sort_field == 'LASTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+			<th scope="col"><a href="" class="sorter {{current_sort_field == 'FIRSTNAME' ? 'active_sorter' : ''}}" id="SORTER_FIRSTNAME" ng-click="sortBy('FIRSTNAME')">Vorname <i class="fa fa-fw {{current_sort_field == 'FIRSTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+			<th scope="col"><a href="" class="sorter {{current_sort_field == 'GENDER' ? 'active_sorter' : ''}}" id="SORTER_GENDER" ng-click="sortBy('GENDER')"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-fw {{current_sort_field == 'GENDER' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+			<th scope="col">Adresse</th>
+			<th scope="col"><a href="" class="sorter {{current_sort_field == 'BIRTHDATE' ? 'active_sorter' : ''}}" id="SORTER_BIRTHDATE" ng-click="sortBy('BIRTHDATE')">Geburtstag <i class="fa fa-fw {{current_sort_field == 'BIRTHDATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+			<th scope="col"><a href="" class="sorter {{current_sort_field == 'STATE' ? 'active_sorter' : ''}}" id="SORTER_STATE" ng-click="sortBy('STATE')">Status <i class="fa fa-fw {{current_sort_field == 'STATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+			<th scope="col">Kontaktdaten</th>
+		</tr>
+		</thead>
+		<tbody id="memberlist">
+			<tr class="simple" ng-repeat="row in rows">
+				<td data-label="#" class="hideResponsiveSimple">{{$index +1}}</td>
+				<td data-label="Nachname" class="responsive_bolder">{{row.LASTNAME}} {{row.DEADSIGN}}<br><span class="birthname">{{row.BIRTHNAME}}</span></td>
+				<td data-label="Vorname">{{row.FIRSTNAME}}</td>
+				<td data-label="Geschlecht" class="hideResponsiveSimple"><div gender-sign></div></td>
+				<td data-label="Adresse" class="hideResponsiveSimple">
+					<div>{{row.STREET}} <br>{{row.ZIP}} {{row.CITY}}</div>
+				</td>
+				<td data-label="Geburtstag" class="hideResponsiveSimple">{{row.BIRTHDATE}} <br>{{row.AGE}}</td>
+				<td data-label="Status" class="hideResponsiveSimple">{{row.CURRENT_STATE}}</td>
+				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
+					<div>{{row.CONTACT}}</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class="well">Anzahl Mitglieder {{filters.state}}: {{rows.length}} von {{getTotalUnfiltered()}}</div>
+</div>
+
+
+
+
+
+
+
