@@ -10,3 +10,8 @@ function debugSpzDb()
 		console.log.apply(console, arguments);
 	}
 }
+
+function roundDecimal(value, decimals)
+{
+	return +((value).toFixed(decimals));
+}

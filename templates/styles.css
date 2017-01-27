@@ -29,6 +29,13 @@ a.active_sorter {
 	color: orange;
 }
 
+th[align=right], td[align=right] {
+	text-align: right !important;
+}
+
+th[align=center], td[align=center] {
+	text-align: center !important;
+}
 
 
 /** Responsive Table http://codepen.io/maddesigns/full/pHqnt */

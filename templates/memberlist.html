@@ -36,16 +36,16 @@
 
 	<table class="table table-striped responsive">
 		<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col"><a href="" class="sorter {{current_sort_field == 'LASTNAME' ? 'active_sorter' : ''}}" id="SORTER_LASTNAME" ng-click="sortBy('LASTNAME')">Nachname <i class="fa fa-fw {{current_sort_field == 'LASTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
-			<th scope="col"><a href="" class="sorter {{current_sort_field == 'FIRSTNAME' ? 'active_sorter' : ''}}" id="SORTER_FIRSTNAME" ng-click="sortBy('FIRSTNAME')">Vorname <i class="fa fa-fw {{current_sort_field == 'FIRSTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
-			<th scope="col"><a href="" class="sorter {{current_sort_field == 'GENDER' ? 'active_sorter' : ''}}" id="SORTER_GENDER" ng-click="sortBy('GENDER')"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-fw {{current_sort_field == 'GENDER' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
-			<th scope="col">Adresse</th>
-			<th scope="col"><a href="" class="sorter {{current_sort_field == 'BIRTHDATE' ? 'active_sorter' : ''}}" id="SORTER_BIRTHDATE" ng-click="sortBy('BIRTHDATE')">Geburtstag <i class="fa fa-fw {{current_sort_field == 'BIRTHDATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
-			<th scope="col"><a href="" class="sorter {{current_sort_field == 'STATE' ? 'active_sorter' : ''}}" id="SORTER_STATE" ng-click="sortBy('STATE')">Status <i class="fa fa-fw {{current_sort_field == 'STATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
-			<th scope="col">Kontaktdaten</th>
-		</tr>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'LASTNAME' ? 'active_sorter' : ''}}" id="SORTER_LASTNAME" ng-click="sortBy('LASTNAME')">Nachname <i class="fa fa-fw {{current_sort_field == 'LASTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'FIRSTNAME' ? 'active_sorter' : ''}}" id="SORTER_FIRSTNAME" ng-click="sortBy('FIRSTNAME')">Vorname <i class="fa fa-fw {{current_sort_field == 'FIRSTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'GENDER' ? 'active_sorter' : ''}}" id="SORTER_GENDER" ng-click="sortBy('GENDER')"><i class="fa fa-venus-mars" aria-hidden="true" aria-label="Geschlecht"></i> <i class="fa fa-fw {{current_sort_field == 'GENDER' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col">Adresse</th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'BIRTHDATE' ? 'active_sorter' : ''}}" id="SORTER_BIRTHDATE" ng-click="sortBy('BIRTHDATE')">Geburtstag <i class="fa fa-fw {{current_sort_field == 'BIRTHDATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'STATE' ? 'active_sorter' : ''}}" id="SORTER_STATE" ng-click="sortBy('STATE')">Status <i class="fa fa-fw {{current_sort_field == 'STATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col">Kontaktdaten</th>
+			</tr>
 		</thead>
 		<tbody id="memberlist">
 			<tr class="simple" ng-repeat="row in rows">

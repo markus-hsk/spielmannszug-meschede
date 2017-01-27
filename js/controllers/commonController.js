@@ -98,6 +98,7 @@ angular.module('spzdb',	// So heißt die App
 			   me.load();
 		   }])
 
+
 .controller('statsNowController', ['$scope', '$location', 'memberService',
 			function(me, $location, memberService)
 			{
@@ -121,45 +122,111 @@ angular.module('spzdb',	// So heißt die App
 				{
 					debugSpzDb('memberListController->load() Call');
 
+					me.chartoptions = {
+						legend:              {display: false},
+						tooltips:			 {intersect: false},
+						showTooltips:        true,
+						onAnimationComplete: function()
+											 {
+												 this.showTooltip(this.segments, true);
+											 },
+						tooltipEvents:       [],
+						tooltipCaretSize:    0
+					};
+
 					if(me.mode == 'gender')
 					{
 						me.labels       = ['weiblich', 'männlich'];
+						me.colors		= ['#F781F3', '#5882FA'];
 						me.data         = [0, 0];
-						me.chartoptions = {};
 					}
-					else
+					else if(me.mode == 'age')
 					{
 						me.labels       = ['Erwachsene', 'Kinder'];
+						me.colors		= ['#0000ff', '#ff0000'];
 						me.data         = [0, 0];
-						me.chartoptions = {};
 					}
+					else if(me.mode == 'state')
+					{
+						me.labels       = ['aktiv', 'passiv', 'Ausbildung'];
+						me.colors		= ['#0000ff', '#FFA500', '#26802E'];
+						me.data         = [0, 0, 0];
+					}
+
+					me.values = [];
+					me.total  = 0;
+					me.average = 0;
 
 					memberService.load(function()
 									   {
 										   $("#mainview").show();
 										   $("#loader").hide();
 
-										   var members = memberService.getList(me.getFilters(), '');
+										   var usefilters = jQuery.extend({}, me.getFilters());
+
+										   if(me.mode == 'state')
+										   		usefilters.state = 'alle';
+										   var members = memberService.getList(usefilters, '');
+
+										   me.total = 0;
+										   var total_age = 0;
 
 										   for(var i = 0; i < members.length; i++)
 										   {
+											   var member = members[i];
+
 											   if(me.mode == 'gender')
 											   {
-												   if(members[i].GENDER == 'w')
+												   if(member.GENDER == 'w')
 													   me.data[0]++;
 												   else
 													   me.data[1]++;
 											   }
-											   else
+											   else if(me.mode == 'age')
 											   {
-												   if(members[i].AGE >= 18)
+												   if(member.AGE >= 18)
 													   me.data[0]++;
 												   else
 													   me.data[1]++;
+
+												   total_age += member.AGE;
 											   }
+											   else if(me.mode == 'state')
+											   {
+												   if(member.CURRENT_STATE == 'aktiv' || member.CURRENT_STATE == 'Vorstand')
+												   		me.data[0]++;
+												   else if(member.CURRENT_STATE == 'passiv')
+												   		me.data[1]++;
+												   else if(member.CURRENT_STATE == 'Ausbildung')
+												   		me.data[2]++;
+												   else
+												   		continue;
+											   }
+
+											   me.total++;
 										   }
+
+										   if(me.mode == 'age')
+											   me.average = roundDecimal(total_age / me.total, 1);
+
+										   me.setLegend();
 									   }
 					);
+				};
+
+				me.setLegend = function()
+				{
+					for(var i = 0; i < me.data.length; i++)
+					{
+						me.values.push({
+										   value:         me.data[i],
+										   color:         me.colors[i],
+										   label:         me.labels[i],
+										   percentage:    Math.round(100 / me.total * me.data[i])
+									   });
+					}
+
+
 				};
 
 				me.getFilters = function()
@@ -167,9 +234,13 @@ angular.module('spzdb',	// So heißt die App
 					return me.filters;
 				};
 
-				me.toggleFilter = function()
+				me.setMode = function(mode)
 				{
-					me.filter_open = !me.filter_open;
+					if(me.mode != mode)
+					{
+						me.mode = mode;
+						me.load();
+					}
 				};
 
 				me.load();
@@ -184,7 +255,7 @@ angular.module('spzdb',	// So heißt die App
 			  };
 		  })
 
-.config(function($routeProvider)
+.config(function($routeProvider, ChartJsProvider)
 	   {
 		   $routeProvider
 

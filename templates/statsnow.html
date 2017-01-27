@@ -1,30 +1,52 @@
 <div>
 	<h3>Aktuelle Mitgliederstatistik</h3>
-	<h5>
-		<button type="button" class="btn btn-lg btn-{{mode == 'gender' ? 'success' : 'default'}}"><i class="fa fa-venus-mars" aria-hidden="true"></i> Nach Geschlecht</button>
-		<button type="button" class="btn btn-lg btn-{{mode == 'age' ? 'success' : 'default'}}"><i class="fa fa-users" aria-hidden="true"></i> Nach Alter</button></h5>
+	<p>
+		<button type="button" class="btn btn-{{mode == 'gender' ? 'success' : 'default'}}" ng-click="setMode('gender')"><i class="fa fa-venus-mars" aria-hidden="true"></i> Nach Geschlecht</button>
+		<button type="button" class="btn btn-{{mode == 'age' ? 'success' : 'default'}}" ng-click="setMode('age')"><i class="fa fa-users" aria-hidden="true"></i> Nach Alter</button>
+		<button type="button" class="btn btn-{{mode == 'state' ? 'success' : 'default'}}" ng-click="setMode('state')"><i class="fa fa-link" aria-hidden="true"></i> Nach Status</button>
+	</p>
 	<hr>
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-		  <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
-		</div>
-		<div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
-			<input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="filterList()" value="aktiv"> <label for="state_aktiv">aktiv</label><br>
-			<input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="filterList()" value="passiv"> <label for="state_passiv">passiv</label><br>
-			<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
-			<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
-			<input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="filterList()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label><br>
-			<input type="radio" name="state" ng-model="filters.state" id="state_verstorben" ng-change="filterList()" value="verstorbene"> <label for="state_verstorben">verstorben</label>
-		</div>
-	</div>
+	<div class="col-md-4">
 
-	<div class="col-md-2">
-		<input type="radio" name="mode" value="gender" id="mode_gender" ng-model="mode" ng-change="load()" value="gender"> <label for="mode_gender">Nach Geschlecht</label><br>
-		<input type="radio" name="mode" value="age" id="mode_age" ng-model="mode" ng-change="load()" value="age"> <label for="mode_age">Nach Alter</label><br>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th></th>
+					<th align="right">Anzahl</th>
+					<th align="right">Anteil</th>
+				</tr>
+			</thead>
+			<tbody id="statsNowLegend">
+				<tr ng-repeat="value in values">
+					<th style="border-left: 10px solid {{value.color}}">{{value.label}}</th>
+					<td align="right">{{value.value}}</td>
+					<td align="right">{{value.percentage}}%</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Gesamt:</th>
+					<th align="right">{{total}}</th>
+					<th align="right">100%</th>
+				</tr>
+			</tfoot>
+		</table>
+
+		<h4 style="display: {{mode == 'age' ? '' : 'none'}};"><span class="label label-info">aktuelles Durchschnittsalter: {{average}} Jahre</span></h4>
+
+		<div>&nbsp;</div>
 	</div>
 	<div class="col-md-8" id="chartcontainer">
-		<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+		<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="chartoptions" chart-legend="true" style="max-width:500px;"></canvas>
+	</div>
+
+	<div class="{{mode == 'state' ? 'hidden' : ''}}">
+		&nbsp;<hr>&nbsp;
+		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_alle" ng-change="load()" value="alle"> <label for="state_alle">Alle</label></div>
+		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="load()" value="aktiv"> <label for="state_aktiv">aktiv</label></div>
+		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="load()" value="passiv"> <label for="state_passiv">passiv</label></div>
+		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="load()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label></div>
 	</div>
 </div>
 
