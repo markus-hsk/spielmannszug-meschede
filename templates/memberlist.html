@@ -56,7 +56,7 @@
 				<td data-label="Adresse" class="hideResponsiveSimple">
 					<div>{{row.STREET}} <br>{{row.ZIP}} {{row.CITY}}</div>
 				</td>
-				<td data-label="Geburtstag" class="hideResponsiveSimple">{{row.BIRTHDATE}} <br>{{row.AGE}}</td>
+				<td data-label="Geburtstag" class="hideResponsiveSimple">{{row.BIRTHDATE | date:'mediumDate'}} <br>{{row.AGE}}</td>
 				<td data-label="Status" class="hideResponsiveSimple">{{row.CURRENT_STATE}}</td>
 				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
 					<div>{{row.CONTACT}}</div>
