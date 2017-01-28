@@ -99,15 +99,16 @@ angular.module('spzdb',	// So heißt die App
 		   }])
 
 
-.controller('statsNowController', ['$scope', '$location', 'memberService',
-			function(me, $location, memberService)
+.controller('statsNowController', ['$scope', '$routeParams', 'memberService',
+			function(me, _GET, memberService)
 			{
-				debugSpzDb('statsNowController Initialize');
+				var getmode = _GET.mode;
+				debugSpzDb('statsNowController Initialize', getmode);
 
 				$("#mainview").hide();
 				$("#loader").show();
 
-				me.mode          = 'gender';
+				me.mode          = getmode;
 				me.stateselector = '';
 
 				me.filter_open       = false;
@@ -303,9 +304,12 @@ angular.module('spzdb',	// So heißt die App
 				   controller:  'memberListController',
 				   templateUrl: 'templates/memberlist.html'
 			   })
-			   .when('/statsnow', {
+			   .when('/statsnow/:mode', {
 				   controller:  'statsNowController',
 				   templateUrl: 'templates/statsnow.html'
+			   })
+			   .when('/statsnow', {
+				   redirectTo: '/statsnow/gender'
 			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'

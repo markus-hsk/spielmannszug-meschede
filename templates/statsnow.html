@@ -1,11 +1,11 @@
 <div>
 	<h3>Aktuelle Mitgliederstatistik nach</h3>
 	<p>
-		<button type="button" class="btn btn-{{mode == 'gender' ? 'success' : 'default'}}" ng-click="setMode('gender')"><i class="fa fa-venus-mars" aria-hidden="true"></i> Geschlecht</button>
-		<button type="button" class="btn btn-{{mode == 'age' ? 'success' : 'default'}}" ng-click="setMode('age')"><i class="fa fa-users" aria-hidden="true"></i> Alter</button>
-		<button type="button" class="btn btn-{{mode == 'state' ? 'success' : 'default'}}" ng-click="setMode('state')"><i class="fa fa-link" aria-hidden="true"></i> Status</button>
-		<button type="button" class="btn btn-{{mode == 'duration' ? 'success' : 'default'}}" ng-click="setMode('duration')"><i class="fa fa-clock-o" aria-hidden="true"></i> aktive Jahre</button>
-		<button type="button" class="btn btn-{{mode == 'instrument' ? 'success' : 'default'}}" ng-click="setMode('instrument')"><i class="fa fa-music" aria-hidden="true"></i> Instrument</button>
+		<a href="#!/statsnow/gender" role="button" class="btn btn-{{mode == 'gender' ? 'success' : 'default'}}"><i class="fa fa-venus-mars" aria-hidden="true"></i> Geschlecht</a>
+		<a href="#!/statsnow/age" role="button" class="btn btn-{{mode == 'age' ? 'success' : 'default'}}" ng-click="setMode('age')"><i class="fa fa-users" aria-hidden="true"></i> Alter</a>
+		<a href="#!/statsnow/state" role="button" class="btn btn-{{mode == 'state' ? 'success' : 'default'}}" ng-click="setMode('state')"><i class="fa fa-link" aria-hidden="true"></i> Status</a>
+		<a href="#!/statsnow/duration" role="button" class="btn btn-{{mode == 'duration' ? 'success' : 'default'}}" ng-click="setMode('duration')"><i class="fa fa-clock-o" aria-hidden="true"></i> aktive Jahre</a>
+		<a href="#!/statsnow/instrument" role="button" class="btn btn-{{mode == 'instrument' ? 'success' : 'default'}}" ng-click="setMode('instrument')"><i class="fa fa-music" aria-hidden="true"></i> Instrument</a>
 	</p>
 	<hr>
 
