@@ -292,7 +292,22 @@ angular.module('spzdb',	// So heißt die App
 		  function()
 		  {
 			  return {
-				  template: '<i class="fa {{row.GENDER == \'w\' ? \'fa-venus female\' : \'fa-mars male\'}}" aria-hidden="true" aria-label="{{row.GENDER == \'w\' ? \'weiblich\' : \'männlich\'}}"></i>'
+				  template: '<i class="fa {{row.GENDER == \'w\' ? \'fa-venus female\' : \'fa-mars male\'}}" aria-hidden="true" aria-label="{{row.GENDER == \'w\' ? \'weiblich\' : \'männlich\'}}" title="{{row.GENDER == \'w\' ? \'weiblich\' : \'männlich\'}}"></i>'
+			  };
+		  })
+		  
+.directive('contactInformation',
+		  function()
+		  {
+			  return {
+				  scope: {
+					  type: '@type',
+					  value: '@value'
+				  },
+				  template: function()
+				  			{
+					  			return '<div>{{type}}: {{value}}</div>';
+					  		}
 			  };
 		  })
 

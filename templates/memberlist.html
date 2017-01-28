@@ -68,7 +68,7 @@
 				<td data-label="Geburtstag" class="hideResponsiveSimple">{{row.BIRTHDATE | date:'mediumDate'}} <br>{{row.AGE}}</td>
 				<td data-label="Status" class="hideResponsiveSimple">{{row.CURRENT_STATE}}</td>
 				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
-					<div>{{row.CONTACT}}</div>
+					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="{{type}}" value="{{value}}"></div></div>
 				</td>
 			</tr>
 		</tbody>

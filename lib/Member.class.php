@@ -11,6 +11,9 @@ class Member
 {
 	private $member_id  = 0;
 	private $data_array = array();
+	private $state_history = null;
+	private $contact_data = null;
+	
 
 
 	// ##### Magische Methoden #########################################################################################
@@ -74,8 +77,10 @@ class Member
 		$data_array['AGE']		= $this->getAge();
 		$data_array['STATES']	= $this->getMembershipStates();
 		$data_array['AKTIV_JAHRE']	= rand(0,40);
-		$data_array['NSTRUMENT']	= rand(0,40);
-
+		
+		// Kontaktdaten anhängen
+		$data_array['CONTACT'] = $this->getContactData();
+		
 		return $data_array;
 	}
 
@@ -95,6 +100,33 @@ class Member
 
 	public function getMembershipStates()
 	{
-
+		if($this->state_history === null)
+		{
+			// @todo Statushistorie abrufen
+			$this->state_history = array();
+		}
+		
+		return $this->state_history;
+	}
+	
+	public function getContactData()
+	{
+		if($this->contact_data === null)
+		{
+			$this->contact_data = array();
+			
+			// Kontaktdaten abrufen
+			$sql = "SELECT * 
+					FROM spz_contact_informations
+					WHERE MEMBER_ID = ".((int) $this->member_id);
+			$records = DB::getRecords( $sql );
+			
+			foreach ($records as &$record)
+			{
+				$this->contact_data[$record['CONTACT_TYPE']] = $record['VALUE'];
+			}
+		}
+		
+		return $this->contact_data;
 	}
 }
