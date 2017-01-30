@@ -22,14 +22,16 @@ angular.module('spzdb',	// So heißt die App
 			   me.current_sort_field = 'LASTNAME';
 			   me.current_sort_dir = 'asc';
 
-			   me.filter_open = false;
-			   me.filters = {};
-			   me.filters.search    = '';
-			   me.filters.state     = 'aktiv';
-			   me.filters.gender_w  = 1;
-			   me.filters.gender_m  = 1;
-			   me.filters.age_adult = 1;
-			   me.filters.age_child = 1;
+			   me.filter_open                = false;
+			   me.filters                    = {};
+			   me.filters.search             = '';
+			   me.filters.state              = 'aktiv';
+			   me.filters.gender_w           = 1;
+			   me.filters.gender_m           = 1;
+			   me.filters.age_adult          = 1;
+			   me.filters.age_child          = 1;
+			   me.filters.instrument_floete  = 1;
+			   me.filters.instrument_trommel = 1;
 
 			   me.rows = [];
 
@@ -111,14 +113,16 @@ angular.module('spzdb',	// So heißt die App
 				me.mode          = getmode;
 				me.stateselector = '';
 
-				me.filter_open       = false;
-				me.filters           = {};
-				me.filters.search    = '';
-				me.filters.state     = 'aktiv';
-				me.filters.gender_w  = 1;
-				me.filters.gender_m  = 1;
-				me.filters.age_adult = 1;
-				me.filters.age_child = 1;
+				me.filter_open                = false;
+				me.filters                    = {};
+				me.filters.search             = '';
+				me.filters.state              = 'aktiv';
+				me.filters.gender_w           = 1;
+				me.filters.gender_m           = 1;
+				me.filters.age_adult          = 1;
+				me.filters.age_child          = 1;
+				me.filters.instrument_floete  = 1;
+				me.filters.instrument_trommel = 1;
 
 				me.load = function()
 				{
@@ -399,6 +403,9 @@ angular.module('spzdb',	// So heißt die App
 
 					if(filters.age_adult == 0 && member.AGE >= 18)																		continue;
 					if(filters.age_child == 0 && member.AGE < 18)																		continue;
+
+					if(filters.instrument_floete == 0 && member.INSTRUMENT == 'Flöte')													continue;
+					if(filters.instrument_trommel == 0 && member.INSTRUMENT == 'Trommel')												continue;
 
 					list.push(member);
 				}
