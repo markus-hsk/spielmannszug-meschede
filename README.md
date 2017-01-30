@@ -1,0 +1,3 @@
+# spielmannszug-meschede
+
+Dieses Projekt stellt ein Verwaltungs- und Auswertungstool für die Mitglieder eines Musikvereins dar...
