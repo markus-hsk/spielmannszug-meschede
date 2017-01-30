@@ -25,6 +25,18 @@ class Member
 
 	private function __clone() {}
 
+	public function __get($fieldname)
+	{
+		return $this->get($fieldname);
+	}
+
+	public function __toString()
+	{
+		$array = var_export($this->data_array, true);
+		$output = str_replace(['array', '(', ')'], '', $array);
+		return 'Member #'.$this->member_id.":\r".$output;
+	}
+
 
 	// ##### Instanziierungsfunktionen #################################################################################
 
@@ -35,10 +47,10 @@ class Member
 	 * @return	Member[]
 	 * @since	28.12.2016
 	 */
-	public static function find(array $filters)
+	public static function find(array $filters = [])
 	{
 		$sql = 'SELECT * FROM spz_members';
-		$records = DB::getRecords( $sql );
+		$records = DB::getCachedRecords( $sql );
 
 		foreach ($records as &$record)
 		{
@@ -60,6 +72,14 @@ class Member
 
 	// ##### Instanzmethoden ###########################################################################################
 
+	public function get($fieldname)
+	{
+		if(isset($this->data_array[$fieldname]))
+			return $this->data_array[$fieldname];
+		else
+			return null;
+	}
+
 	protected function setDataArray(array $data_array)
 	{
 		$this->data_array = $data_array;
@@ -78,7 +98,7 @@ class Member
 		$data_array['STATES']	= $this->getMembershipStates();
 		$data_array['AKTIV_JAHRE']	= rand(0,40);
 		
-		// Kontaktdaten anhängen
+		// Kontaktdaten anhï¿½ngen
 		$data_array['CONTACT'] = $this->getContactData();
 		
 		return $data_array;
@@ -119,7 +139,7 @@ class Member
 			$sql = "SELECT * 
 					FROM spz_contact_informations
 					WHERE MEMBER_ID = ".((int) $this->member_id);
-			$records = DB::getRecords( $sql );
+			$records = DB::getCachedRecords( $sql );
 			
 			foreach ($records as &$record)
 			{

@@ -42,4 +42,23 @@ final class DB
 
 		return R::getAll( $sql );
 	}
+
+
+	public static function getCachedRecords($sql)
+	{
+		$cache = Cache::get($sql);
+
+		if($cache !== false)
+		{
+			return $cache;
+		}
+		else
+		{
+			$records = static::getRecords($sql);
+
+			Cache::set($sql, $records);
+
+			return $records;
+		}
+	}
 }
