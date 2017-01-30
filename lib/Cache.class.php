@@ -8,7 +8,7 @@
 
 class Cache
 {
-	const CACHE_DIR      = RelativePath . "/temp/";
+	const CACHE_DIR      = RelativePath . "/temp/cached/";
 	const DEFAULT_EXPIRE = 60 * 60 * 24 * 14;
 
 
@@ -17,7 +17,7 @@ class Cache
 		$cache_key   = static::buildCacheKey($key);
 		$cache_value = addslashes(serialize($value));
 
-    	return file_put_contents(static::CACHE_DIR . "$cache_key.cached", '<?php $cached_value = \'' . $cache_value . '\';');
+    	return file_put_contents($cache_key, '<?php $cached_value = \'' . $cache_value . '\';');
 	}
 
 
@@ -25,7 +25,7 @@ class Cache
 	{
 		$cache_key = static::buildCacheKey($key);
 
-		@include static::CACHE_DIR . "$cache_key.cached";
+		@include $cache_key;
 
 		return isset($cached_value) ? unserialize(stripslashes($cached_value)) : false;
 	}
@@ -35,40 +35,22 @@ class Cache
 	{
 		$cache_key = static::buildCacheKey($key);
 
-		if(file_exists(static::CACHE_DIR . "$cache_key.cached"))
-			return unlink(static::CACHE_DIR . "$cache_key.cached");
+		if(file_exists($cache_key))
+			return unlink($cache_key);
 		else
 			return false;
 	}
 
 
-	/*public static function cleanUp($expire = -1)
-	{
-		if($expire == -1)
-			$expire = static::DEFAULT_EXPIRE;
-
-		$dir = static::CACHE_DIR;
-		$min_date = time() - (int) $expire;
-
-		$folder = dir($dir);
-
-		while($filename = $folder->read())
-		{
-			if(filetype($dir.$filename) != "dir")
-			{
-				if($min_date > @filemtime($dir . $filename))
-				{
-					@unlink($dir . $filename);
-				}
-			}
-		}
-
-		$folder->close();
-	}*/
-
-
 	private static function buildCacheKey($key)
 	{
-		return md5($key);
+		$cache_key = md5($key);
+
+		$cache_dir = static::CACHE_DIR.substr($cache_key, 0, 1);
+		makeDirs($cache_dir);
+
+		$cache_key = $cache_dir . "/$cache_key.cached";
+
+		return $cache_key;
 	}
 }
