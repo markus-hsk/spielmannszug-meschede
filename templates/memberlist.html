@@ -25,9 +25,9 @@
 				<label>Status:</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="filterList()" value="aktiv"> <label for="state_aktiv">aktiv</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="filterList()" value="passiv"> <label for="state_passiv">passiv</label><br>
-				<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
-				<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="filterList()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
+				<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_verstorben" ng-change="filterList()" value="verstorbene"> <label for="state_verstorben">verstorben</label>
 			</div>
 			<div class="col-md-3">
@@ -53,6 +53,7 @@
 				<th scope="col">Adresse</th>
 				<th scope="col"><a href="" class="sorter {{current_sort_field == 'BIRTHDATE' ? 'active_sorter' : ''}}" id="SORTER_BIRTHDATE" ng-click="sortBy('BIRTHDATE')">Geburtstag <i class="fa fa-fw {{current_sort_field == 'BIRTHDATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
 				<th scope="col"><a href="" class="sorter {{current_sort_field == 'STATE' ? 'active_sorter' : ''}}" id="SORTER_STATE" ng-click="sortBy('STATE')">Status <i class="fa fa-fw {{current_sort_field == 'STATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+				<th scope="col"><a href="" class="sorter {{current_sort_field == 'INSTRUMENT' ? 'active_sorter' : ''}}" id="SORTER_INSTRUMENT" ng-click="sortBy('INSTRUMENT')">Instrument <i class="fa fa-fw {{current_sort_field == 'INSTRUMENT' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
 				<th scope="col">Kontaktdaten</th>
 			</tr>
 		</thead>
@@ -67,6 +68,7 @@
 				</td>
 				<td data-label="Geburtstag" class="hideResponsiveSimple">{{row.BIRTHDATE | date:'mediumDate'}} <br>{{row.AGE}}</td>
 				<td data-label="Status" class="hideResponsiveSimple">{{row.CURRENT_STATE}}</td>
+				<td data-label="Instrument" class="hideResponsiveSimple">{{row.INSTRUMENT}}</td>
 				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
 					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="{{type}}" value="{{value}}"></div></div>
 				</td>

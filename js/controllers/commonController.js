@@ -448,6 +448,13 @@ angular.module('spzdb',	// So heißt die App
 										  else
 											  result = 0;
 										  break;
+
+									  case 'INSTRUMENT':
+										  if(a.INSTRUMENT != b.INSTRUMENT)
+											  result = a.INSTRUMENT < b.INSTRUMENT ? -1 : 1;
+										  else
+											  result = 0;
+										  break;
 								  }
 
 								  if(sortby_splitted[1] == 'desc')
