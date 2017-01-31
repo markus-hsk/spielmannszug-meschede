@@ -96,7 +96,6 @@ define('VERSION', '0.0.1');
 
 
 // Weitere Includes tätigen
-require_once(RelativePath.'/lib/Skin.class.php');
 require_once(RelativePath.'/lib/DB.class.php');
 require_once(RelativePath.'/lib/Cache.class.php');
 require_once(RelativePath.'/lib/Member.class.php');
