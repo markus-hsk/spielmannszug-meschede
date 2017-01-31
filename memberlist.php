@@ -25,6 +25,5 @@ if($records === false)
 	Cache::set($cachekey, $records);
 }
 
-
 header('Content-Type: application/json');
 echo json_encode($records);

@@ -21,6 +21,11 @@
 	display: inline-block;
 }
 
+.table td > div.contactdata {
+	display: block;
+	margin-bottom: 2px;
+}
+
 a.sorter {
 	text-decoration: none;
 }

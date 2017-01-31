@@ -74,7 +74,7 @@
 				<td data-label="Status" class="hideResponsiveSimple">{{row.CURRENT_STATE}}</td>
 				<td data-label="Instrument" class="hideResponsiveSimple">{{row.INSTRUMENT}}</td>
 				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
-					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="{{type}}" value="{{value}}"></div></div>
+					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="type" value="value"></div></div>
 				</td>
 			</tr>
 		</tbody>

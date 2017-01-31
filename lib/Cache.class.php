@@ -1,5 +1,8 @@
 <?php
 /**
+ * @see https://blog.graphiq.com/500x-faster-caching-than-redis-memcache-apc-in-php-hhvm-dcd26e8447ad#.u0p11a2q3
+ *
+ *
  * Created by PhpStorm.
  * User: mbuscher
  * Date: 30.01.2017

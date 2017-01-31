@@ -136,9 +136,10 @@ class Member
 			$this->contact_data = array();
 			
 			// Kontaktdaten abrufen
-			$sql = "SELECT * 
+			$sql = "SELECT * /* Member->getContactData() LastUpdate: ".$this->UPDATE_TS." */
 					FROM spz_contact_informations
-					WHERE MEMBER_ID = ".((int) $this->member_id);
+					WHERE MEMBER_ID = ".((int) $this->member_id)."
+					ORDER BY CONTACT_TYPE";
 			$records = DB::getCachedRecords( $sql );
 			
 			foreach ($records as &$record)
