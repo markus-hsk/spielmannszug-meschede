@@ -101,8 +101,13 @@ require_once(RelativePath.'/lib/Cache.class.php');
 require_once(RelativePath.'/lib/Member.class.php');
 
 
-// Datenbank initialisieren
+// Datenbank und andere Objekte initialisieren
 DB::init();
+
+if(USE_CACHE)
+	Cache::enable();
+else
+	Cache::disable();
 
 
 // Zugriffsberechtigung erfragen

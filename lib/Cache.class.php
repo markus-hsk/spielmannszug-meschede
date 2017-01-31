@@ -15,8 +15,14 @@ class Cache
 	const DEFAULT_EXPIRE = 60 * 60 * 24 * 14;
 
 
+	private static $active = true;
+
+
 	public static function set($key, $value)
 	{
+		if(!static::$active)
+			return 0;
+
 		$cache_key   = static::buildCacheKey($key);
 		$cache_value = addslashes(serialize($value));
 
@@ -26,6 +32,9 @@ class Cache
 
 	public static function get($key)
 	{
+		if(!static::$active)
+			return false;
+
 		$cache_key = static::buildCacheKey($key);
 
 		@include $cache_key;
@@ -36,12 +45,25 @@ class Cache
 
 	public static function delete($key)
 	{
+		if(!static::$active)
+			return false;
+
 		$cache_key = static::buildCacheKey($key);
 
 		if(file_exists($cache_key))
 			return unlink($cache_key);
 		else
 			return false;
+	}
+
+	public static function enable()
+	{
+		static::$active = true;
+	}
+
+	public static function disable()
+	{
+		static::$active = false;
 	}
 
 

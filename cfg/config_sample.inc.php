@@ -12,3 +12,6 @@ define('DB_PORT',		'3306');
 define('DB_DATABASE',	'spzmemberdb');
 define('DB_USER', 		'root');
 define('DB_PASSWORD',	'');
+
+
+define('USE_CACHE',		true);

@@ -15,9 +15,12 @@ angular.module('spzdb',	// So heißt die App
 	   {
 		   $routeProvider
 
-			   .when('/mitglieder', {
+			   .when('/mitglieder/:state', {
 				   controller:  'memberListController',
 				   templateUrl: 'templates/memberlist.html'
+			   })
+			   .when('/mitglieder', {
+				   redirectTo: '/mitglieder/aktiv'
 			   })
 			   .when('/statsnow/:mode', {
 				   controller:  'statsNowController',

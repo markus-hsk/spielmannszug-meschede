@@ -125,7 +125,7 @@ angular.module('spzdb'	// So heißt die App
 											   {
 												   if(member.CURRENT_STATE == 'aktiv' || member.CURRENT_STATE == 'Vorstand')
 													   me.data[0]++;
-												   else if(member.CURRENT_STATE == 'passiv')
+												   else if(member.CURRENT_STATE == 'passiv' || member.CURRENT_STATE == 'Ehrenmitglied')
 													   me.data[1]++;
 												   else if(member.CURRENT_STATE == 'Ausbildung')
 													   me.data[2]++;

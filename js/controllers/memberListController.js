@@ -4,8 +4,8 @@
 
 angular.module('spzdb')
 
-.controller('memberListController', ['$scope', '$location', 'memberService',
-		   function(me, $location, memberService)
+.controller('memberListController', ['$scope', '$location', '$routeParams', 'memberService',
+		   function(me, $location, _GET, memberService)
 		   {
 			   debugSpzDb('memberListController Initialize');
 
@@ -13,12 +13,12 @@ angular.module('spzdb')
 			   $("#loader").show();
 
 			   me.current_sort_field = 'LASTNAME';
-			   me.current_sort_dir = 'asc';
+			   me.current_sort_dir   = 'asc';
 
 			   me.filter_open                = false;
 			   me.filters                    = {};
 			   me.filters.search             = '';
-			   me.filters.state              = 'aktiv';
+			   me.filters.state              = _GET.state;
 			   me.filters.gender_w           = 1;
 			   me.filters.gender_m           = 1;
 			   me.filters.age_adult          = 1;

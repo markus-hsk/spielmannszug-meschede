@@ -8,7 +8,19 @@
           <li><a href="#">2015</a></li>
         </ul>
 	</div>
-	<h3>Mitgliederliste {{filters.state}}</h3>
+	<h3>Mitgliederliste
+		<div class="dropdown btn-group">
+			<a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuState">{{filters.state}}</a>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuState">
+			  <li><a href="#!/mitglieder/aktiv">aktiv</a></li>
+			  <li><a href="#!/mitglieder/passiv">passiv</a></li>
+			  <li><a href="#!/mitglieder/Ausbildung">Ausbildung</a></li>
+			  <li><a href="#!/mitglieder/Vorstand">Vorstand</a></li>
+			  <li><a href="#!/mitglieder/Ehemalig">Ehemalig</a></li>
+			  <li><a href="#!/mitglieder/verstorbene">verstorbene</a></li>
+			</ul>
+		</div>
+	</h3>
 	<hr>
 
 	<div class="panel panel-default">
@@ -21,7 +33,7 @@
 				<input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()">
 				<br>&nbsp;
 			</div>
-			<div class="col-md-3">
+			<!--<div class="col-md-3">
 				<label>Status:</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="filterList()" value="aktiv"> <label for="state_aktiv">aktiv</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="filterList()" value="passiv"> <label for="state_passiv">passiv</label><br>
@@ -29,7 +41,7 @@
 				<input type="radio" name="state" ng-model="filters.state" id="state_vorstand" ng-change="filterList()" value="Vorstand"> <label for="state_vorstand">Vorstand</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_ehemalig" ng-change="filterList()" value="Ehemalig"> <label for="state_ehemalig">Ehemalig</label><br>
 				<input type="radio" name="state" ng-model="filters.state" id="state_verstorben" ng-change="filterList()" value="verstorbene"> <label for="state_verstorben">verstorben</label>
-			</div>
+			</div>-->
 			<div class="col-md-3">
 				<label>Geschlecht:</label><br>
 				<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;

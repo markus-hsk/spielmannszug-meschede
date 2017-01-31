@@ -9,12 +9,14 @@
 define('RelativePath', '.');
 require_once(RelativePath.'/common.inc.php');
 
-$cachekey = 'memberlist';	// @todo Zeitstempel aus Member-Klasse holen, um bei Veralterung der Daten nicht mehr auf diesen zurück zu greifen.
-							// alternativ diesen Cache beim ändern eines Users automatisch löschen
+$filters = $_GET;
+
+$cachekey = 'memberlist '.serialize($filters);	// @todo Zeitstempel aus Member-Klasse holen, um bei Veralterung der Daten nicht mehr auf diesen zurï¿½ck zu greifen.
+												// alternativ diesen Cache beim ï¿½ndern eines Users automatisch lï¿½schen
 $records = Cache::get($cachekey);
 if($records === false)
 {
-	$members = Member::find([]);
+	$members = Member::find($filters);
 	
 	$records = array();
 	foreach ($members as &$Member)

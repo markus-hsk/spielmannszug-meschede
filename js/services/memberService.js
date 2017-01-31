@@ -56,12 +56,12 @@ angular.module('spzdb')
 				{
 					var member = memberlist[i];
 
-					if(filters.state == 'aktiv'  		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Vorstand'))		continue;
-					if(filters.state == 'passiv' 		&& (member.CURRENT_STATE != 'passiv'))											continue;
-					if(filters.state == 'Ehemalig'		&& (member.CURRENT_STATE != 'Ehemalig'))										continue;
-					if(filters.state == 'Vorstand'		&& (member.CURRENT_STATE != 'Vorstand'))										continue;
-					if(filters.state == 'verstorbene'	&& (member.CURRENT_STATE != 'Verstorben'))										continue;
-					if(filters.state == 'Ausbildung'	&& (member.CURRENT_STATE != 'Ausbildung'))										continue;
+					if(filters.state == 'aktiv'  		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Vorstand'))			continue;
+					if(filters.state == 'passiv' 		&& (member.CURRENT_STATE != 'passiv' && member.CURRENT_STATE != 'Ehrenmitglied'))	continue;
+					if(filters.state == 'Ehemalig'		&& (member.CURRENT_STATE != 'Ehemalig'))											continue;
+					if(filters.state == 'Vorstand'		&& (member.CURRENT_STATE != 'Vorstand'))											continue;
+					if(filters.state == 'verstorbene'	&& (member.CURRENT_STATE != 'verstorben'))											continue;
+					if(filters.state == 'Ausbildung'	&& (member.CURRENT_STATE != 'Ausbildung'))											continue;
 
 					total_unfiltered++;
 
