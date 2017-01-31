@@ -214,7 +214,7 @@ class Member
 			{
 				$this->current_state = array('MEMBERSHIP_ID' => -1,
 											 'MEMBER_ID' => $this->member_id,
-											 'STATE' => 'ehemalig',
+											 'STATE' => 'Ehemalig',
 											 'START_DATE' => $last_membership,
 											 'END_DATE' => null
 											);
