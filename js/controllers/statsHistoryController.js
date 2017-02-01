@@ -82,7 +82,7 @@ angular.module('spzdb'	// So heißt die App
 
 														   if(state.END_DATE !== null)
 														   {
-															   var end_year = parseInt(state.END_DATE.substr(0, 4), 10);
+															   var end_year = parseInt(state.END_DATE.substr(0, 4), 10) - 1; // -1 weil das jahr des Austritts nicht mehr gewertet werden darf
 														   }
 														   else
 														   {
