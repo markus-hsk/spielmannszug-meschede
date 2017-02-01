@@ -31,7 +31,7 @@ angular.module('spzdb'	// So heißt die App
 				me.series  = [];
 				me.labels  = [];
 				me.data    = [];
-				me.colors  = [];
+				me.colors  = ['#0000ff'];
 				me.options = {
 					scales: {
 						yAxes: [
@@ -123,7 +123,6 @@ angular.module('spzdb'	// So heißt die App
 				{
 					me.series  = ['Mitglieder'];
 					me.labels  = [];
-					me.colors  = [];
 					me.data    = [[]];
 
 					var change     = null;
@@ -133,7 +132,6 @@ angular.module('spzdb'	// So heißt die App
 					for(var key in me.years)
 					{
 						me.labels.push(key);
-						me.colors.push('#0000ff');
 						me.data[0].push(me.years[key]);
 
 						if(change === null)
