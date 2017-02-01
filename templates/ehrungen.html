@@ -41,20 +41,22 @@
 				<tr>
 					<th>Mitglied</th>
 					<th align="center">Eintrittsjahr</th>
+					<th align="center">Jahre</th>
 					<th align="center">10 Jahre (Bronze)</th>
 					<th align="center">20 Jahre (Silber)</th>
 					<th align="center">25 Jahre (Gold)</th>
-					<th>nächste</th>
+					<th align="right">nächste</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="row in table_data">
 					<td>{{row.NAME}}</td>
 					<td align="center">{{row.START_YEAR}}</td>
+					<td align="center">{{row.AKTIVE_JAHRE}}</td>
 					<td align="center">{{row.JUB10}}</td>
 					<td align="center">{{row.JUB20}}</td>
 					<td align="center">{{row.JUB25}}</td>
-					<td>{{row.NEXT_JUB}}</td>
+					<td align="right">{{row.NEXT_JUB}}</td>
 				</tr>
 			</tbody>
 		</table>

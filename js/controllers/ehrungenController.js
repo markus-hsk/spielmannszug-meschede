@@ -48,7 +48,7 @@ angular.module('spzdb'	// So heißt die App
 										   {
 											   var member = members[i];
 
-											   if(member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Ehrenmitglied')
+											   if(member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Ehrenmitglied' && member.CURRENT_STATE != 'Vorstand')
 											   {
 												   continue;
 											   }
@@ -140,12 +140,13 @@ angular.module('spzdb'	// So heißt die App
 											   }
 
 											   me.table_data.push({
-																	  NAME:       member.LASTNAME + ', ' + member.FIRSTNAME,
-																	  START_YEAR: m_start_year,
-																	  JUB10:      jub10,
-																	  JUB20:      jub20,
-																	  JUB25:      jub25,
-																	  NEXT_JUB:   nextjub
+																	  NAME:         member.LASTNAME + ', ' + member.FIRSTNAME,
+																	  AKTIVE_JAHRE: active_years-1,
+																	  START_YEAR:   m_start_year,
+																	  JUB10:        jub10,
+																	  JUB20:        jub20,
+																	  JUB25:        jub25,
+																	  NEXT_JUB:     nextjub
 																  });
 										   }
 									   }
