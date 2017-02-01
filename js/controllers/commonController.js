@@ -29,6 +29,10 @@ angular.module('spzdb',	// So heißt die App
 			   .when('/statsnow', {
 				   redirectTo: '/statsnow/gender'
 			   })
+			   .when('/statstime', {
+				   controller:  'statsHistoryController',
+				   templateUrl: 'templates/statshistory.html'
+			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
 						  });

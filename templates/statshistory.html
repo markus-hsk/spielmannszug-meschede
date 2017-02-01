@@ -1,0 +1,37 @@
+<div>
+	<h3>
+		<i class="fa fa-fw fa-line-chart" aria-hidden="true"></i> Mitgliederentwicklung {{year_from}} - {{year_until}}
+	</h3>
+	<hr>
+
+	<div id="chartcontainer">
+		<canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-options="options" chart-series="series" chart-colors="colors" chart-click="onClick"></canvas>
+	</div>
+
+	<div>
+
+		<table class="table table-striped" id="historydatatable">
+			<thead>
+				<tr>
+					<th>Jahr</th>
+					<th align="center">Mitglieder</th>
+					<th align="right">Änderung</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in table_data">
+					<th>{{row.year}}</th>
+					<td align="center">{{row.members}}</td>
+					<td align="right" class="{{row.change}}">{{row.difference}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+
+

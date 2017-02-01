@@ -12,13 +12,9 @@ angular.module('spzdb'	// So heißt die App
 				var getmode = _GET.mode;
 				debugSpzDb('statsNowController Initialize', getmode);
 
-				$("#mainview").hide();
-				$("#loader").show();
-
 				me.mode          = getmode;
 				me.stateselector = '';
 
-				me.filter_open                = false;
 				me.filters                    = {};
 				me.filters.search             = '';
 				me.filters.state              = 'aktiv';
@@ -31,7 +27,10 @@ angular.module('spzdb'	// So heißt die App
 
 				me.load = function()
 				{
-					debugSpzDb('memberListController->load() Call');
+					debugSpzDb('statsNowController->load() Call');
+
+					$("#mainview").hide();
+					$("#loader").show();
 
 					me.chartoptions = {
 						legend:              {display: false},

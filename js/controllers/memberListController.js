@@ -9,9 +9,6 @@ angular.module('spzdb')
 		   {
 			   debugSpzDb('memberListController Initialize');
 
-			   $("#mainview").hide();
-			   $("#loader").show();
-
 			   me.current_sort_field = 'LASTNAME';
 			   me.current_sort_dir   = 'asc';
 
@@ -31,15 +28,20 @@ angular.module('spzdb')
 			   me.load = function()
 			   {
 				   debugSpzDb('memberListController->load() Call');
+
+				   $("#mainview").hide();
+				   $("#loader").show();
+
 				   memberService.load(function()
-									{
-										$("#mainview").show();
-										$("#loader").hide();
+									  {
+										  $("#mainview").show();
+										  $("#loader").hide();
 
-										me.rows = memberService.getList(me.getFilters(), me.getSortBy());
+										  me.rows = memberService.getList(me.getFilters(), me.getSortBy());
 
-										$('#footer_container').html('Anzahl Mitglieder: ' + me.rows.length + ' von ' + memberService.getTotalUnfiltered());
-									}
+										  $('#footer_container')
+											  .html('Anzahl Mitglieder: ' + me.rows.length + ' von ' + memberService.getTotalUnfiltered());
+									  }
 				   );
 			   };
 

@@ -228,3 +228,14 @@ th[align=center], td[align=center] {
 		transform: rotate(360deg);
 	}
 }
+
+
+
+/* Historie */
+#historydatatable td.changeplus {
+	color: darkgreen;
+}
+
+#historydatatable td.changeminus {
+	color: red;
+}
