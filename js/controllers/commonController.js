@@ -33,6 +33,10 @@ angular.module('spzdb',	// So heißt die App
 				   controller:  'statsHistoryController',
 				   templateUrl: 'templates/statshistory.html'
 			   })
+			   .when('/ehrungen', {
+				   controller:  'ehrungenController',
+				   templateUrl: 'templates/ehrungen.html'
+			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
 						  });
