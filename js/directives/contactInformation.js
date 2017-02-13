@@ -21,7 +21,7 @@ angular.module('spzdb')
 
 					  case 'phone':
 					  case 'mobile':
-						  return '<i class="fa fa-fw fa-phone" aria-hidden="true"></i> ' + formatTelephoneNumber(value);
+						  return '<i class="fa fa-fw fa-phone" aria-hidden="true"></i> <span>' + formatTelephoneNumber(value) + '</span>';
 
 					  default:
 						  return type + ': ' + value;
