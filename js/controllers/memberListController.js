@@ -92,5 +92,11 @@ angular.module('spzdb')
 				   return memberService.getTotalUnfiltered();
 			   };
 
+			   me.clearSearch = function()
+			   {
+				   me.filters.search = '';
+				   me.filterList();
+			   };
+
 			   me.load();
 		   }]);

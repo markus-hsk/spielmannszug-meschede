@@ -250,7 +250,9 @@ class Member
 	{
 		if($this->contact_data === null)
 		{
-			$this->contact_data = array();
+			$this->contact_data = array('email' => '',
+										'mobile' => '',
+										'phone' => '');
 			
 			// Kontaktdaten abrufen
 			$sql = "SELECT * /* Member->getContactData() LastUpdate: ".$this->UPDATE_TS." */
@@ -266,5 +268,92 @@ class Member
 		}
 		
 		return $this->contact_data;
+	}
+
+
+	public function save($data)
+	{
+		foreach($data as $key => $value)
+		{
+			if(isset($this->data_array[$key]))
+			{
+				switch($key)
+				{
+					case 'GENDER':
+						if($value == 'm' || $value == 'w')
+							$this->data_array[$key] = $value;
+						break;
+
+					default:
+						$this->data_array[$key] = $value;
+						break;
+				}
+			}
+		}
+
+		$sql = "UPDATE spz_members SET 
+					LASTNAME	= ".toSql($this->LASTNAME).",
+					FIRSTNAME	= ".toSql($this->FIRSTNAME).",
+					BIRTHNAME	= ".toSql($this->BIRTHNAME).",
+					GENDER		= ".toSql($this->GENDER).",
+					STREET		= ".toSql($this->STREET).",
+					ZIP			= ".toSql($this->ZIP).",
+					CITY		= ".toSql($this->CITY).",
+					BIRTHDATE	= ".toSql($this->BIRTHDATE, 'date').",
+					DEATHDATE	= ".toSql($this->DEATHDATE, 'date', null).",
+					INSTRUMENT	= ".toSql($this->INSTRUMENT)."
+				WHERE MEMBER_ID = ".((int) $this->member_id);
+		$done = DB::query($sql);
+
+		// Sollen Kontaktdaten geschrieben werden?
+		if(isset($data['CONTACT']))
+		{
+			foreach($data['CONTACT'] as $type => $value)
+			{
+				$this->saveContactData($type, $value);
+			}
+		}
+
+		// Update-TS setzen
+		$this->data_array['UPDATE_TS'] = date('Y-m-d H:i:s');
+		static::setLastUpdateTs();
+
+		return true;
+	}
+
+
+	protected function saveContactData($type, $value)
+	{
+		if(in_array($type, array('email', 'mobile', 'phone')))
+		{
+			$sql = "INSERT INTO spz_contact_informations SET 
+						MEMBER_ID = ".((int) $this->member_id).",
+						CONTACT_TYPE = ".toSql($type).",
+						VALUE = ".toSql($value)."
+					 ON DUPLICATE KEY UPDATE 
+						VALUE = ".toSql($value);
+			return DB::query($sql);
+		}
+
+		return false;
+	}
+
+
+
+	public static function setLastUpdateTs()
+	{
+		$date = date('Y-m-d H:i:s');
+		$done = Cache::set('MemberLastUpdate', $date);
+		return $done ? $date : false;
+	}
+
+
+	public static function getLastUpdateTs()
+	{
+		$cached = Cache::get('MemberLastUpdate');
+		if($cached === false)
+			return static::setLastUpdateTs();
+		else
+			return $cached;
 	}
 }

@@ -11,8 +11,9 @@ require_once(RelativePath.'/common.inc.php');
 
 $filters = $_GET;
 
-$cachekey = 'memberlist '.serialize($filters);	// @todo Zeitstempel aus Member-Klasse holen, um bei Veralterung der Daten nicht mehr auf diesen zur�ck zu greifen.
-												// alternativ diesen Cache beim �ndern eines Users automatisch l�schen
+$update_ts = Member::getLastUpdateTs();
+$cachekey  = 'memberlist '.serialize($filters).' '.$update_ts;
+
 $records = Cache::get($cachekey);
 if($records === false)
 {

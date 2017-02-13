@@ -11,6 +11,9 @@ angular.module('spzdb')
 			  // siehe: http://stackoverflow.com/questions/20810862/passing-value-of-a-variable-to-angularjs-directive-template-function
 			  var getTemplate = function(type, value)
 			  {
+				  if(value == '')
+				  	return '';
+
 				  switch(type)
 				  {
 					  case 'email':

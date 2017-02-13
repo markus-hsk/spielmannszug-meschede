@@ -1,0 +1,163 @@
+<div id="memberdetail">
+	<h3>
+		<i class="fa fa-fw fa-pencil-square-o" aria-hidden="true"></i> {{title}}
+	</h3>
+	<hr>
+
+	<form>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			  <h3 class="panel-title">Personendaten</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="firstname">Vorname: </label>
+							<input type="text" value="{{member.FIRSTNAME}}" id="firstname" placeholder="Vorname" class="form-control" ng-model="member.FIRSTNAME" ng-required="required">
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="lastname">Nachname: </label>
+							<input type="text" value="{{member.LASTNAME}}" id="lastname" placeholder="Nachname" class="form-control" ng-model="member.LASTNAME" ng-required="required">
+						</div>
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="birthname">Geburtsname: </label>
+							<input type="text" value="{{member.LASTNAME}}" id="birthname" placeholder="Geburtsname" class="form-control" ng-model="member.BIRTHNAME">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="gender">Geschlecht: </label>
+							<select id="gender" class="form-control" ng-model="member.GENDER" ng-required="required">
+								<option value="">-----</option>
+								<option value="w">weiblich</option>
+								<option value="m">männlich</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="col-xs-6 mbottom">
+							<label class="label label-default" for="birthdate">Geburtsdatum: </label>
+							<div class="input-group date" default-view-date="BIRTHDATE">
+								<input type="text" value="{{member.BIRTHDATE}}" id="birthdate" class="form-control" ng-model="member.BIRTHDATE">
+								<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+							</div>
+						</div>
+						<div class="col-xs-6 mbottom">
+							<label class="label label-default" for="deathdate">gestorben: </label>
+							<div class="input-group date" clear-btn="false" default-view-date="DEATHDATE">
+								<input type="text" value="{{member.DEATHDATE}}" id="deathdate" class="form-control" ng-model="member.DEATHDATE">
+								<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="street">Anschrift: </label>
+							<input type="text" value="{{member.STREET}}" id="street" placeholder="Straße & Hausnummer" class="form-control" ng-model="member.STREET">
+						</div>
+						<div class="col-xs-4 mbottom">
+							<label class="label label-default" for="zip">PLZ: </label>
+							<input type="text" value="{{member.ZIP}}" id="zip" placeholder="PLZ" class="form-control" ng-model="member.ZIP">
+						</div>
+						<div class="col-xs-8 mbottom">
+							<label class="label label-default" for="city">Ort: </label>
+							<input type="text" value="{{member.CITY}}" id="city" placeholder="Ort" class="form-control" ng-model="member.CITY">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="instrument">Instrument: </label>
+							<input type="text" value="{{member.INSTRUMENT}}" id="instrument" placeholder="Instrument" class="form-control" ng-model="member.INSTRUMENT">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			  <h3 class="panel-title">Kontaktdaten</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="phone">Telefon: </label>
+							<input type="text" value="{{member.CONTACT.phone}}" id="phone" class="form-control" ng-model="member.CONTACT.phone">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="mobile">Mobil: </label>
+							<input type="text" value="{{member.CONTACT.mobile}}" id="mobile" class="form-control" ng-model="member.CONTACT.mobile">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="email">E-Mail: </label>
+							<input type="text" value="{{member.CONTACT.email}}" id="email" class="form-control" ng-model="member.CONTACT.email">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			  <h3 class="panel-title">Mitgliedschaft</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Art</th>
+							<th>von</th>
+							<th>bis</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="state in member.STATES">
+							<td>{{state.STATE}}</td>
+							<td>{{state.START_DATE | myDateFormat}}</td>
+							<td>{{state.END_DATE | myDateFormat}}</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-2"></div>
+				<div class="col-md-10 mbottom" style="text-align: right;">
+					<button type="button" class="btn btn-sm btn-primary" ng-click="save()">Speichern</button>
+					<button type="button" class="btn btn-sm btn-default" ng-click="cancel()">Abbrechen</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+

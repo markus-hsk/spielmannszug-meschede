@@ -26,6 +26,16 @@
 	margin-bottom: 2px;
 }
 
+#memberdetail .ng-valid-required.ng-empty {
+	background-color: #fed5ce;
+	border: 1px solid red;
+}
+
+#memberdetail .row>div {
+	padding-right: 0;
+	padding-left: 0;
+}
+
 a.sorter {
 	text-decoration: none;
 }
@@ -40,6 +50,10 @@ th[align=right], td[align=right] {
 
 th[align=center], td[align=center] {
 	text-align: center !important;
+}
+
+.mbottom {
+	margin-bottom: 20px;
 }
 
 

@@ -145,4 +145,31 @@ angular.module('spzdb')
 
 				return list;
 			};
+
+			this.getMemberById = function(member_id)
+			{
+				for(var i = 0; i < memberlist.length; i++)
+				{
+					if(memberlist[i].MEMBER_ID == member_id)
+						return memberlist[i];
+				}
+			};
+
+			this.save = function (member_id, memberdata, callback)
+			{
+				$http({
+						  method: 'POST',
+						  url:    './save_member.php?member_id=' + member_id,
+						  data:   memberdata
+					  }).then(function successCallback(response)
+							  {
+								  debugSpzDb('save success', response);
+
+								  callback();
+							  },
+							  function errorCallback(response)
+							  {
+								  console.error('save error', response);
+							  });
+			};
 		});

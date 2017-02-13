@@ -12,6 +12,11 @@ final class DB
 {
 	protected static $connected = false;
 
+	const int	= 'int';
+	const float	= 'float';
+	const text	= 'text';
+	const bool	= 'bool';
+
 
 	public static function init()
 	{}
@@ -30,10 +35,12 @@ final class DB
 
 
 
-	/*public static function query($sql)
+	public static function query($sql)
 	{
+		static::connect();
 
-	}*/
+		return R::exec($sql);
+	}
 
 
 	public static function getRecords($sql)
@@ -61,4 +68,82 @@ final class DB
 			return $records;
 		}
 	}
+
+
+	static function toSql($value, $value_type = '', $empty_as = '')
+	{
+		if($value === NULL)
+		{
+			if($empty_as === NULL)
+				return 'NULL';
+			else
+				$value = $empty_as;
+		}
+
+		switch($value_type)
+		{
+			case 'int':	// Wenn ganzzahlige Werte zur�ck gegeben werden sollen
+				return (int)$value;
+				break;
+
+			case 'bool':	// Wenn Wahrheitswerte zur�ck gegeben werden sollen
+				return $value ? 'TRUE' : 'FALSE';
+				break;
+
+			case 'float':		// Wenn Flie�kommazahlen zur�ck gegeben werden sollen
+				$float = floatval(str_replace(',', '.', $value));
+				if((String) $float == 'INF')
+					return 0;
+				else
+					return $float;
+				break;
+
+			case 'unixts':		// Wenn ein Zeitstempel erwartet wird
+			case 'date':		// Wenn ein Datumswert erwartet wird
+			case 'datetime':	// Wenn ein Datum mit Zeit erwartet wird
+				if(is_int($value))
+				{
+					if($value > 0)
+						return "'".date('Y-m-d H:i:s', $value)."'";
+					else
+						return "'0000-00-00 00:00:00'";
+				}
+				else {
+					if (is_string($value) && strlen($value) == 0) {
+						return "'0000-00-00 00:00:00'";
+					}
+
+					return "'".date('Y-m-d H:i:s', strtotime($value))."'";
+				}
+
+				/* Der Wert wird umgewandelt in einen Zeitstempel und dann als normaler Text weiter verarbeitet */
+				break;
+
+			case 'time':		// Wenn nur eines Uhrzeit erwartet wird
+				if(is_int($value))
+				{
+					if($value > 0)
+						return "'".date('H:i:s', $value)."'";
+					else
+						return "'00:00:00'";
+				}
+				else
+					return "'".date('H:i:s', strtotime($value))."'";
+				/* Der Wert wird umgewandelt in einen Zeitstempel und dann als normaler Text weiter verarbeitet */
+				break;
+
+
+			case '':
+			case 'text':
+			default:
+				return "'" . addslashes($value) . "'";	// Sollte nur beim Debuggen getriggert werden
+				break;
+		}
+	}
+}
+
+
+function toSql($value, $type = '', $empty_as = '')
+{
+	return DB::toSql($value, $type, $empty_as);
 }

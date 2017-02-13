@@ -28,9 +28,12 @@
 		  <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
 		</div>
 		<div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
-			<div class="col-md-10">
+			<div class="col-md-10 mbottom">
 				<label for="search">Person suchen:</label><br>
-				<input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()"><br>&nbsp;
+				<div class="input-group">
+					<input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()">
+					<a href="" ng-click="clearSearch()" class="input-group-addon"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></a>
+				</div>
 			</div>
 			<div class="col-md-3">
 				<label>Geschlecht:</label><br>
@@ -62,6 +65,7 @@
 				<th scope="col"><a href="" class="sorter {{current_sort_field == 'STATE' ? 'active_sorter' : ''}}" id="SORTER_STATE" ng-click="sortBy('STATE')">Status <i class="fa fa-fw {{current_sort_field == 'STATE' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
 				<th scope="col"><a href="" class="sorter {{current_sort_field == 'INSTRUMENT' ? 'active_sorter' : ''}}" id="SORTER_INSTRUMENT" ng-click="sortBy('INSTRUMENT')">Instrument <i class="fa fa-fw {{current_sort_field == 'INSTRUMENT' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
 				<th scope="col">Kontaktdaten</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody id="memberlist">
@@ -78,6 +82,9 @@
 				<td data-label="Instrument" class="hideResponsiveSimple">{{row.INSTRUMENT}}</td>
 				<td data-label="Kontaktdaten" class="hideResponsiveSimple">
 					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="type" value="value"></div></div>
+				</td>
+				<td>
+					<a href="#!/mitglied/{{row.MEMBER_ID}}" title="Details" class="editlink"><i class="fa fa-pencil-square-o" aria-hidden="true" aria-label="Details"></i></a>
 				</td>
 			</tr>
 		</tbody>
