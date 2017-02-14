@@ -38,6 +38,23 @@ if(!$data_encoded)
 if($member_id == 'new')
 {
 	// Mitglied anlegen
+	$Member = Member::create($data_encoded);
+
+	if(!$Member)
+	{
+		http_response_code(400);
+		header('Content-Type: application/json');
+		header('Error: New Member could not be created');
+		echo json_encode([]);
+		exit;
+	}
+	else
+	{
+		http_response_code(200);
+		header('Content-Type: application/json');
+		echo json_encode([$Member->getDataArrayDeep()]);
+		exit;
+	}
 }
 else
 {
