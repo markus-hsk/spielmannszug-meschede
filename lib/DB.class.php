@@ -6,16 +6,28 @@
  * Time: 14:01
  */
 
+
+define('dbInt',		'int');
+define('dbFloat',	'float');
+define('dbText',	'text');
+define('dbBool',	'bool');
+define('dbDate',	'date');
+
+
 require_once(RelativePath.'/lib/rb.php');
 
 final class DB
 {
-	protected static $connected = false;
+	/** @var mysqli $DB */
+	protected static $DB = null;
 
-	const int	= 'int';
-	const float	= 'float';
-	const text	= 'text';
-	const bool	= 'bool';
+	/** @var mysqli_result $Result */
+	protected static $Result = false;
+
+
+
+	private function __construct() {}
+	private function __clone() {}
 
 
 	public static function init()
@@ -24,10 +36,10 @@ final class DB
 
 	private static function connect()
 	{
-		if(!static::$connected)
+		if(static::$DB === null)
 		{
-			R::setup('mysql:host='.DB_HOST.':'.DB_PORT.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
-			static::$connected = true;
+			static::$DB = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT);
+			mysqli_set_charset(static::$DB, 'utf8');
 		}
 
 		return true;
@@ -39,7 +51,12 @@ final class DB
 	{
 		static::connect();
 
-		return R::exec($sql);
+		static::$Result = mysqli_query(static::$DB, $sql);
+
+		if(static::$Result)
+			return true;
+		else
+			return false;
 	}
 
 
@@ -47,7 +64,19 @@ final class DB
 	{
 		static::connect();
 
-		return R::getAll( $sql );
+		$result = static::query($sql);
+		if($result)
+		{
+			$records = array();
+			while($data = mysqli_fetch_assoc(static::$Result))
+			{
+				$records[] = $data;
+			}
+
+			return $records;
+		}
+		else
+			return false;
 	}
 
 
@@ -70,6 +99,13 @@ final class DB
 	}
 
 
+	public static function getInsertId()
+	{
+		static::connect();
+		return mysqli_insert_id(static::$DB);
+	}
+
+
 	static function toSql($value, $value_type = '', $empty_as = '')
 	{
 		if($value === NULL)
@@ -82,15 +118,15 @@ final class DB
 
 		switch($value_type)
 		{
-			case 'int':	// Wenn ganzzahlige Werte zur�ck gegeben werden sollen
+			case dbInt:	// Wenn ganzzahlige Werte zur�ck gegeben werden sollen
 				return (int)$value;
 				break;
 
-			case 'bool':	// Wenn Wahrheitswerte zur�ck gegeben werden sollen
+			case dbBool:	// Wenn Wahrheitswerte zur�ck gegeben werden sollen
 				return $value ? 'TRUE' : 'FALSE';
 				break;
 
-			case 'float':		// Wenn Flie�kommazahlen zur�ck gegeben werden sollen
+			case dbFloat:		// Wenn Flie�kommazahlen zur�ck gegeben werden sollen
 				$float = floatval(str_replace(',', '.', $value));
 				if((String) $float == 'INF')
 					return 0;
@@ -99,7 +135,7 @@ final class DB
 				break;
 
 			case 'unixts':		// Wenn ein Zeitstempel erwartet wird
-			case 'date':		// Wenn ein Datumswert erwartet wird
+			case dbDate:		// Wenn ein Datumswert erwartet wird
 			case 'datetime':	// Wenn ein Datum mit Zeit erwartet wird
 				if(is_int($value))
 				{
@@ -134,9 +170,10 @@ final class DB
 
 
 			case '':
-			case 'text':
+			case dbText:
 			default:
-				return "'" . addslashes($value) . "'";	// Sollte nur beim Debuggen getriggert werden
+				static::connect();
+				return "'" . mysqli_real_escape_string(static::$DB, $value) . "'";
 				break;
 		}
 	}
