@@ -93,6 +93,54 @@ class Member
 	}
 
 
+	public static function create(array $data_array)
+	{
+		$defaults = array('LASTNAME' 	=> '',
+						  'FIRSTNAME'	=> '',
+						  'BIRTHNAME'	=> '',
+						  'GENDER'		=> 'm',
+						  'STREET'		=> '',
+						  'ZIP'			=> '',
+						  'CITY'		=> '',
+					  	  'BIRTHDATE'	=> null,
+						  'DEATHDATE'	=> null,
+						  'INSTRUMENT'	=> '');
+
+		$data_array = array_merge($defaults, $data_array);
+
+		$sql = "INSERT INTO spz_members SET 
+					LASTNAME	= ".toSql($data_array['LASTNAME']).",
+					FIRSTNAME	= ".toSql($data_array['FIRSTNAME']).",
+					BIRTHNAME	= ".toSql($data_array['BIRTHNAME']).",
+					GENDER		= ".toSql(($data_array['GENDER'] == 'm' ? 'm' : 'w')).",
+					STREET		= ".toSql($data_array['STREET']).",
+					ZIP			= ".toSql($data_array['ZIP']).",
+					CITY		= ".toSql($data_array['CITY']).",
+					BIRTHDATE	= ".toSql($data_array['BIRTHDATE'], 'date').",
+					DEATHDATE	= ".toSql($data_array['DEATHDATE'], 'date', null).",
+					INSTRUMENT	= ".toSql($data_array['INSTRUMENT']);
+		DB::query($sql);
+
+		$member_id = DB::getInsertId();
+
+		if($member_id > 0)
+		{
+			$members = Member::find(['MEMBER_ID' => $member_id]);
+			$Member = $members[0];
+
+			if(isset($data['CONTACT']))
+			{
+				foreach($data['CONTACT'] as $type => $value)
+				{
+					$Member->saveContactData($type, $value);
+				}
+			}
+		}
+		else
+			return false;
+	}
+
+
 
 
 	// ##### Instanzmethoden ###########################################################################################
@@ -322,20 +370,47 @@ class Member
 	}
 
 
-	protected function saveContactData($type, $value)
+	public function saveContactData($type, $value)
 	{
 		if(in_array($type, array('email', 'mobile', 'phone')))
 		{
 			$sql = "INSERT INTO spz_contact_informations SET 
-						MEMBER_ID = ".((int) $this->member_id).",
+						MEMBER_ID = ".toSql($this->member_id, dbInt).",
 						CONTACT_TYPE = ".toSql($type).",
 						VALUE = ".toSql($value)."
 					 ON DUPLICATE KEY UPDATE 
 						VALUE = ".toSql($value);
-			return DB::query($sql);
+			$done = DB::query($sql);
+
+			// Update-TS setzen
+			$this->data_array['UPDATE_TS'] = date('Y-m-d H:i:s');
+			static::setLastUpdateTs();
+
+			return $done;
 		}
 
 		return false;
+	}
+
+
+	public function delete()
+	{
+		$sql = "DELETE FROM spz_members
+				WHERE MEMBER_ID = ".toSql($this->member_id, dbInt);
+		DB::query($sql);
+
+		$sql = "DELETE FROM spz_contact_informations
+				WHERE MEMBER_ID = ".toSql($this->member_id, dbInt);
+		DB::query($sql);
+
+		$sql = "DELETE FROM spz_membership_states
+				WHERE MEMBER_ID = ".toSql($this->member_id, dbInt);
+		DB::query($sql);
+
+		$this->data_array = array();
+		static::setLastUpdateTs();
+
+		return true;
 	}
 
 

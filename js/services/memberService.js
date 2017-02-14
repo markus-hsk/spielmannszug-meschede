@@ -172,4 +172,21 @@ angular.module('spzdb')
 								  console.error('save error', response);
 							  });
 			};
+
+			this.delete = function(member_id, callback)
+			{
+				$http({
+						  method: 'DELETE',
+						  url:    './delete_member.php?member_id=' + member_id
+					  }).then(function successCallback(response)
+							  {
+								  debugSpzDb('delete success', response);
+
+								  callback();
+							  },
+							  function errorCallback(response)
+							  {
+								  console.error('delete error', response);
+							  });
+			};
 		});

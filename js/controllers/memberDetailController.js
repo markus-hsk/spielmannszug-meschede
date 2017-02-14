@@ -10,8 +10,9 @@ angular.module('spzdb')
 			   me.member_id = _GET.member_id;
 			   debugSpzDb('memberDetailController Initialize', me.member_id);
 
-			   me.member = {};
-			   me.title = '';
+			   me.member     = {};
+			   me.title      = '';
+			   me.deleteable = false;
 
 			   me.test  = '10.10.1960';
 			   me.dateOptions = {
@@ -32,6 +33,8 @@ angular.module('spzdb')
 										  $("#loader").hide();
 
 										  me.member = memberService.getMemberById(me.member_id);
+
+			   							  me.deleteable = true;
 
 										  debugSpzDb('memberDetailController->load() callback', me.member);
 
@@ -72,6 +75,23 @@ angular.module('spzdb')
 				   if(result)
 				   {
 					   $location.url('/mitglieder/aktiv');
+				   }
+			   };
+
+			   me.delete = function()
+			   {
+				   var result = confirm('Dieses Mitglied wirklich löschen?');
+
+				   debugSpzDb('memberDetailController->delete()', me.member, result);
+
+				   if(result)
+				   {
+					   var callback = function()
+					   {
+						   $location.url('/mitglieder/aktiv');
+					   };
+
+					   memberService.delete(me.member_id, callback);
 				   }
 			   };
 
