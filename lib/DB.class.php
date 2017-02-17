@@ -13,9 +13,6 @@ define('dbText',	'text');
 define('dbBool',	'bool');
 define('dbDate',	'date');
 
-
-require_once(RelativePath.'/lib/rb.php');
-
 final class DB
 {
 	/** @var mysqli $DB */
