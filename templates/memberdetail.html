@@ -116,6 +116,67 @@
 			</div>
 		</div>
 
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			  <h3 class="panel-title">Mitgliedschaft</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Art</th>
+							<th align="center">von</th>
+							<th align="center">bis</th>
+							<th align="right"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="state in member.STATES">
+							<td>
+								<select ng-model="state.STATE" class="form-control" ng-required="required">
+									<option value="aktiv">aktiv</option>
+									<option value="passiv">passiv</option>
+									<option value="Ausbildung">Ausbildung</option>
+									<optgroup label="Vorstand">
+										<option value="1vorsitz">1. Vorsitzender</option>
+										<option value="2vorsitz">2. Vorsitzender</option>
+										<option value="schrift">Schriftführer</option>
+										<option value="kassierer">Kassierer</option>
+										<option value="major">Tambourmajor</option>
+									</optgroup>
+								</select>
+							</td>
+							<td align="center">
+								<div>
+									<div class="input-group date" clear-btn="false" default-view-date="state.START_DATE">
+										<input type="text" class="form-control" ng-model="state.START_DATE" ng-required="required">
+										<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</td>
+							<td align="center">
+								<div>
+									<div class="input-group date" clear-btn="false" default-view-date="state.END_DATE">
+										<input type="text" class="form-control" ng-model="state.END_DATE">
+										<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</td>
+							<td align="right">
+								<a href="" ng-click="deleteState(state.MEMBERSHIP_ID)" title="Diesen Status löschen" class="btn btn-danger onhover"><i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i></a>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<a href="" ng-click="addState()" class="btn btn-sm btn-default"><i class="fa fa-plus-circle" aria-hidden="true"></i> Mitgliedschafts-Status hinzufügen</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="col-md-2"></div>

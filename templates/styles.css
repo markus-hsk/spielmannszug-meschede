@@ -56,6 +56,14 @@ th[align=center], td[align=center] {
 	margin-bottom: 20px;
 }
 
+.onhover {
+	opacity: 0.2;
+}
+
+.onhover:hover {
+	opacity: 1;
+}
+
 
 /** Responsive Table http://codepen.io/maddesigns/full/pHqnt */
 @media screen and (max-width: 767px){

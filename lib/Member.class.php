@@ -135,6 +135,14 @@ class Member
 					$Member->saveContactData($type, $value);
 				}
 			}
+
+			if(isset($data['STATES']))
+			{
+				foreach($data['STATES'] as $state)
+				{
+					$Member->saveMembershipState($state);
+				}
+			}
 		}
 		else
 			return false;
@@ -362,6 +370,14 @@ class Member
 			}
 		}
 
+		if(isset($data['STATES']))
+		{
+			foreach($data['STATES'] as $state)
+			{
+				$this->saveMembershipState($state);
+			}
+		}
+
 		// Update-TS setzen
 		$this->data_array['UPDATE_TS'] = date('Y-m-d H:i:s');
 		static::setLastUpdateTs();
@@ -390,6 +406,44 @@ class Member
 		}
 
 		return false;
+	}
+
+
+	public function saveMembershipState($state)
+	{
+		if(!isset($state['MEMBERSHIP_ID']) || strpos($state['MEMBERSHIP_ID'], 'NEW') !== false)
+		{
+			// Neu anlegen
+			$sql = "INSERT INTO spz_membership_states SET 
+						MEMBER_ID = ".toSql($this->member_id, dbInt).",
+						STATE = ".toSql($state['STATE']).",
+						START_DATE = ".toSql($state['START_DATE']).",
+						END_DATE = ".toSql($state['END_DATE'], dbText, null);
+			$done = DB::query($sql);
+
+			// Update-TS setzen
+			$this->data_array['UPDATE_TS'] = date('Y-m-d H:i:s');
+			static::setLastUpdateTs();
+
+			return $done;
+		}
+		else
+		{
+			// aktualisieren
+			$sql = "UPDATE spz_membership_states SET 
+						STATE = ".toSql($state['STATE']).",
+						START_DATE = ".toSql($state['START_DATE']).",
+						END_DATE = ".toSql($state['END_DATE'], dbText, null)."
+					WHERE MEMBERSHIP_ID = ".toSql($state['MEMBERSHIP_ID'], dbInt)."
+					AND MEMBER_ID = ".toSql($this->member_id, dbInt);
+			$done = DB::query($sql);
+
+			// Update-TS setzen
+			$this->data_array['UPDATE_TS'] = date('Y-m-d H:i:s');
+			static::setLastUpdateTs();
+
+			return $done;
+		}
 	}
 
 

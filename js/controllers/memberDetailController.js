@@ -95,6 +95,39 @@ angular.module('spzdb')
 				   }
 			   };
 
+			   me.addState = function()
+			   {
+				   var start_date = date_to_string("Y-m-d");
+				   var membership_id = 'NEW_' + date_to_string('His');
+
+				   me.member.STATES.push({	STATE: '',
+										 	START_DATE: start_date,
+					   						END_DATE: null,
+					   						MEMBERSHIP_ID: membership_id
+										 });
+
+				   debugSpzDb('memberDetailController->addState()', me.member.STATES);
+			   };
+
+			   me.deleteState = function(membership_id)
+			   {
+				    var result = confirm('Diesen Status wirklich löschen?');
+
+				   debugSpzDb('memberDetailController->deleteState()', membership_id, result);
+
+				   if(result)
+				   {
+					   for(var i = 0; i < me.member.STATES.length; i++)
+					   {
+						   if(me.member.STATES[i].MEMBERSHIP_ID == membership_id)
+						   {
+							   me.member.STATES.splice(i, 1);
+							   break;
+						   }
+					   }
+				   }
+			   };
+
 			   if(me.member_id == 'new')
 			   {
 				   me.title = 'Mitglied anlegen';
