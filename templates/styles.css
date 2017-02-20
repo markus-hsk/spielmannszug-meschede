@@ -261,3 +261,8 @@ th[align=center], td[align=center] {
 #historydatatable td.changeminus {
 	color: red;
 }
+
+
+._720kb-datepicker-calendar-day:hover,._720kb-datepicker-calendar-day._720kb-datepicker-active {
+  background: rgba(255, 134, 0, 1);
+}

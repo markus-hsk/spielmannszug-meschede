@@ -42,17 +42,21 @@
 					<div class="col-md-6">
 						<div class="col-xs-6 mbottom">
 							<label class="label label-default" for="birthdate">Geburtsdatum: </label>
-							<div class="input-group date" default-view-date="BIRTHDATE">
-								<input type="text" value="{{member.BIRTHDATE}}" id="birthdate" class="form-control" ng-model="member.BIRTHDATE" ng-required="required">
-								<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
-							</div>
+							<datepicker date-set="{{member.BIRTHDATE}}" date-format="yyyy-MM-dd" selector="form-control" date-week-start-day="1" date-typer="true">
+								<div class="input-group date" default-view-date="BIRTHDATE">
+									<input ng-model="member.BIRTHDATE" type="text" ng-required="required" id="birthdate" class="form-control"/>
+									<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+								</div>
+							</datepicker>
 						</div>
 						<div class="col-xs-6 mbottom">
 							<label class="label label-default" for="deathdate">gestorben: </label>
-							<div class="input-group date" clear-btn="false" default-view-date="DEATHDATE">
-								<input type="text" value="{{member.DEATHDATE}}" id="deathdate" class="form-control" ng-model="member.DEATHDATE">
-								<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
-							</div>
+							<datepicker date-set="{{member.DEATHDATE}}" date-format="yyyy-MM-dd" selector="form-control" date-week-start-day="1">
+								<div class="input-group date" default-view-date="DEATHDATE">
+									<input ng-model="member.DEATHDATE" type="text" id="deathdate" class="form-control"/>
+									<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+								</div>
+							</datepicker>
 						</div>
 					</div>
 				</div>
@@ -148,18 +152,22 @@
 							</td>
 							<td align="center">
 								<div>
-									<div class="input-group date" clear-btn="false" default-view-date="state.START_DATE">
-										<input type="text" class="form-control" ng-model="state.START_DATE" ng-required="required">
-										<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
-									</div>
+									<datepicker date-set="{{state.START_DATE}}" date-format="yyyy-MM-dd" selector="form-control" date-week-start-day="1">
+										<div class="input-group date" default-view-date="state.START_DATE">
+											<input ng-model="state.START_DATE" type="text" class="form-control" ng-required="required"/>
+											<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+										</div>
+									</datepicker>
 								</div>
 							</td>
 							<td align="center">
 								<div>
-									<div class="input-group date" clear-btn="false" default-view-date="state.END_DATE">
-										<input type="text" class="form-control" ng-model="state.END_DATE">
-										<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
-									</div>
+									<datepicker date-set="{{state.END_DATE}}" date-format="yyyy-MM-dd" selector="form-control" date-week-start-day="1">
+										<div class="input-group date" default-view-date="state.END_DATE">
+											<input ng-model="state.END_DATE" type="text" class="form-control"/>
+											<a href="" class="input-group-addon"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a>
+										</div>
+									</datepicker>
 								</div>
 							</td>
 							<td align="right">

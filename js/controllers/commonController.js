@@ -9,7 +9,7 @@
 
 
 angular.module('spzdb',	// So heißt die App
-			   ['ngRoute', 'chart.js'])	// Plugins
+			   ['ngRoute', 'chart.js', '720kb.datepicker'])	// Plugins
 
 .config(function($routeProvider, ChartJsProvider)
 	   {
@@ -45,5 +45,19 @@ angular.module('spzdb',	// So heißt die App
 							  redirectTo: '/mitglieder'
 						  });
 	   })
+
+
+.controller('datePickerController',
+			['$scope', '$interval',
+			function ($scope, $interval)
+			{
+				$scope.visibility = true;
+
+				$interval(function setInterval()
+						  {
+							  //toggling manually everytime
+							  $scope.visibility = !$scope.visibility;
+						  }, 3500);
+			}])
 
 ;
