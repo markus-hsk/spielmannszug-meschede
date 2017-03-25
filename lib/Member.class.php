@@ -250,14 +250,25 @@ class Member
 		{
 			$states 		 = $this->getMembershipStates();
 			$last_membership = '0000-00-00';
+			$vorstand       = false;
+			$ehrenmitglied  = false;
 
 			foreach($states as $state)
 			{
 				if($state['END_DATE'] == null)
 				{
-					// Es handelt sich um einen aktuellen Status
-					$this->current_state = $state;
-					break;
+					if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major']))
+					{
+						$vorstand = true;
+					}
+					else if($state['STATE'] == 'Ehrenmitglied')
+					{
+						$ehrenmitglied = true;
+					}
+					else if(in_array($state['STATE'], ['aktiv','passiv','schrift','kassierer','major']))
+					{
+						$this->current_state = $state;
+					}
 				}
 				else
 				{
@@ -274,6 +285,17 @@ class Member
 											 'START_DATE' => $last_membership,
 											 'END_DATE' => null
 											);
+			}
+			else
+			{
+				if($ehrenmitglied)
+				{
+					$this->current_state['STATE'] = 'Ehrenmitglied';
+				}
+				else if($vorstand)
+				{
+					$this->current_state['STATE'] = 'Vorstand';
+				}
 			}
 		}
 
