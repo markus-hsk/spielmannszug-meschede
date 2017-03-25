@@ -8,7 +8,9 @@
           <li><a href="#">2015</a></li>
         </ul>
 	</div>
-	<h3><i class="fa fa-fw fa-list" aria-hidden="true"></i> Mitgliederliste
+	
+	<h3><a href="#!/mitglied/new" style="float:right;" class="btn btn-primary"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> Neu</a>
+		<i class="fa fa-fw fa-list" aria-hidden="true"></i> Mitgliederliste
 		<div class="dropdown btn-group" style="vertical-align: inherit;">
 			<a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuState">{{filters.state}}</a>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuState">
@@ -37,7 +39,7 @@
 			</div>
 			<div class="col-md-3">
 				<label>Geschlecht:</label><br>
-				<label for="gender_m">mÃ¤nnlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+				<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
 				<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_w" id="gender_w" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
 			</div>
 			<div class="col-md-3">
@@ -47,7 +49,7 @@
 			</div>
 			<div class="col-md-3">
 				<label>Instrument:</label><br>
-				<label for="instrument_floete">FlÃ¶te:</label> <input type="checkbox" name="age" id="instrument_floete" value="floete" ng-model="filters.instrument_floete" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+				<label for="instrument_floete">Flöte:</label> <input type="checkbox" name="age" id="instrument_floete" value="floete" ng-model="filters.instrument_floete" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
 				<label for="instrument_trommel">Trommel:</label> <input type="checkbox" name="age" id="instrument_trommel" value="trommel" ng-model="filters.instrument_trommel" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
 			</div>
 		</div>
