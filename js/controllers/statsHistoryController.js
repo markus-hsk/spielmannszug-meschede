@@ -39,7 +39,11 @@ angular.module('spzdb'	// So heißt die App
 								id:       'y-axis-1',
 								type:     'linear',
 								display:  true,
-								position: 'left'
+			                    position: 'left',
+			                    ticks: {
+			                        suggestedMin: 0//,     // minimum will be 0, unless there is a lower value.
+			                        //beginAtZero:  true   // minimum value will be 0.
+			                    }
 							}
 						]
 					}
