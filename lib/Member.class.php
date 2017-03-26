@@ -265,7 +265,7 @@ class Member
 					{
 						$ehrenmitglied = true;
 					}
-					else if(in_array($state['STATE'], ['aktiv','passiv','schrift','kassierer','major']))
+					else if(in_array($state['STATE'], ['aktiv','passiv']))
 					{
 						$this->current_state = $state;
 					}
