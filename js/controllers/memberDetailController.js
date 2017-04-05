@@ -9,6 +9,11 @@ angular.module('spzdb')
 		   {
 			   me.member_id = _GET.member_id;
 			   debugSpzDb('memberDetailController Initialize', me.member_id);
+			   
+			   if(_GET.state)
+				   me.return_state = _GET.state;
+			   else
+				   me.return_state = 'aktiv';
 
 			   me.member     = {};
 			   me.title      = '';
@@ -40,7 +45,7 @@ angular.module('spzdb')
 
 										  if(me.member == null)
 										  {
-											  $location.url('/mitglieder/aktiv');
+											  $location.url('/mitglieder/' + me.return_state);
 										  }
 										  else
 										  {
@@ -60,7 +65,7 @@ angular.module('spzdb')
 				   {
 					   var callback = function()
 					   {
-						   $location.url('/mitglieder/aktiv');
+						   $location.url('/mitglieder/' + me.return_state);
 					   };
 					   memberService.save(me.member_id, me.member, callback);
 				   }
@@ -74,7 +79,7 @@ angular.module('spzdb')
 
 				   if(result)
 				   {
-					   $location.url('/mitglieder/aktiv');
+					   $location.url('/mitglieder/' + me.return_state);
 				   }
 			   };
 
@@ -88,7 +93,7 @@ angular.module('spzdb')
 				   {
 					   var callback = function()
 					   {
-						   $location.url('/mitglieder/aktiv');
+						   $location.url('/mitglieder/' + me.return_state);
 					   };
 
 					   memberService.delete(me.member_id, callback);
