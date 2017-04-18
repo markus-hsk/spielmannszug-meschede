@@ -39,7 +39,7 @@
 			</div>
 			<div class="col-md-3">
 				<label>Geschlecht:</label><br>
-				<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp
+				<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
 				<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_w" id="gender_w" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
 			</div>
 			<div class="col-md-3">
@@ -48,9 +48,15 @@
 				<label for="age_child">Kind:</label> <input type="checkbox" name="age" id="age_child" value="child" ng-model="filters.age_child" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
 			</div>
 			<div class="col-md-3">
-				<label>Instrument:</label><br>
-				<label for="instrument_floete">Flöte:</label> <input type="checkbox" name="age" id="instrument_floete" value="floete" ng-model="filters.instrument_floete" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
-				<label for="instrument_trommel">Trommel:</label> <input type="checkbox" name="age" id="instrument_trommel" value="trommel" ng-model="filters.instrument_trommel" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
+				<label for="instrument">Instrument:</label><br>
+				<select id="instrument" ng-model="filters.instrument" ng-change="filterList()">
+					<option value="all">Alle</option>
+					<option value="Flöte">Flöte</option>
+					<option value="Lyra">Lyra</option>
+					<option value="Trommel">Trommel</option>
+					<option value="Pauke">Pauke</option>
+					<option value="Becken">Becken</option>
+				</select><br>&nbsp;
 			</div>
 		</div>
 	</div>

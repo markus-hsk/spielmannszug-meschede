@@ -19,8 +19,7 @@ angular.module('spzdb'	// So heißt die App
 				me.filters.gender_m           = 1;
 				me.filters.age_adult          = 1;
 				me.filters.age_child          = 1;
-				me.filters.instrument_floete  = 1;
-				me.filters.instrument_trommel = 1;
+                me.filters.instrument		  = 'all';
 
 				me.current_year = new Date().getFullYear();
 

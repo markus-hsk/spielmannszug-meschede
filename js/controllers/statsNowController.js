@@ -22,8 +22,7 @@ angular.module('spzdb'	// So heißt die App
 				me.filters.gender_m           = 1;
 				me.filters.age_adult          = 1;
 				me.filters.age_child          = 1;
-				me.filters.instrument_floete  = 1;
-				me.filters.instrument_trommel = 1;
+				me.filters.instrument		  = 'all';
 
 				me.load = function()
 				{
@@ -74,9 +73,9 @@ angular.module('spzdb'	// So heißt die App
 					}
 					else if(me.mode == 'instrument')
 					{
-						me.labels        = ['Flöte', 'Trommel'];
-						me.colors        = ['#0000ff', '#ff0000'];
-						me.data          = [0, 0];
+						me.labels        = ['Flöte', 'Trommel', 'Lyra', 'Pauke, Becken'];
+						me.colors        = ['#0000ff', '#FFA500', '#26802E', '#FF0000'];
+						me.data          = [0, 0, 0, 0];
 						me.stateselector = '';
 					}
 
@@ -144,10 +143,14 @@ angular.module('spzdb'	// So heißt die App
 											   }
 											   else if(me.mode == 'instrument')
 											   {
-												   if(member.INSTRUMENT == 'Flöte')
+												   if(member.INSTRUMENT.indexOf('Flöte') !== -1)
 													   me.data[0]++;
-												   else
+												   else if(member.INSTRUMENT.indexOf('Trommel') !== -1)
 													   me.data[1]++;
+												   else if(member.INSTRUMENT.indexOf('Lyra') !== -1)
+												   		me.data[2]++;
+                                                   else if(member.INSTRUMENT.indexOf('Pauke') !== -1 || member.INSTRUMENT.indexOf('Becken') !== 1)
+                                                       me.data[3]++;
 
 												   total_age += member.AGE;
 											   }

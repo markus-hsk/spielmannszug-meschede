@@ -4,8 +4,8 @@
 
 angular.module('spzdb')
 
-.controller('memberListController', ['$scope', '$location', '$routeParams', 'memberService',
-		   function(me, $location, _GET, memberService)
+.controller('memberListController', ['$scope', '$location', '$routeParams', 'memberService', 'commonService',
+		   function(me, $location, _GET, memberService, commonService)
 		   {
 			   debugSpzDb('memberListController Initialize');
 
@@ -20,8 +20,10 @@ angular.module('spzdb')
 			   me.filters.gender_m           = 1;
 			   me.filters.age_adult          = 1;
 			   me.filters.age_child          = 1;
-			   me.filters.instrument_floete  = 1;
-			   me.filters.instrument_trommel = 1;
+               me.filters.instrument		 = 'all';
+
+               commonService.setCurrentState(me.filters.state);
+               commonService.getCurrentState();
 
 			   me.rows = [];
 

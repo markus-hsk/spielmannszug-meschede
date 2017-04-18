@@ -74,9 +74,13 @@ angular.module('spzdb')
 					if(filters.age_adult == 0 && member.AGE >= 18)																		continue;
 					if(filters.age_child == 0 && member.AGE < 18)																		continue;
 
-					if(filters.instrument_floete == 0 && member.INSTRUMENT == 'Flöte')													continue;
-					if(filters.instrument_trommel == 0 && member.INSTRUMENT == 'Trommel')												continue;
+					if(filters.instrument != 'all')
+					{
+                        if(member.INSTRUMENT.indexOf(filters.instrument) === -1)
+							continue;
+					}
 
+					// Der Eintrag darf angezeigt werden
 					list.push(member);
 				}
 

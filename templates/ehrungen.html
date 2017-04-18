@@ -29,8 +29,14 @@
 			</div>
 			<div class="col-md-3">
 				<label>Instrument:</label><br>
-				<label for="instrument_floete">Flöte:</label> <input type="checkbox" name="age" id="instrument_floete" value="floete" ng-model="filters.instrument_floete" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
-				<label for="instrument_trommel">Trommel:</label> <input type="checkbox" name="age" id="instrument_trommel" value="trommel" ng-model="filters.instrument_trommel" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
+				<select id="instrument" ng-model="filters.instrument" ng-change="filterList()">
+					<option value="all">Alle</option>
+					<option value="Flöte">Flöte</option>
+					<option value="Lyra">Lyra</option>
+					<option value="Trommel">Trommel</option>
+					<option value="Pauke">Pauke</option>
+					<option value="Becken">Becken</option>
+				</select><br>&nbsp;
 			</div>
 		</div>
 	</div>
