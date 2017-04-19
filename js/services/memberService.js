@@ -56,23 +56,23 @@ angular.module('spzdb')
 				{
 					var member = memberlist[i];
 
-					if(filters.state == 'aktiv'  		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Vorstand'))			continue;
-					if(filters.state == 'passiv' 		&& (member.CURRENT_STATE != 'passiv' && member.CURRENT_STATE != 'Ehrenmitglied'))	continue;
-					if(filters.state == 'Ehemalig'		&& (member.CURRENT_STATE != 'Ehemalig'))											continue;
-					if(filters.state == 'Vorstand'		&& (member.CURRENT_STATE != 'Vorstand'))											continue;
-					if(filters.state == 'verstorbene'	&& (member.CURRENT_STATE != 'verstorben'))											continue;
-					if(filters.state == 'Ausbildung'	&& (member.CURRENT_STATE != 'Ausbildung'))											continue;
+					if(filters.state == 'aktiv'  		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE.indexOf('Vorstand') === -1))	continue;
+					if(filters.state == 'passiv' 		&& (member.CURRENT_STATE != 'passiv' && member.CURRENT_STATE != 'Ehrenmitglied'))			continue;
+					if(filters.state == 'Ehemalig'		&& (member.CURRENT_STATE != 'Ehemalig'))													continue;
+					if(filters.state == 'Vorstand'		&& (member.CURRENT_STATE.indexOf('Vorstand') === -1))										continue;
+					if(filters.state == 'verstorbene'	&& (member.CURRENT_STATE != 'verstorben'))													continue;
+					if(filters.state == 'Ausbildung'	&& (member.CURRENT_STATE != 'Ausbildung'))													continue;
 
 					total_unfiltered++;
 
 					if(filters.search.length && (member.LASTNAME + ' ' + member.FIRSTNAME + ' ' + member.BIRTHNAME + ' ' + member.CITY + ' ' + member.STREET + ' ' + member.ZIP).indexOf(filters.search) === -1)
 						continue;
 
-					if(filters.gender_w == 0 && member.GENDER == 'w')																	continue;
-					if(filters.gender_m == 0 && member.GENDER == 'm')																	continue;
+					if(filters.gender_w == 0 && member.GENDER == 'w')		continue;
+					if(filters.gender_m == 0 && member.GENDER == 'm')		continue;
 
-					if(filters.age_adult == 0 && member.AGE >= 18)																		continue;
-					if(filters.age_child == 0 && member.AGE < 18)																		continue;
+					if(filters.age_adult == 0 && member.AGE >= 18)			continue;
+					if(filters.age_child == 0 && member.AGE < 18)			continue;
 
 					if(filters.instrument != 'all')
 					{

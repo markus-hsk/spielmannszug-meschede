@@ -250,16 +250,16 @@ class Member
 		{
 			$states 		 = $this->getMembershipStates();
 			$last_membership = '0000-00-00';
-			$vorstand       = false;
+			$vorstand       = '';
 			$ehrenmitglied  = false;
 
 			foreach($states as $state)
 			{
 				if($state['END_DATE'] == null)
 				{
-					if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major']))
+					if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major','huettenwart','2kassierer','2major','jugend','kassenpruefer']))
 					{
-						$vorstand = true;
+						$vorstand = $state['STATE'];
 					}
 					else if($state['STATE'] == 'Ehrenmitglied')
 					{
@@ -292,9 +292,29 @@ class Member
 				{
 					$this->current_state['STATE'] = 'Ehrenmitglied';
 				}
-				else if($vorstand)
+				else if(strlen($vorstand) > 0)
 				{
-					$this->current_state['STATE'] = 'Vorstand';
+					switch($vorstand)
+					{
+						case '1vorsitz':
+						case '2vorsitz':
+						case 'schrift':
+						case 'kassierer':
+						case 'major':
+							$this->current_state['STATE'] = 'GF Vorstand';
+							break;
+							
+						case 'huettenwart':
+						case '2kassierer':
+						case '2major':
+						case 'jugend':
+							$this->current_state['STATE'] = 'Erw. Vorstand';
+							break;
+							
+						default:
+							$this->current_state['STATE'] = 'aktiv';
+							break;
+					}
 				}
 			}
 		}
