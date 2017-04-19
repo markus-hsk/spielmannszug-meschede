@@ -10,12 +10,13 @@ angular.module('spzdb')
 		{
 			var memberlist = [];
 			var total_unfiltered = 0;
+			var do_reload = false;
 
 			this.load = function(callback)
 			{
 				debugSpzDb('memberService->load() Call');
 
-				if(memberlist.length)
+				if(!do_reload && memberlist.length)
 				{
 					callback();
 					return;
@@ -27,6 +28,7 @@ angular.module('spzdb')
 					  }).then(function successCallback(response)
 							  {
 								  memberlist = response.data;
+								  do_reload = false;
 								  debugSpzDb('Mitgliederliste geladen', memberlist);
 
 								  callback();
@@ -169,6 +171,15 @@ angular.module('spzdb')
 							  {
 								  debugSpzDb('save success', response);
 
+								  // Mitgliedsdaten ändern in geladenen Daten
+                                  for(var i = 0; i < memberlist.length; i++)
+                                  {
+                                      if(memberlist[i].MEMBER_ID == member_id)
+                                          memberlist[i] = memberdata;
+                                  }
+
+								  do_reload = true;
+
 								  callback();
 							  },
 							  function errorCallback(response)
@@ -185,6 +196,15 @@ angular.module('spzdb')
 					  }).then(function successCallback(response)
 							  {
 								  debugSpzDb('delete success', response);
+
+                                  // Mitgliedsdaten ändern in geladenen Daten
+                                  for(var i = 0; i < memberlist.length; i++)
+                                  {
+                                      if(memberlist[i].MEMBER_ID == member_id)
+                                          memberlist.splice(i, 1);
+                                  }
+
+								  do_reload = true;
 
 								  callback();
 							  },
