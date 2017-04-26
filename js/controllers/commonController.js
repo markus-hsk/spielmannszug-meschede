@@ -41,6 +41,14 @@ angular.module('spzdb',	// So heißt die App
 				   controller:  'memberDetailController',
 				   templateUrl: 'templates/memberdetail.html'
 			   })
+			   .when('/anwesenheit/:event_id', {
+				   controller:  'anwesenheitsController',
+				   templateUrl: 'templates/anwesenheit.html'
+			   })
+			   .when('/anwesenheit', {
+				   controller:  'anwesenheitsController',
+				   templateUrl: 'templates/anwesenheit.html'
+			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
 						  });

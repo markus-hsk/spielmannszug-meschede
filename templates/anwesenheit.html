@@ -1,0 +1,29 @@
+<div>
+	<h3>
+		<i class="fa fa-fw fa-hand-peace-o" aria-hidden="true"></i> Anwesenheit
+	</h3>
+	<hr>
+
+	<div>
+		<table class="table table-striped" id="">
+			<tbody>
+				<tr ng-repeat="row in table_data">
+					<td valign="middle">{{row.NAME}}</td>
+					<td>
+						<div class="btn-group" data-toggle="buttons" style="white-space: nowrap; min-width: 150px; width:100%;">
+			                <label class="btn btn-default" ng-click="setAnwesenheit(row.MEMBER_ID, 'x')" id="x{{row.MEMBER_ID}}" >
+			                    <input type="radio" name="anwesend[{{row.MEMBER_ID}}]" value="X" /> X
+			                </label> 
+			                <label class="btn btn-default" ng-click="setAnwesenheit(row.MEMBER_ID, 'e')" id="e{{row.MEMBER_ID}}">
+			                    <input type="radio" name="anwesend[{{row.MEMBER_ID}}]" value="E" /> E
+			                </label> 
+			                <label class="btn btn-default" ng-click="setAnwesenheit(row.MEMBER_ID, 'o')" id="o{{row.MEMBER_ID}}">
+			                    <input type="radio" name="anwesend[{{row.MEMBER_ID}}]" value="O" /> O
+			                </label>
+			            </div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
