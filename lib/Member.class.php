@@ -265,7 +265,7 @@ class Member
 					{
 						$ehrenmitglied = true;
 					}
-					else if(in_array($state['STATE'], ['aktiv','passiv','Ausbildung']))
+					else if(in_array($state['STATE'], ['aktiv', 'passiv', 'Ausbildung']))
 					{
 						$this->current_state = $state;
 					}
@@ -277,7 +277,7 @@ class Member
 			}
 
 			// Wurde kein offener Status gefunden, dann ist die Person kein Mitglied mehr im Verein und damit ehemalig
-			if($this->current_state === null)
+			if($this->current_state === null && !$ehrenmitglied && !strlen($vorstand))
 			{
 				$this->current_state = array('MEMBERSHIP_ID' => -1,
 											 'MEMBER_ID' => $this->member_id,

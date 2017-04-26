@@ -105,6 +105,9 @@ angular.module('spzdb')
 				   var start_date = date_to_string("Y-m-d");
 				   var membership_id = 'NEW_' + date_to_string('His');
 
+				   if(!me.member.STATES)
+				   		me.member.STATES = [];
+
 				   me.member.STATES.push({	STATE: '',
 										 	START_DATE: start_date,
 					   						END_DATE: null,
