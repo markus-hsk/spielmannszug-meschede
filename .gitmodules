@@ -1,0 +1,3 @@
+[submodule "lib/MBuscher"]
+	path = lib/MBuscher
+	url = https://github.com/markus-hsk/libs
