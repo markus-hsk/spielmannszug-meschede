@@ -47,7 +47,7 @@ angular.module('spzdb'	// So heißt die App
 										   {
 											   var member = members[i];
 
-											   if(member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Ehrenmitglied' && member.CURRENT_STATE != 'Vorstand')
+											   if(member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Ehrenmitglied' && member.CURRENT_STATE != 'GF Vorstand' && member.CURRENT_STATE != 'Erw. Vorstand')
 											   {
 												   continue;
 											   }
@@ -64,7 +64,7 @@ angular.module('spzdb'	// So heißt die App
 											   {
 												   var state = member.STATES[state_index];
 
-												   if(state.STATE == 'aktiv' || state.STATE == 'Ehrenmitglied')
+												   if(state.STATE == 'aktiv' || state.STATE == 'Ehrenmitglied' || state.STATE == 'GF Vorstand' || state.STATE == 'Erw. Vorstand')
 												   {
 													   var start_year = parseInt(state.START_DATE.substr(0, 4), 10);
 													   if(m_start_year == '')
