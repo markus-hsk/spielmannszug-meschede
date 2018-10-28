@@ -256,10 +256,12 @@ th[align=center], td[align=center] {
 /* Historie */
 #historydatatable td.changeplus {
 	color: darkgreen;
+	font-weight: bold;
 }
 
 #historydatatable td.changeminus {
 	color: red;
+	font-weight: bold;
 }
 
 

@@ -15,6 +15,8 @@
 				<tr>
 					<th>Jahr</th>
 					<th align="center">Mitglieder</th>
+					<th align="right">Aufnahmen</th>
+					<th align="right">Austritte</th>
 					<th align="right">Änderung</th>
 				</tr>
 			</thead>
@@ -22,6 +24,8 @@
 				<tr ng-repeat="row in table_data">
 					<th>{{row.year}}</th>
 					<td align="center">{{row.members}}</td>
+					<td align="right">{{row.add}}</td>
+					<td align="right">{{row.leave}}</td>
 					<td align="right" class="{{row.change}}">{{row.difference}}</td>
 				</tr>
 			</tbody>

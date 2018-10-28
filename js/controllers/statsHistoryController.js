@@ -30,7 +30,7 @@ angular.module('spzdb'	// So heißt die App
 				me.series  = [];
 				me.labels  = [];
 				me.data    = [];
-				me.colors  = ['#0000ff'];
+				me.colors  = ['#0000ff', '#00ff00', '#ff0000'];
 				me.options = {
 					scales: {
 						yAxes: [
@@ -63,6 +63,8 @@ angular.module('spzdb'	// So heißt die App
 						$("#loader").show();
 
 						me.years = [];
+						me.adds = [];
+						me.leaves = [];
 
 						memberService.load(function()
 										   {
@@ -82,10 +84,28 @@ angular.module('spzdb'	// So heißt die App
 													   if(state.STATE == 'aktiv')
 													   {
 														   var start_year = parseInt(state.START_DATE.substr(0, 4), 10);
+														   
+														   if(start_year in me.adds)
+														   {
+															   me.adds[String(start_year)]++;
+														   }
+														   else
+														   {
+															   me.adds[String(start_year)] = 1;
+														   }
 
 														   if(state.END_DATE !== null)
 														   {
 															   var end_year = parseInt(state.END_DATE.substr(0, 4), 10) - 1; // -1 weil das jahr des Austritts nicht mehr gewertet werden darf
+															   
+															   if(end_year+1 in me.leaves)
+															   {
+																   me.leaves[String(end_year+1)]++;
+															   }
+															   else
+															   {
+																   me.leaves[String(end_year+1)] = 1;
+															   }
 														   }
 														   else
 														   {
@@ -124,9 +144,9 @@ angular.module('spzdb'	// So heißt die App
 
 				me.writeYearsToChart = function()
 				{
-					me.series  = ['Mitglieder'];
+					me.series  = ['Mitglieder', 'Aufnahmen', 'Austritte'];
 					me.labels  = [];
-					me.data    = [[]];
+					me.data    = [[],[],[]];
 
 					var change     = null;
 					var difference = '';
@@ -136,27 +156,51 @@ angular.module('spzdb'	// So heißt die App
 					{
 						me.labels.push(key);
 						me.data[0].push(me.years[key]);
+						
+						if(key in me.adds)
+						{
+							add = me.adds[key];
+						}
+						else
+						{
+							add = 0;
+						}
+						me.data[1].push(add);
+						
+						if(key in me.leaves)
+						{
+							leave = me.leaves[key];
+						}
+						else
+						{
+							leave = 0;
+						}
+						me.data[2].push(leave);
 
-						if(change === null)
+						if(add == leave)
 						{
 							change     = '';
-							difference = '';
+							difference = '0';
 						}
-						else if(me.years[key] >= lastyear)
+						else if(add > leave)
 						{
 							change     = 'changeplus';
-							difference = '+ ' + (me.years[key] - lastyear);
+							difference = '+ ' + (add - leave);
 						}
 						else
 						{
 							change     = 'changeminus';
-							difference = '- ' + ((me.years[key] - lastyear)*-1);
+							difference = '- ' + (leave - add);
 						}
+						
+						
 
 						me.table_data.push({
 											   year:       key,
 											   members:    me.years[key],
 											   change:     change,
+											   add:		   add,
+											   leave:	   leave,
 											   difference: difference
 										   });
 
