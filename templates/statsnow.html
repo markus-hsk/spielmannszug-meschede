@@ -10,6 +10,14 @@
 	<hr>
 
 	<div class="col-md-4">
+	
+		<div class="{{stateselector}}">
+			<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_alle" ng-change="load()" value="Mitglied"> <label for="state_alle">Alle</label></div>
+			<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="load()" value="aktiv"> <label for="state_aktiv">aktiv</label></div>
+			<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="load()" value="passiv"> <label for="state_passiv">passiv</label></div>
+			<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="load()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label></div>
+			<br><hr>
+		</div>
 
 		<table class="table table-striped">
 			<thead>
@@ -21,7 +29,7 @@
 			</thead>
 			<tbody id="statsNowLegend">
 				<tr ng-repeat="value in values">
-					<th style="border-left: 10px solid {{value.color}}">{{value.label}}</th>
+					<th style="border-left: 10px solid {{value.color}};"><a ng-click="showSelectionTable(value.label)" style="cursor: pointer;">{{value.label}}</a></th>
 					<td align="right">{{value.value}}</td>
 					<td align="right">{{value.percentage}}%</td>
 				</tr>
@@ -39,16 +47,28 @@
 
 		<div>&nbsp;</div>
 	</div>
+	
 	<div class="col-md-8" id="chartcontainer">
 		<canvas id="pie" class="chart chart-pie" chart-data="data" chart-labels="labels" chart-colors="colors" chart-options="chartoptions" chart-legend="true" style="max-width:400px; display:block; margin-left:auto; margin-right:auto;"></canvas>
+		
+		<div>&nbsp;</div>
 	</div>
-
-	<div class="{{stateselector}}">
-		&nbsp;<hr>&nbsp;
-		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_alle" ng-change="load()" value="alle"> <label for="state_alle">Alle</label></div>
-		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_aktiv" ng-change="load()" value="aktiv"> <label for="state_aktiv">aktiv</label></div>
-		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_passiv" ng-change="load()" value="passiv"> <label for="state_passiv">passiv</label></div>
-		<div class="col-md-2"><input type="radio" name="state" ng-model="filters.state" id="state_ausbildung" ng-change="load()" value="Ausbildung"> <label for="state_ausbildung">Ausbildung</label></div>
+	
+	<div id="selectiontable">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th align="center">#</th>
+					<th align="left">Mitglieder: <i>{{selector_group}}</i></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="row in selection_data track by $index">
+					<td align="center" width="30">{{$index + 1}}</td>
+					<td align="left">{{row.FIRSTNAME}} {{row.LASTNAME}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 

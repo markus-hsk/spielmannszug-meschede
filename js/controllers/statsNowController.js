@@ -12,8 +12,9 @@ angular.module('spzdb'	// So heißt die App
 				var getmode = _GET.mode;
 				debugSpzDb('statsNowController Initialize', getmode);
 
-				me.mode          = getmode;
-				me.stateselector = '';
+				me.mode           = getmode;
+				me.stateselector  = '';
+				me.selector_group = '';
 
 				me.filters                    = {};
 				me.filters.search             = '';
@@ -28,6 +29,7 @@ angular.module('spzdb'	// So heißt die App
 				{
 					debugSpzDb('statsNowController->load() Call');
 
+					$("#selectiontable").hide();
 					$("#mainview").hide();
 					$("#loader").show();
 
@@ -82,6 +84,24 @@ angular.module('spzdb'	// So heißt die App
 					me.values = [];
 					me.total  = 0;
 					me.average = 0;
+					me.selection_data = [];
+					me.table_data = {
+							'weiblich': [],
+							'männlich': [],
+							'Erwachsene': [],
+							'Kinder': [],
+							'aktiv': [],
+							'passiv': [],
+							'Ausbildung': [],
+							'0-10 Jahre': [],
+							'10-20 Jahre': [],
+							'20-30 Jahre': [],
+							'>30 Jahre': [],
+							'Flöte': [],
+							'Trommel': [],
+							'Lyra': [],
+							'Pauke, Becken': []
+					};
 
 					memberService.load(function()
 									   {
@@ -94,7 +114,7 @@ angular.module('spzdb'	// So heißt die App
 										   		usefilters.state = 'alle';
 										   else if(me.mode == 'duration')
 										   		usefilters.state = 'aktiv';
-										   var members = memberService.getList(usefilters, '');
+										   var members = memberService.getList(usefilters, 'FIRSTNAME asc');
 
 										   me.total = 0;
 										   var total_age = 0;
@@ -106,53 +126,102 @@ angular.module('spzdb'	// So heißt die App
 											   if(me.mode == 'gender')
 											   {
 												   if(member.GENDER == 'w')
+												   {
 													   me.data[0]++;
+													   me.table_data['weiblich'].push(member);
+												   }
 												   else
+												   {
 													   me.data[1]++;
+													   me.table_data['männlich'].push(member);
+												   }
 											   }
 											   else if(me.mode == 'age')
 											   {
 												   if(member.AGE >= 18)
+												   {
 													   me.data[0]++;
+													   me.table_data['Erwachsene'].push(member);
+												   }
 												   else
+												   {
 													   me.data[1]++;
+													   me.table_data['Kinder'].push(member);
+												   }
 
 												   total_age += member.AGE;
 											   }
 											   else if(me.mode == 'state')
 											   {
-												   if(member.CURRENT_STATE == 'aktiv' || member.CURRENT_STATE == 'Vorstand')
+												   if(member.CURRENT_STATE == 'aktiv' || member.CURRENT_STATE == 'GF Vorstand' || member.CURRENT_STATE == 'Erw. Vorstand')
+												   {
 													   me.data[0]++;
+													   me.table_data['aktiv'].push(member);
+												   }
 												   else if(member.CURRENT_STATE == 'passiv' || member.CURRENT_STATE == 'Ehrenmitglied')
+												   {
 													   me.data[1]++;
+													   me.table_data['passiv'].push(member);
+												   }
 												   else if(member.CURRENT_STATE == 'Ausbildung')
+												   {
 													   me.data[2]++;
+													   me.table_data['Ausbildung'].push(member);
+												   }
 												   else
+												   {
 													   continue;
+												   }
 											   }
 											   else if(me.mode == 'duration')
 											   {
 												   if(member.AKTIV_JAHRE < 10)
-												   		me.data[0]++;
+												   {
+													   me.data[0]++;
+													   me.table_data['0-10 Jahre'].push(member);
+												   }
 												   else if(member.AKTIV_JAHRE < 20)
-												   		me.data[1]++;
+												   {
+													   me.data[1]++;
+													   me.table_data['10-20 Jahre'].push(member);
+												   }
 												   else if(member.AKTIV_JAHRE < 30)
-												   		me.data[2]++;
+												   {
+													   me.data[2]++;
+													   me.table_data['20-30 Jahre'].push(member);
+												   }
 												   else
-												   		me.data[3]++;
+												   {
+													   me.data[3]++;
+													   me.table_data['>30 Jahre'].push(member);
+												   }
 											   }
 											   else if(me.mode == 'instrument')
 											   {
 												   if(member.INSTRUMENT.indexOf('Flöte') !== -1)
+												   {
 													   me.data[0]++;
+													   me.table_data['Flöte'].push(member);
+												   }
 												   else if(member.INSTRUMENT.indexOf('Trommel') !== -1)
+												   {
 													   me.data[1]++;
+													   me.table_data['Trommel'].push(member);
+												   }
 												   else if(member.INSTRUMENT.indexOf('Lyra') !== -1)
-												   		me.data[2]++;
-                                                   else if(member.INSTRUMENT.indexOf('Pauke') !== -1 || member.INSTRUMENT.indexOf('Becken') !== 1)
-                                                       me.data[3]++;
-
-												   total_age += member.AGE;
+												   {
+													   me.data[2]++;
+													   me.table_data['Lyra'].push(member);
+												   }
+                                                   else if(member.INSTRUMENT.indexOf('Pauke') !== -1 || member.INSTRUMENT.indexOf('Becken') !== -1)
+                                                   {
+                                                	   me.data[3]++;
+													   me.table_data['Pauke, Becken'].push(member);
+                                                   }
+                                                   else
+                                                   {
+                                                	   continue;
+                                                   }
 											   }
 
 											   me.total++;
@@ -171,10 +240,10 @@ angular.module('spzdb'	// So heißt die App
 					for(var i = 0; i < me.data.length; i++)
 					{
 						me.values.push({
-										   value:         me.data[i],
-										   color:         me.colors[i],
-										   label:         me.labels[i],
-										   percentage:    Math.round(100 / me.total * me.data[i])
+										   value:         	me.data[i],
+										   color:         	me.colors[i],
+										   label:         	me.labels[i],
+										   percentage:    	Math.round(100 / me.total * me.data[i])
 									   });
 					}
 
@@ -191,9 +260,17 @@ angular.module('spzdb'	// So heißt die App
 					if(me.mode != mode)
 					{
 						me.mode = mode;
+						$("#selectiontable").hide();
 						me.load();
 					}
 				};
+				
+				me.showSelectionTable = function (group)
+				{
+					me.selection_data = me.table_data[group];
+					me.selector_group = group;
+					$("#selectiontable").show();
+				}
 
 				me.load();
 			}]);

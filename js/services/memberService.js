@@ -58,6 +58,7 @@ angular.module('spzdb')
 				{
 					var member = memberlist[i];
 
+					if(filters.state == 'Mitglied'  	&& (member.CURRENT_STATE == 'Ehemalig' || member.CURRENT_STATE == 'verstorben'))			continue;
 					if(filters.state == 'aktiv'  		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE.indexOf('Vorstand') === -1))	continue;
 					if(filters.state == 'passiv' 		&& (member.CURRENT_STATE != 'passiv' && member.CURRENT_STATE != 'Ehrenmitglied'))			continue;
 					if(filters.state == 'Ehemalig'		&& (member.CURRENT_STATE != 'Ehemalig'))													continue;
