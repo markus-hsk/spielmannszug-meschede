@@ -65,6 +65,7 @@ angular.module('spzdb')
 				   {
 					   var callback = function()
 					   {
+						   memberService.do_reload = true;
 						   $location.url('/mitglieder/' + me.return_state);
 					   };
 					   memberService.save(me.member_id, me.member, callback);

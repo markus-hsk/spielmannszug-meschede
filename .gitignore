@@ -4,3 +4,4 @@
 /cfg/config.inc.php
 .settings/org.eclipse.core.resources.prefs
 \.idea/
+.settings/org.eclipse.php.ui.prefs

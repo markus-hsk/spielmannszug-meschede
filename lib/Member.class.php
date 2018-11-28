@@ -65,6 +65,11 @@ class Member
 					case 'MEMBER_ID':
 						$where[] = "`$field` = ".((int) $value);
 						break;
+						
+					case 'FIRSTNAME':
+					case 'LASTNAME':
+						$where[] = "`$field` = '".$value."'";
+						break;
 				}
 			}
 
@@ -73,12 +78,19 @@ class Member
 				$sql .= " WHERE ".implode(' AND ', $where);
 			}
 		}
-
+		
 		$records = DB::getCachedRecords( $sql );
 
-		foreach ($records as &$record)
+		if(is_array($records))
 		{
-			$record = Member::compose($record);
+			foreach ($records as &$record)
+			{
+				$record = Member::compose($record);
+			}
+		}
+		else
+		{
+			$records = array();
 		}
 
 		return $records;
@@ -143,6 +155,8 @@ class Member
 					$Member->saveMembershipState($state);
 				}
 			}
+			
+			return $Member;
 		}
 		else
 			return false;
@@ -163,6 +177,10 @@ class Member
 		{
 			return $this->getCurrentState();
 		}
+		else if(($fieldname == 'BIRTHDATE' || $fieldname == 'DEATHDATE') && (!strlen($this->data_array[$fieldname]) || $this->data_array[$fieldname] == '0000-00-00'))
+		{
+			return null;
+		}
 		else if(isset($this->data_array[$fieldname]))
 		{
 			return $this->data_array[$fieldname];
@@ -180,12 +198,19 @@ class Member
 
 	public function getDataArray()
 	{
-		return $this->data_array;
+		$data_array = array();
+		
+		foreach($this->data_array as $fieldname => $value)
+		{
+			$data_array[$fieldname] = $this->get($fieldname);
+		}
+		
+		return $data_array;
 	}
 
 	public function getDataArrayDeep()
 	{
-		$data_array = $this->data_array;
+		$data_array = $this->getDataArray();
 
 		// Alter ermitteln und anhängen
 		$data_array['AGE'] = $this->getAge();
@@ -203,6 +228,11 @@ class Member
 
 	public function getAge()
 	{
+		if(!strlen($this->get('BIRTHDATE')) || $this->get('BIRTHDATE') == '0000-00-00')
+		{
+			return null;
+		}
+		
 		// Zusätzliche Daten
 		if(!strlen($this->data_array['DEATHDATE']) || $this->data_array['DEATHDATE'] == '0000-00-00')
 		{
@@ -253,26 +283,30 @@ class Member
 			$vorstand       = '';
 			$ehrenmitglied  = false;
 
+			$now = time();
 			foreach($states as $state)
 			{
-				if($state['END_DATE'] == null)
+				if(strtotime($state['START_DATE']) <= $now && ($state['END_DATE'] == null || strtotime($state['END_DATE']) > $now))
 				{
-					if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major','huettenwart','2kassierer','2major','jugend','kassenpruefer']))
+					if($state['END_DATE'] == null || strtotime($state['END_DATE']) > $now)
 					{
-						$vorstand = $state['STATE'];
+						if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major','huettenwart','2kassierer','2major','jugend','kassenpruefer']))
+						{
+							$vorstand = $state['STATE'];
+						}
+						else if($state['STATE'] == 'Ehrenmitglied')
+						{
+							$ehrenmitglied = true;
+						}
+						else if(in_array($state['STATE'], ['aktiv', 'passiv', 'Ausbildung']))
+						{
+							$this->current_state = $state;
+						}
 					}
-					else if($state['STATE'] == 'Ehrenmitglied')
+					else
 					{
-						$ehrenmitglied = true;
+						$last_membership = max($last_membership, $state['END_DATE']);
 					}
-					else if(in_array($state['STATE'], ['aktiv', 'passiv', 'Ausbildung']))
-					{
-						$this->current_state = $state;
-					}
-				}
-				else
-				{
-					$last_membership = max($last_membership, $state['END_DATE']);
 				}
 			}
 

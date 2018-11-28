@@ -11,6 +11,11 @@ angular.module('spzdb')
 
 			   me.current_sort_field = 'LASTNAME';
 			   me.current_sort_dir   = 'asc';
+			   
+			   me.show_address = false;
+			   me.show_age = true;
+			   me.show_instrument = true;
+			   me.show_contact = false;
 
 			   me.filter_open                = false;
 			   me.filters                    = {};

@@ -35,7 +35,7 @@
 							<select id="gender" class="form-control" ng-model="member.GENDER" ng-required="required">
 								<option value="">-----</option>
 								<option value="w">weiblich</option>
-								<option value="m">m√§nnlich</option>
+								<option value="m">m‰nnlich</option>
 							</select>
 						</div>
 					</div>
@@ -82,6 +82,14 @@
 						<div class="col-md-12 mbottom">
 							<label class="label label-default" for="instrument">Instrument: </label>
 							<input type="text" value="{{member.INSTRUMENT}}" id="instrument" placeholder="Instrument" class="form-control" ng-model="member.INSTRUMENT">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-12 mbottom">
+							<label class="label label-default" for="instrument">Notizen und Anmerkungen: </label>
+							<textarea id="notes" class="form-control" ng-model="member.NOTES" style="width:100%; min-width:100%; min-height:3em;">{{member.NOTES}}</textarea>
 						</div>
 					</div>
 				</div>

@@ -65,6 +65,7 @@ angular.module('spzdb')
 					if(filters.state == 'Vorstand'		&& (member.CURRENT_STATE.indexOf('Vorstand') === -1))										continue;
 					if(filters.state == 'verstorbene'	&& (member.CURRENT_STATE != 'verstorben'))													continue;
 					if(filters.state == 'Ausbildung'	&& (member.CURRENT_STATE != 'Ausbildung'))													continue;
+					if(filters.state == 'Auftritt'		&& (member.CURRENT_STATE != 'aktiv' && member.CURRENT_STATE != 'Ausbildung'))				continue;
 
 					total_unfiltered++;
 
@@ -179,7 +180,7 @@ angular.module('spzdb')
                                           memberlist[i] = memberdata;
                                   }
 
-								  do_reload = true;
+								  this.do_reload = true;
 
 								  callback();
 							  },
@@ -205,7 +206,7 @@ angular.module('spzdb')
                                           memberlist.splice(i, 1);
                                   }
 
-								  do_reload = true;
+								  this.do_reload = true;
 
 								  callback();
 							  },
