@@ -39,7 +39,21 @@ angular.module('spzdb'	// So heißt die App
 						showTooltips:        true,
 						onAnimationComplete: function()
 											 {
-												 this.showTooltip(this.segments, true);
+												 debugSpzDb('statsNowController->chart->onAnimationComplete() Call');
+							
+							 					 this.showTooltip(this.segments, true);
+											 },
+						onClick:			 function(points, evt)
+											 {
+												 debugSpzDb('statsNowController->chart->onClick() Call', evt);
+
+												 // @see https://stackoverflow.com/a/11873839
+												 me.$apply(function()
+														 {
+													 		me.showSelectionTable(evt[0]._model.label);
+														 });
+												 
+												 return true;
 											 },
 						tooltipEvents:       [],
 						tooltipCaretSize:    0
@@ -118,6 +132,7 @@ angular.module('spzdb'	// So heißt die App
 
 										   me.total = 0;
 										   var total_age = 0;
+										   var total_counted = 0;
 
 										   for(var i = 0; i < members.length; i++)
 										   {
@@ -130,7 +145,7 @@ angular.module('spzdb'	// So heißt die App
 													   me.data[0]++;
 													   me.table_data['weiblich'].push(member);
 												   }
-												   else
+												   else if(member.GENDER == 'm')
 												   {
 													   me.data[1]++;
 													   me.table_data['männlich'].push(member);
@@ -138,18 +153,22 @@ angular.module('spzdb'	// So heißt die App
 											   }
 											   else if(me.mode == 'age')
 											   {
-												   if(member.AGE >= 18)
+												   if(member.AGE != null)
 												   {
-													   me.data[0]++;
-													   me.table_data['Erwachsene'].push(member);
-												   }
-												   else
-												   {
-													   me.data[1]++;
-													   me.table_data['Kinder'].push(member);
-												   }
+													   if(member.AGE >= 18)
+													   {
+														   me.data[0]++;
+														   me.table_data['Erwachsene'].push(member);
+													   }
+													   else
+													   {
+														   me.data[1]++;
+														   me.table_data['Kinder'].push(member);
+													   }
 
-												   total_age += member.AGE;
+													   total_age += member.AGE;
+													   total_counted++;
+												   }
 											   }
 											   else if(me.mode == 'state')
 											   {
@@ -228,7 +247,7 @@ angular.module('spzdb'	// So heißt die App
 										   }
 
 										   if(me.mode == 'age')
-											   me.average = roundDecimal(total_age / me.total, 1);
+											   me.average = roundDecimal(total_age / total_counted, 1);
 
 										   me.setLegend();
 									   }
@@ -237,6 +256,8 @@ angular.module('spzdb'	// So heißt die App
 
 				me.setLegend = function()
 				{
+					debugSpzDb('statsNowController->setLegend() Call');
+					
 					for(var i = 0; i < me.data.length; i++)
 					{
 						me.values.push({
@@ -252,11 +273,15 @@ angular.module('spzdb'	// So heißt die App
 
 				me.getFilters = function()
 				{
+					debugSpzDb('statsNowController->getFilters() Call');
+					
 					return me.filters;
 				};
 
 				me.setMode = function(mode)
 				{
+					debugSpzDb('statsNowController->setMode() Call', mode);
+					
 					if(me.mode != mode)
 					{
 						me.mode = mode;
@@ -267,8 +292,11 @@ angular.module('spzdb'	// So heißt die App
 				
 				me.showSelectionTable = function (group)
 				{
+					debugSpzDb('statsNowController->showSelectionTable() Call', group);
+					
 					me.selection_data = me.table_data[group];
 					me.selector_group = group;
+					
 					$("#selectiontable").show();
 				}
 
