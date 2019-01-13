@@ -290,7 +290,7 @@ class Member
 				{
 					if($state['END_DATE'] == null || strtotime($state['END_DATE']) > $now)
 					{
-						if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major','huettenwart','2kassierer','2major','jugend','kassenpruefer']))
+						if(in_array($state['STATE'], ['1vorsitz','2vorsitz','schrift','kassierer','major','huettenwart','2kassierer','2major','jugend','kassenpruefer', 'beisitzer']))
 						{
 							$vorstand = $state['STATE'];
 						}
@@ -342,6 +342,7 @@ class Member
 						case '2kassierer':
 						case '2major':
 						case 'jugend':
+						case 'beisitzer':
 							$this->current_state['STATE'] = 'Erw. Vorstand';
 							break;
 							
