@@ -12,6 +12,9 @@ angular.module('spzdb'	// So heißt die App
 			{
 				debugSpzDb('ehrungenController Initialize');
 
+				me.current_sort_field = 'NEXT_JUB';
+				me.current_sort_dir   = 'asc';
+				   
 				me.filter_open                = false;
 			    me.filters                    = {};
 				me.filters.search             = '';
@@ -20,7 +23,8 @@ angular.module('spzdb'	// So heißt die App
 				me.filters.gender_m           = 1;
 				me.filters.age_adult          = 1;
 				me.filters.age_child          = 1;
-                me.filters.instrument		  = 'all';
+				me.filters.instrument		  = 'all';
+                me.filters.nadel		      = 'all';
 				me.filters.nextjub 			  = null;
 
 				me.current_year = new Date().getFullYear();
@@ -41,7 +45,7 @@ angular.module('spzdb'	// So heißt die App
 										   $("#mainview").show();
 										   $("#loader").hide();
 
-										   var members = memberService.getList(me.getFilters(), 'LASTNAME ASC');
+										   var members = memberService.getList(me.getFilters(), 'LASTNAME asc');
 
 										   for(var i = 0; i < members.length; i++)
 										   {
@@ -137,6 +141,14 @@ angular.module('spzdb'	// So heißt die App
 											   {
 												   continue;
 											   }
+											   
+											   if(me.filters.nadel != 'all')
+											   {
+												   if ((me.filters.nadel == 'bronze' && active_years < 10) ||
+													   (me.filters.nadel == 'silber' && active_years < 20) ||
+													   (me.filters.nadel == 'gold' && active_years < 25))
+													   continue;
+											   }
 
 											   me.table_data.push({
 																	  NAME:         member.LASTNAME + ', ' + member.FIRSTNAME,
@@ -147,6 +159,8 @@ angular.module('spzdb'	// So heißt die App
 																	  JUB25:        jub25,
 																	  NEXT_JUB:     nextjub
 																  });
+											   
+											   me.sortBy('');
 										   }
 									   }
 					);
@@ -162,10 +176,59 @@ angular.module('spzdb'	// So heißt die App
 					return me.filters;
 				};
 
-				me.getSortBy = function()
-				{
-					return me.current_sort_field + ' ' + me.current_sort_dir;
-				};
+			    me.sortBy = function(field)
+			    {
+				   debugSpzDb('ehrungenController->sortBy() Call', field);
+				   
+				   if(field != '')
+				   {
+					   if(me.current_sort_field == field)
+					   {
+						   if(me.current_sort_dir == 'asc')
+							   me.current_sort_dir = 'desc';
+						   else
+							   me.current_sort_dir = 'asc';
+					   }
+					   else
+					   {
+						   me.current_sort_field = field;
+						   me.current_sort_dir   = 'asc';
+					   }
+				   }
+				   
+				   me.table_data.sort(function(a, b)
+							  {
+					   			  switch(me.current_sort_field)
+								  {
+									  default:
+									  case 'LASTNAME':
+										  if(a.NAME != b.NAME)
+											  result = a.NAME < b.NAME ? -1 : 1;
+										  else
+											  result = 0;
+										  break;
+
+									  case 'START_YEAR':
+										  if(a.START_YEAR != b.START_YEAR)
+											  result = a.START_YEAR < b.START_YEAR ? -1 : 1;
+										  else
+											  result = 0;
+										  break;
+
+									  case 'NEXT_JUB':
+										  if(a.NEXT_JUB != b.NEXT_JUB)
+											  result = a.NEXT_JUB < b.NEXT_JUB ? -1 : 1;
+										  else
+											  result = 0;
+										  break;
+								  }
+
+								  if(me.current_sort_dir == 'desc')
+									  result = result * -1;
+								  
+								  return result;
+							  });
+			    };
 
 				me.toggleFilter = function()
 				{

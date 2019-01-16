@@ -28,7 +28,7 @@
 				<label for="age_child">Kind:</label> <input type="checkbox" name="age" id="age_child" value="child" ng-model="filters.age_child" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
 			</div>
 			<div class="col-md-3">
-				<label>Instrument:</label><br>
+				<label for="instrument">Instrument:</label><br>
 				<select id="instrument" ng-model="filters.instrument" ng-change="filterList()">
 					<option value="all">Alle</option>
 					<option value="Flöte">Flöte</option>
@@ -38,6 +38,15 @@
 					<option value="Becken">Becken</option>
 				</select><br>&nbsp;
 			</div>
+			<div class="col-md-3">
+				<label for="nadel">Nadel:</label><br>
+				<select id="nadel" ng-model="filters.nadel" ng-change="filterList()">
+					<option value="all">Alle</option>
+					<option value="bronze">Bronze</option>
+					<option value="silber">Silber</option>
+					<option value="gold">Gold</option>
+				</select><br>&nbsp;
+			</div>
 		</div>
 	</div>
 
@@ -45,13 +54,13 @@
 		<table class="table table-striped" id="historydatatable">
 			<thead>
 				<tr>
-					<th>Mitglied</th>
-					<th align="center">Eintrittsjahr</th>
-					<th align="center">Jahre</th>
-					<th align="center">10 Jahre (Bronze)</th>
-					<th align="center">20 Jahre (Silber)</th>
-					<th align="center">25 Jahre (Gold)</th>
-					<th align="right">nächste</th>
+					<th align="left"   scope="col"><a href="" class="sorter {{current_sort_field == 'LASTNAME' ? 'active_sorter' : ''}}" id="SORTER_LASTNAME" ng-click="sortBy('LASTNAME')">Mitglied <i class="fa fa-fw {{current_sort_field == 'LASTNAME' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+					<th align="center" scope="col"><a href="" class="sorter {{current_sort_field == 'START_YEAR' ? 'active_sorter' : ''}}" id="SORTER_AKTIV_JAHRE" ng-click="sortBy('START_YEAR')">Eintrittsjahr <i class="fa fa-fw {{current_sort_field == 'START_YEAR' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
+					<th align="center" scope="col">Jahre</th>
+					<th align="center" scope="col">10 Jahre (Bronze)</th>
+					<th align="center" scope="col">20 Jahre (Silber)</th>
+					<th align="center" scope="col">25 Jahre (Gold)</th>
+					<th align="right"  scope="col"><a href="" class="sorter {{current_sort_field == 'NEXT_JUB' ? 'active_sorter' : ''}}" id="SORTER_LASTNAME" ng-click="sortBy('NEXT_JUB')">nächste <i class="fa fa-fw {{current_sort_field == 'NEXT_JUB' ? 'fa-sort-' + current_sort_dir : 'fa-sort'}}" aria-hidden="true"></i></a></th>
 				</tr>
 			</thead>
 			<tbody>
