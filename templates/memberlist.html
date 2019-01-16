@@ -95,7 +95,7 @@
 		</thead>
 		<tbody id="memberlist">
 			<tr class="simple" ng-repeat="row in rows">
-				<td data-label="#" class="hideResponsiveSimple">{{$index +1}}</td>
+				<td data-label="#" class="hideResponsiveSimple"><!-- {{$index +1}} -->{{row.index}}</td>
 				<td data-label="Nachname" class="responsive_bolder">{{row.LASTNAME}} {{row.DEADSIGN}}<br><span class="birthname">{{row.BIRTHNAME}}</span></td>
 				<td data-label="Vorname">{{row.FIRSTNAME}}</td>
 				<td data-label="Geschlecht" class="hideResponsiveSimple"><div gender-sign></div></td>
@@ -115,7 +115,14 @@
 		</tbody>
 	</table>
 
-	<div class="well">Anzahl Mitglieder {{filters.state}}: {{rows.length}} von {{getTotalUnfiltered()}}</div>
+	<div class="well">
+		<div class="btn btn-sm btn-primary {{page <= 1 ? 'disabled' : ''}}" ng-click="firstPage()"><i class="fa fa-step-backward" aria-hidden="true"></i></div>
+		<div class="btn btn-sm btn-primary {{page <= 1 ? 'disabled' : ''}}" ng-click="previousPage()"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+		&nbsp; {{page}} / {{max_pages}} &nbsp;
+		<div class="btn btn-sm btn-primary {{page >= max_pages ? 'disabled' : ''}}" ng-click="nextPage()"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+		<div class="btn btn-sm btn-primary {{page >= max_pages ? 'disabled' : ''}}" ng-click="lastPage()"><i class="fa fa-step-forward" aria-hidden="true"></i></div>
+		&nbsp; Anzahl Mitglieder {{filters.state}}: {{all.length}} von {{getTotalUnfiltered()}}
+	</div>
 </div>
 
 
