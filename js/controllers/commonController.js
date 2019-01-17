@@ -54,8 +54,8 @@ angular.module('spzdb',	// So heißt die App
 						  });
 	   })
 
-.controller('commonController', ['$scope', '$location', '$routeParams', 'memberService',
-		   function(me, $location, _GET, memberService)
+.controller('commonController', ['$scope', '$location', '$routeParams', 'memberService', 'eventService',
+		   function(me, $location, _GET, memberService, eventService)
 		   {
 			   me.title = 'Spielmannszug Meschede 1956 e.V.';
 		   }])

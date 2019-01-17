@@ -1,6 +1,15 @@
 <div>
 	<h3>
 		<i class="fa fa-fw fa-hand-peace-o" aria-hidden="true"></i> Anwesenheit
+		<div class="dropdown btn-group" style="vertical-align: inherit;">
+			<a href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuState">{{event_name}}</a>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuState">
+			  	<li><a href="#!/anwesenheit" ng-click="addEvent()"><b style="color:blue;">NEU...</b></a></li>
+			  	<li role="separator" class="divider"></li>
+			  	<li class="dropdown-header">Auftritte</li>
+			  	<li ng-repeat="event in events"><a href="#!/anwesenheit/{{event.EVENT_ID}}">{{event.NAME}}</a></li>
+			</ul>
+		</div>
 	</h3>
 	<hr>
 

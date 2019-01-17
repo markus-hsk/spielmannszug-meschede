@@ -99,6 +99,7 @@ define('VERSION', '0.0.1');
 require_once(RelativePath.'/lib/DB.class.php');
 require_once(RelativePath.'/lib/Cache.class.php');
 require_once(RelativePath.'/lib/Member.class.php');
+require_once(RelativePath.'/lib/Event.class.php');
 
 
 // Datenbank und andere Objekte initialisieren
