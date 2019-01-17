@@ -18,6 +18,7 @@ angular.module('spzdb')
 
 				if(!do_reload && memberlist.length)
 				{
+					debugSpzDb('memberService->load() No reload necessary');
 					callback();
 					return;
 				}
@@ -29,13 +30,13 @@ angular.module('spzdb')
 							  {
 								  memberlist = response.data;
 								  do_reload = false;
-								  debugSpzDb('Mitgliederliste geladen', memberlist);
+								  debugSpzDb('memberService->load() Mitgliederliste geladen', memberlist);
 
 								  callback();
 							  },
 							  function errorCallback(response)
 							  {
-								  console.error('Mitgliederliste konnte nicht geladen werden', response);
+								  console.error('memberService->load() Mitgliederliste konnte nicht geladen werden', response);
 							  });
 
 			};
@@ -100,22 +101,22 @@ angular.module('spzdb')
 								  {
 									  default:
 									  case 'LASTNAME':
-										  if(a.LASTNAME != b.LASTNAME)
-											  result = a.LASTNAME < b.LASTNAME ? -1 : 1;
+										  if(a.LASTNAME.toLowerCase() != b.LASTNAME.toLowerCase())
+											  result = a.LASTNAME.toLowerCase() < b.LASTNAME.toLowerCase() ? -1 : 1;
 										  else
-											  result = a.FIRSTNAME < b.FIRSTNAME ? -1 : 1;
+											  result = a.FIRSTNAME.toLowerCase() < b.FIRSTNAME.toLowerCase() ? -1 : 1;
 										  break;
 
 									  case 'FIRSTNAME':
-										  if(a.FIRSTNAME != b.FIRSTNAME)
-											  result = a.FIRSTNAME < b.FIRSTNAME ? -1 : 1;
+										  if(a.FIRSTNAME.toLowerCase() != b.FIRSTNAME.toLowerCase())
+											  result = a.FIRSTNAME.toLowerCase() < b.FIRSTNAME.toLowerCase() ? -1 : 1;
 										  else
-											  result = a.LASTNAME < b.LASTNAME ? -1 : 1;
+											  result = a.LASTNAME.toLowerCase() < b.LASTNAME.toLowerCase() ? -1 : 1;
 										  break;
 
 									  case 'GENDER':
-										  if(a.GENDER != b.GENDER)
-											  result = a.GENDER < b.GENDER ? -1 : 1;
+										  if(a.GENDER.toLowerCase() != b.GENDER.toLowerCase())
+											  result = a.GENDER.toLowerCase() < b.GENDER.toLowerCase() ? -1 : 1;
 										  else
 											  result = 0;
 										  break;
@@ -128,15 +129,22 @@ angular.module('spzdb')
 										  break;
 
 									  case 'STATE':
-										  if(a.CURRENT_STATE != b.CURRENT_STATE)
-											  result = a.CURRENT_STATE < b.CURRENT_STATE ? -1 : 1;
+										  if(a.CURRENT_STATE.toLowerCase() != b.CURRENT_STATE.toLowerCase())
+											  result = a.CURRENT_STATE.toLowerCase() < b.CURRENT_STATE.toLowerCase() ? -1 : 1;
 										  else
 											  result = 0;
 										  break;
 
 									  case 'INSTRUMENT':
-										  if(a.INSTRUMENT != b.INSTRUMENT)
-											  result = a.INSTRUMENT < b.INSTRUMENT ? -1 : 1;
+										  if(a.INSTRUMENT.toLowerCase() != b.INSTRUMENT.toLowerCase())
+											  result = a.INSTRUMENT.toLowerCase() < b.INSTRUMENT.toLowerCase() ? -1 : 1;
+										  else
+											  result = 0;
+										  break;
+
+									  case 'AKTIV_JAHRE':
+										  if(a.AKTIV_JAHRE != b.AKTIV_JAHRE)
+											  result = a.AKTIV_JAHRE < b.AKTIV_JAHRE ? -1 : 1;
 										  else
 											  result = 0;
 										  break;
@@ -180,7 +188,7 @@ angular.module('spzdb')
                                           memberlist[i] = memberdata;
                                   }
 
-								  this.do_reload = true;
+								  do_reload = true;
 
 								  callback();
 							  },
@@ -206,7 +214,7 @@ angular.module('spzdb')
                                           memberlist.splice(i, 1);
                                   }
 
-								  this.do_reload = true;
+								  do_reload = true;
 
 								  callback();
 							  },

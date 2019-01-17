@@ -140,17 +140,17 @@ class Member
 			$members = Member::find(['MEMBER_ID' => $member_id]);
 			$Member = $members[0];
 
-			if(isset($data['CONTACT']))
+			if(isset($data_array['CONTACT']))
 			{
-				foreach($data['CONTACT'] as $type => $value)
+				foreach($data_array['CONTACT'] as $type => $value)
 				{
 					$Member->saveContactData($type, $value);
 				}
 			}
 
-			if(isset($data['STATES']))
+			if(isset($data_array['STATES']))
 			{
-				foreach($data['STATES'] as $state)
+				foreach($data_array['STATES'] as $state)
 				{
 					$Member->saveMembershipState($state);
 				}
