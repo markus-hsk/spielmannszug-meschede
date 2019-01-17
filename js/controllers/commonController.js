@@ -57,7 +57,8 @@ angular.module('spzdb',	// So heißt die App
 .controller('commonController', ['$scope', '$location', '$routeParams', 'memberService',
 		   function(me, $location, _GET, memberService)
 		   {
-			   me.title = 'Spielmannszug Meschede 1956 e.V.';
+			   me.title = 'Verwaltung Spz-Meschede'; // @todo should be configurable
+			   me.version = '190117' // @todo should be determined automatically
 		   }])
 
 
