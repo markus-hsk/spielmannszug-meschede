@@ -111,6 +111,26 @@ else
 
 
 // Zugriffsberechtigung erfragen
-// @todo
+if(file_exists(__DIR__.'/auth.inc.php'))
+{
+	$allowed = include 'auth.inc.php';
+	if (!$allowed)
+	{
+		http_response_code(401); // Authentication required
+		header('Content-Type: application/json');
+	
+		echo json_encode(array(
+				'success' => false,
+				'rows' => false,
+				'total' => 0,
+				'error' => array(
+						'error_message' => 'Authentication required',
+						'error_code' => -1050
+				)
+		));
+		exit(0);
+	}
+}
+
 
 ?>

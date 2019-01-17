@@ -37,6 +37,11 @@ angular.module('spzdb')
 							  function errorCallback(response)
 							  {
 								  console.error('memberService->load() Mitgliederliste konnte nicht geladen werden', response);
+								  
+								  if(response.status == 401)
+								  {
+									  window.location.href = '401.html';
+								  }
 							  });
 
 			};
@@ -195,6 +200,11 @@ angular.module('spzdb')
 							  function errorCallback(response)
 							  {
 								  console.error('save error', response);
+								  
+								  if(response.status == 401)
+								  {
+									  window.location.href = '401.html';
+								  }
 							  });
 			};
 
@@ -221,6 +231,11 @@ angular.module('spzdb')
 							  function errorCallback(response)
 							  {
 								  console.error('delete error', response);
+								  
+								  if(response.status == 401)
+								  {
+									  window.location.href = '401.html';
+								  }
 							  });
 			};
 		});
