@@ -58,7 +58,7 @@ angular.module('spzdb',	// So heißt die App
 		   function(me, $location, _GET, memberService)
 		   {
 			   me.title = 'Verwaltung Spz-Meschede'; // @todo should be configurable
-			   me.version = '190117' // @todo should be determined automatically
+			   me.version = '190128' // @todo should be determined automatically
 		   }])
 
 
