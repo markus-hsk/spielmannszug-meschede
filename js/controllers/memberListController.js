@@ -181,18 +181,22 @@ angular.module('spzdb')
 				   
 				   var csv_string = '';
 				   
-				   csv_string = csv_string + '"#",';
-				   csv_string = csv_string + '"LfdNr",';
-				   csv_string = csv_string + '"Name",';
-				   csv_string = csv_string + '"Vorname",';
-				   csv_string = csv_string + '"Geburtsname",';
-				   csv_string = csv_string + '"Geschlecht",';
-				   csv_string = csv_string + '"Straße",';
-				   csv_string = csv_string + '"PLZ",';
-				   csv_string = csv_string + '"Ort",';
-				   csv_string = csv_string + '"Status",';
-				   csv_string = csv_string + '"Instrument",';
-				   csv_string = csv_string + '"Geburtstag"' + "\n";
+				   csv_string = csv_string + '"#"';
+				   csv_string = csv_string + ',"LfdNr"';
+				   csv_string = csv_string + ',"Name"';
+				   csv_string = csv_string + ',"Vorname"';
+				   csv_string = csv_string + ',"Geburtsname"';
+				   csv_string = csv_string + ',"Geschlecht"';
+				   csv_string = csv_string + ',"Straße"';
+				   csv_string = csv_string + ',"PLZ"';
+				   csv_string = csv_string + ',"Ort"';
+				   csv_string = csv_string + ',"Status"';
+				   csv_string = csv_string + ',"Instrument"';
+				   csv_string = csv_string + ',"Geburtstag"';
+				   csv_string = csv_string + ',"Telefonnr."';
+				   csv_string = csv_string + ',"Handynr."';
+				   csv_string = csv_string + ',"eMail"';
+				   csv_string = csv_string + "\n";
 
 				   for(var i = 0; i < me.all.length; i++)
 				   {
@@ -210,6 +214,9 @@ angular.module('spzdb')
 					   csv_string = csv_string + '"' + record.CURRENT_STATE + '",';
 					   csv_string = csv_string + '"' + record.INSTRUMENT + '",';
 					   csv_string = csv_string + '"' + record.BIRTHDATE + '",';
+					   csv_string = csv_string + '"' + record.CONTACT.phone + '",';
+					   csv_string = csv_string + '"' + record.CONTACT.mobile + '",';
+					   csv_string = csv_string + '"' + record.CONTACT.email + '",';
 					   
 					   // remove last comma
 					   csv_string = csv_string.substring(0, csv_string.length - 1);
