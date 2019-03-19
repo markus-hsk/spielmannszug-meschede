@@ -1,60 +1,60 @@
 <div>
-	<h3>
-		<a style="float:right; margin:0 0 0 3px;" class="btn btn-default" ng-click="copyToClipboard()"><i class="fa fa-clipboard fa-lg" aria-hidden="true"></i> in Zwischenablage kopieren</a>
-		
-		<i class="fa fa-fw fa-at" aria-hidden="true"></i> E-Mail-Adressliste
-	</h3>
-	<hr>
-	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-		  <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
-		</div>
-		<div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
-			<div class="col-md-4 mbottom">
-				<label>Status:</label><br>
-				<div class="input-group" style="width:100%;">
-					<input type="checkbox" id="status_aktiv" ng-model="filters.status_aktiv" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;aktiv<br>
-					<input type="checkbox" id="status_passiv" ng-model="filters.status_passiv" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;passiv<br>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="mbottom">
-					<label for="search">Person suchen:</label><br>
-					<div class="input-group">
-						<input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()">
-						<a href="" ng-click="clearSearch()" class="input-group-addon"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></a>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<label>Geschlecht:</label><br>
-					<label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
-					<label for="gender_w">weiblich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_w" id="gender_w" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
-				</div>
-				<div class="col-md-4">
-					<label>Altersgruppe:</label><br>
-					<label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age" id="age_adult" value="adult" ng-model="filters.age_adult" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
-					<label for="age_child">Kind:</label> <input type="checkbox" name="age" id="age_child" value="child" ng-model="filters.age_child" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
-				</div>
-				<div class="col-md-4">
-					<label for="instrument">Instrument:</label><br>
-					<select id="instrument" ng-model="filters.instrument" ng-change="filterList()">
-						<option value="all">Alle</option>
-						<option value="Flöte">Flöte</option>
-						<option value="Lyra">Lyra</option>
-						<option value="Trommel">Trommel</option>
-						<option value="Pauke">Pauke</option>
-						<option value="Becken">Becken</option>
-					</select><br>&nbsp;
-				</div>
-			</div>
-		</div>
-	</div>
+    <h3>
+        <a style="float:right; margin:0 0 0 3px;" class="btn btn-default" ng-click="copyToClipboard()"><i class="fa fa-clipboard fa-lg" aria-hidden="true"></i> in Zwischenablage kopieren</a>
 
-	<div id="addresslist">
-		<span ng-repeat="row in rows">{{row.FIRSTNAME}} {{row.LASTNAME}} &lt;{{row.CONTACT.email}}&gt;<span ng-if="!$last">, </span></span>
-	</div>
-	<br><br>
+        <i class="fa fa-fw fa-at" aria-hidden="true"></i> E-Mail-Adressliste
+    </h3>
+    <hr>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" href="" ng-click="toggleFilter()"><h3 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Filter</h3></a>
+        </div>
+        <div class="panel-body {{filter_open ? '' : 'collapse'}}" id="filters">
+            <div class="col-md-4 mbottom">
+                <label>Status:</label><br>
+                <div class="input-group" style="width:100%;">
+                    <input type="checkbox" id="status_aktiv" ng-model="filters.status_aktiv" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;aktiv<br>
+                    <input type="checkbox" id="status_passiv" ng-model="filters.status_passiv" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;passiv<br>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="mbottom">
+                    <label for="search">Person suchen:</label><br>
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Suche..." id="search" ng-model="filters.search" ng-change="filterList()">
+                        <a href="" ng-click="clearSearch()" class="input-group-addon"><i class="fa fa-times-circle fa-lg" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label>Geschlecht:</label><br>
+                    <label for="gender_m">männlich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_m" id="gender_m" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+                    <label for="gender_w">weiblich:</label> <input type="checkbox" name="gender" ng-model="filters.gender_w" id="gender_w" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
+                </div>
+                <div class="col-md-4">
+                    <label>Altersgruppe:</label><br>
+                    <label for="age_adult">Erwachsener:</label> <input type="checkbox" name="age" id="age_adult" value="adult" ng-model="filters.age_adult" ng-change="filterList()" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&nbsp;
+                    <label for="age_child">Kind:</label> <input type="checkbox" name="age" id="age_child" value="child" ng-model="filters.age_child" ng-change="filterList()" ng-true-value="1" ng-false-value="0"><br>&nbsp;
+                </div>
+                <div class="col-md-4">
+                    <label for="instrument">Instrument:</label><br>
+                    <select id="instrument" ng-model="filters.instrument" ng-change="filterList()">
+                        <option value="all">Alle</option>
+                        <option value="Flöte">Flöte</option>
+                        <option value="Lyra">Lyra</option>
+                        <option value="Trommel">Trommel</option>
+                        <option value="Pauke">Pauke</option>
+                        <option value="Becken">Becken</option>
+                    </select><br>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="addresslist">
+        <span ng-repeat="row in rows">{{row.FIRSTNAME}} {{row.LASTNAME}} &lt;{{row.CONTACT.email}}&gt;<span ng-if="!$last">, </span></span>
+    </div>
+    <br><br>
 </div>
 
 
