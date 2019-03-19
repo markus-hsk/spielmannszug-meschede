@@ -52,7 +52,7 @@
 	</div>
 
 	<div id="addresslist">
-		<span ng-repeat="row in rows">{{row.FIRSTNAME}} {{row.LASTNAME}} &lt;{{row.CONTACT.email}}&gt;, </span>
+		<span ng-repeat="row in rows">{{row.FIRSTNAME}} {{row.LASTNAME}} &lt;{{row.CONTACT.email}}&gt;<span ng-if="!$last">, </span></span>
 	</div>
 </div>
 
