@@ -35,7 +35,7 @@ angular.module('spzdb')
 										  $("#loader").hide();
 
 										  me.rows = [];
-										  var all = memberService.getList(me.getFilters(), 'MEMBER_ID asc');
+										  var all = memberService.getList(me.getFilters(), 'FIRSTNAME asc');
 										  
 										  for(var i = 0; i < all.length; i++)
 										  {
