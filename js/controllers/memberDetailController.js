@@ -25,6 +25,8 @@ angular.module('spzdb')
                 'show-weeks':  false
             };
 
+            me.preventHistoryBack = true;
+
             me.load = function()
             {
                 debugSpzDb('memberDetailController->load() Call');
@@ -45,6 +47,7 @@ angular.module('spzdb')
 
                         if(me.member == null)
                         {
+                            me.preventHistoryBack = false;
                             $location.url('/mitglieder/' + me.return_state);
                         }
                         else
@@ -66,6 +69,7 @@ angular.module('spzdb')
                     var callback = function()
                     {
                         memberService.do_reload = true;
+                        me.preventHistoryBack = false;
                         $location.url('/mitglieder/' + me.return_state);
                     };
                     memberService.save(me.member_id, me.member, callback);
@@ -74,14 +78,17 @@ angular.module('spzdb')
 
             me.cancel = function()
             {
-                var result = confirm('Eingabe wirklich abbrechen?');
+                var result = confirm('Eingabe wirklich abbrechen ohne zu speichern?');
 
                 debugSpzDb('memberDetailController->cancel()', me.member, result);
 
                 if(result)
                 {
+                    me.preventHistoryBack = false;
                     $location.url('/mitglieder/' + me.return_state);
                 }
+
+                return result;
             };
 
             me.delete = function()
@@ -94,6 +101,7 @@ angular.module('spzdb')
                 {
                     var callback = function()
                     {
+                        me.preventHistoryBack = false;
                         $location.url('/mitglieder/' + me.return_state);
                     };
 
@@ -149,4 +157,14 @@ angular.module('spzdb')
                 me.title = 'Mitgliedsdaten bearbeiten';
                 me.load();
             }
+
+            me.$on('$locationChangeStart', function(event)
+            {
+                debugSpzDb('memberDetailController Event $locationChangeStart', event);
+
+                if (me.preventHistoryBack && !me.cancel())
+                {
+                    event.preventDefault();
+                }
+            });
         }]);
