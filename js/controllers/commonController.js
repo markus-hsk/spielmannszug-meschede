@@ -53,6 +53,10 @@ angular.module('spzdb',	// So heißt die App
 				   controller:  'mailAddressesController',
 				   templateUrl: 'templates/mailaddresses.html'
 			   })
+			   .when('/birthdays', {
+				   controller:  'birthdayCalendarController',
+				   templateUrl: 'templates/geburtstagskalendar.html'
+			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
 						  });
@@ -62,7 +66,7 @@ angular.module('spzdb',	// So heißt die App
 		   function(me, $location, _GET, memberService)
 		   {
 			   me.title = 'Verwaltung Spz-Meschede'; // @todo should be configurable
-			   me.version = '190319' // @todo should be determined automatically
+			   me.version = '190419' // @todo should be determined automatically
 		   }])
 
 
