@@ -55,7 +55,7 @@ angular.module('spzdb',	// So heißt die App
 			   })
 			   .when('/birthdays', {
 				   controller:  'birthdayCalendarController',
-				   templateUrl: 'templates/geburtstagskalendar.html'
+				   templateUrl: 'templates/birthdaycalendar.html'
 			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
