@@ -49,6 +49,14 @@ angular.module('spzdb',	// So heißt die App
 				   controller:  'anwesenheitsController',
 				   templateUrl: 'templates/anwesenheit.html'
 			   })
+			   .when('/mailadressen', {
+				   controller:  'mailAddressesController',
+				   templateUrl: 'templates/mailaddresses.html'
+			   })
+			   .when('/birthdays', {
+				   controller:  'birthdayCalendarController',
+				   templateUrl: 'templates/birthdaycalendar.html'
+			   })
 			   .otherwise({
 							  redirectTo: '/mitglieder'
 						  });
@@ -57,7 +65,8 @@ angular.module('spzdb',	// So heißt die App
 .controller('commonController', ['$scope', '$location', '$routeParams', 'memberService', 'eventService',
 		   function(me, $location, _GET, memberService, eventService)
 		   {
-			   me.title = 'Spielmannszug Meschede 1956 e.V.';
+			   me.title = 'Verwaltung Spz-Meschede'; // @todo should be configurable
+			   me.version = '190419' // @todo should be determined automatically
 		   }])
 
 

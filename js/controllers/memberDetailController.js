@@ -4,149 +4,167 @@
 
 angular.module('spzdb')
 
-.controller('memberDetailController', ['$scope', '$location', '$routeParams', 'memberService',
-		   function(me, $location, _GET, memberService)
-		   {
-			   me.member_id = _GET.member_id;
-			   debugSpzDb('memberDetailController Initialize', me.member_id);
-			   
-			   if(_GET.state)
-				   me.return_state = _GET.state;
-			   else
-				   me.return_state = 'aktiv';
+    .controller('memberDetailController', ['$scope', '$location', '$routeParams', 'memberService',
+        function(me, $location, _GET, memberService)
+        {
+            me.member_id = _GET.member_id;
+            debugSpzDb('memberDetailController Initialize', me.member_id);
 
-			   me.member     = {};
-			   me.title      = '';
-			   me.deleteable = false;
+            if(_GET.state)
+                me.return_state = _GET.state;
+            else
+                me.return_state = 'aktiv';
 
-			   me.test  = '10.10.1960';
-			   me.dateOptions = {
-				   'year-format': "'yy'",
-				   'show-weeks':  false
-			   };
+            me.member     = {};
+            me.title      = '';
+            me.deleteable = false;
 
-			   me.load = function()
-			   {
-				   debugSpzDb('memberDetailController->load() Call');
+            me.test  = '10.10.1960';
+            me.dateOptions = {
+                'year-format': "'yy'",
+                'show-weeks':  false
+            };
 
-				   $("#mainview").hide();
-				   $("#loader").show();
+            me.preventHistoryBack = true;
 
-				   memberService.load(function()
-									  {
-										  $("#mainview").show();
-										  $("#loader").hide();
+            me.load = function()
+            {
+                debugSpzDb('memberDetailController->load() Call');
 
-										  me.member = memberService.getMemberById(me.member_id);
+                $("#mainview").hide();
+                $("#loader").show();
 
-			   							  me.deleteable = true;
+                memberService.load(function()
+                    {
+                        $("#mainview").show();
+                        $("#loader").hide();
 
-										  debugSpzDb('memberDetailController->load() callback', me.member);
+                        me.member = memberService.getMemberById(me.member_id);
 
-										  if(me.member == null)
-										  {
-											  $location.url('/mitglieder/' + me.return_state);
-										  }
-										  else
-										  {
+                        me.deleteable = true;
 
-										  }
-									  }
-				   );
-			   };
+                        debugSpzDb('memberDetailController->load() callback', me.member);
 
-			   me.save = function()
-			   {
-				   var result = confirm('Sollen die Daten gespeichert werden?');
+                        if(me.member == null)
+                        {
+                            me.preventHistoryBack = false;
+                            $location.url('/mitglieder/' + me.return_state);
+                        }
+                        else
+                        {
 
-				   debugSpzDb('memberDetailController->save()', me.member, result);
+                        }
+                    }
+                );
+            };
 
-				   if(result)
-				   {
-					   var callback = function()
-					   {
-						   memberService.do_reload = true;
-						   $location.url('/mitglieder/' + me.return_state);
-					   };
-					   memberService.save(me.member_id, me.member, callback);
-				   }
-			   };
+            me.save = function()
+            {
+                var result = confirm('Sollen die Daten gespeichert werden?');
 
-			   me.cancel = function()
-			   {
-				   var result = confirm('Eingabe wirklich abbrechen?');
+                debugSpzDb('memberDetailController->save()', me.member, result);
 
-				   debugSpzDb('memberDetailController->cancel()', me.member, result);
+                if(result)
+                {
+                    var callback = function()
+                    {
+                        memberService.do_reload = true;
+                        me.preventHistoryBack = false;
+                        $location.url('/mitglieder/' + me.return_state);
+                    };
+                    memberService.save(me.member_id, me.member, callback);
+                }
+            };
 
-				   if(result)
-				   {
-					   $location.url('/mitglieder/' + me.return_state);
-				   }
-			   };
+            me.cancel = function()
+            {
+                var result = confirm('Eingabe wirklich abbrechen ohne zu speichern?');
 
-			   me.delete = function()
-			   {
-				   var result = confirm('Dieses Mitglied wirklich löschen?');
+                debugSpzDb('memberDetailController->cancel()', me.member, result);
 
-				   debugSpzDb('memberDetailController->delete()', me.member, result);
+                if(result)
+                {
+                    me.preventHistoryBack = false;
+                    $location.url('/mitglieder/' + me.return_state);
+                }
 
-				   if(result)
-				   {
-					   var callback = function()
-					   {
-						   $location.url('/mitglieder/' + me.return_state);
-					   };
+                return result;
+            };
 
-					   memberService.delete(me.member_id, callback);
-				   }
-			   };
+            me.delete = function()
+            {
+                var result = confirm('Dieses Mitglied wirklich löschen?');
 
-			   me.addState = function()
-			   {
-				   var start_date = date_to_string("Y-m-d");
-				   var membership_id = 'NEW_' + date_to_string('His');
+                debugSpzDb('memberDetailController->delete()', me.member, result);
 
-				   if(!me.member.STATES)
-				   		me.member.STATES = [];
+                if(result)
+                {
+                    var callback = function()
+                    {
+                        me.preventHistoryBack = false;
+                        $location.url('/mitglieder/' + me.return_state);
+                    };
 
-				   me.member.STATES.push({	STATE: '',
-										 	START_DATE: start_date,
-					   						END_DATE: null,
-					   						MEMBERSHIP_ID: membership_id
-										 });
+                    memberService.delete(me.member_id, callback);
+                }
+            };
 
-				   debugSpzDb('memberDetailController->addState()', me.member.STATES);
-			   };
+            me.addState = function()
+            {
+                var start_date = date_to_string("Y-m-d");
+                var membership_id = 'NEW_' + date_to_string('His');
 
-			   me.deleteState = function(membership_id)
-			   {
-				    var result = confirm('Diesen Status wirklich löschen?');
+                if(!me.member.STATES)
+                    me.member.STATES = [];
 
-				   debugSpzDb('memberDetailController->deleteState()', membership_id, result);
+                me.member.STATES.push({	STATE: '',
+                    START_DATE: start_date,
+                    END_DATE: null,
+                    MEMBERSHIP_ID: membership_id
+                });
 
-				   if(result)
-				   {
-					   for(var i = 0; i < me.member.STATES.length; i++)
-					   {
-						   if(me.member.STATES[i].MEMBERSHIP_ID == membership_id)
-						   {
-							   me.member.STATES.splice(i, 1);
-							   break;
-						   }
-					   }
-				   }
-			   };
+                debugSpzDb('memberDetailController->addState()', me.member.STATES);
+            };
 
-			   if(me.member_id == 'new')
-			   {
-				   me.title = 'Mitglied anlegen';
+            me.deleteState = function(membership_id)
+            {
+                var result = confirm('Diesen Status wirklich löschen?');
 
-				   $("#mainview").show();
-				   $("#loader").hide();
-			   }
-			   else
-			   {
-				   me.title = 'Mitgliedsdaten bearbeiten';
-				   me.load();
-			   }
-		   }]);
+                debugSpzDb('memberDetailController->deleteState()', membership_id, result);
+
+                if(result)
+                {
+                    for(var i = 0; i < me.member.STATES.length; i++)
+                    {
+                        if(me.member.STATES[i].MEMBERSHIP_ID == membership_id)
+                        {
+                            me.member.STATES.splice(i, 1);
+                            break;
+                        }
+                    }
+                }
+            };
+
+            if(me.member_id == 'new')
+            {
+                me.title = 'Mitglied anlegen';
+
+                $("#mainview").show();
+                $("#loader").hide();
+            }
+            else
+            {
+                me.title = 'Mitgliedsdaten bearbeiten';
+                me.load();
+            }
+
+            me.$on('$locationChangeStart', function(event)
+            {
+                debugSpzDb('memberDetailController Event $locationChangeStart', event);
+
+                if (me.preventHistoryBack && !me.cancel())
+                {
+                    event.preventDefault();
+                }
+            });
+        }]);

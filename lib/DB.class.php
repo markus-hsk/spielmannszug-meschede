@@ -35,7 +35,7 @@ final class DB
 	{
 		if(static::$DB === null)
 		{
-			static::$DB = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT);
+			static::$DB = mysqli_connect(MBU_VTOOL_DB_HOST, MBU_VTOOL_DB_USER, MBU_VTOOL_DB_PASSWORD, MBU_VTOOL_DB_DATABASE, MBU_VTOOL_DB_PORT);
 			mysqli_set_charset(static::$DB, 'utf8');
 		}
 

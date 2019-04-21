@@ -10,7 +10,7 @@
 	</div>
 	
 	<h3>
-		<!-- <a href="#!/mitglied/new?state={{filters.state}}" style="float:right; margin:0 0 0 3px;" class="btn btn-default"><i class="fa fa-download fa-lg" aria-hidden="true"></i> Export</a> -->
+		<a style="float:right; margin:0 0 0 3px;" class="btn btn-default" ng-click="csvExport()"><i class="fa fa-download fa-lg" aria-hidden="true"></i> Excel-Export</a>
 		<a href="#!/mitglied/new?state={{filters.state}}" style="float:right; margin:0 0 0 3px;" class="btn btn-success"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i> Neu</a>
 		
 		<i class="fa fa-fw fa-list" aria-hidden="true"></i> Mitgliederliste
@@ -109,7 +109,7 @@
 					<div ng-repeat="(type, value) in row.CONTACT" class="contactdata {{type}}"><div contact-information type="type" value="value"></div></div>
 				</td>
 				<td>
-					<a href="#!/mitglied/{{row.MEMBER_ID}}?state={{filters.state}}" title="Details" class="editlink"><i class="fa fa-pencil-square-o" aria-hidden="true" aria-label="Details"></i></a>
+					<a href="#!/mitglied/{{row.MEMBER_ID}}?state={{filters.state}}" title="Details" class="editlink"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" aria-label="Details"></i></a>
 				</td>
 			</tr>
 		</tbody>
@@ -118,7 +118,7 @@
 	<div class="well">
 		<div class="btn btn-sm btn-primary {{page <= 1 ? 'disabled' : ''}}" ng-click="firstPage()"><i class="fa fa-step-backward" aria-hidden="true"></i></div>
 		<div class="btn btn-sm btn-primary {{page <= 1 ? 'disabled' : ''}}" ng-click="previousPage()"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
-		&nbsp; {{page}} / {{max_pages}} &nbsp;
+		&nbsp; Seite {{page}} / {{max_pages}} &nbsp;
 		<div class="btn btn-sm btn-primary {{page >= max_pages ? 'disabled' : ''}}" ng-click="nextPage()"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
 		<div class="btn btn-sm btn-primary {{page >= max_pages ? 'disabled' : ''}}" ng-click="lastPage()"><i class="fa fa-step-forward" aria-hidden="true"></i></div>
 		&nbsp; Anzahl Mitglieder {{filters.state}}: {{all.length}} von {{getTotalUnfiltered()}}

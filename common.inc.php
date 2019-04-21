@@ -105,13 +105,33 @@ require_once(RelativePath.'/lib/Event.class.php');
 // Datenbank und andere Objekte initialisieren
 DB::init();
 
-if(defined('USE_CACHE') && USE_CACHE)
+if(defined('MBU_VTOOL_USE_CACHE') && MBU_VTOOL_USE_CACHE)
 	Cache::enable();
 else
 	Cache::disable();
 
 
 // Zugriffsberechtigung erfragen
-// @todo
+if(file_exists(__DIR__.'/auth.inc.php'))
+{
+	$allowed = include 'auth.inc.php';
+	if (!$allowed)
+	{
+		http_response_code(401); // Authentication required
+		header('Content-Type: application/json');
+	
+		echo json_encode(array(
+				'success' => false,
+				'rows' => false,
+				'total' => 0,
+				'error' => array(
+						'error_message' => 'Authentication required',
+						'error_code' => -1050
+				)
+		));
+		exit(0);
+	}
+}
+
 
 ?>

@@ -7,11 +7,11 @@
  */
 
 
-define('DB_HOST',		'localhost');
-define('DB_PORT',		'3306');
-define('DB_DATABASE',	'spzmemberdb');
-define('DB_USER', 		'root');
-define('DB_PASSWORD',	'');
+define('MBU_VTOOL_DB_HOST',			'localhost');
+define('MBU_VTOOL_DB_PORT',			'3306');
+define('MBU_VTOOL_DB_DATABASE',		'spzmemberdb');
+define('MBU_VTOOL_DB_USER', 		'root');
+define('MBU_VTOOL_DB_PASSWORD',		'');
 
 
-define('USE_CACHE',		true);
+define('MBU_VTOOL_USE_CACHE',		true);

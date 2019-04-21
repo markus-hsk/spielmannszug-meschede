@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 		<link href="./js/vendor/angular-datepicker/src/css/angular-datepicker.css" rel="stylesheet" type="text/css" />
+		<link href="./js/vendor/bootstrap-year-calendar/bootstrap-year-calendar.min.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="./templates/styles.css">
 	</head>
 	<body>
@@ -15,6 +16,7 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
+					<span class="navbar-brand">{{title}}</span>
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
 							aria-expanded="false" aria-controls="navbar">
 						<span class="sr-only">Auswahl</span>
@@ -22,18 +24,19 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="">Vereinsverwaltung</a>
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
 							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
 							   aria-haspopup="true"
-							   aria-expanded="false"><i class="fa fa-fw fa-user" aria-hidden="true"></i> Mitglieder <span
+							   aria-expanded="false"><i class="fa fa-fw fa-users fa-lg" aria-hidden="true"></i> Mitglieder <span
 									class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#!/mitglieder"><i class="fa fa-fw fa-list" aria-hidden="true"></i> Liste</a></li>
 								<li><a href="#!/ehrungen"><i class="fa fa-fw fa-bookmark" aria-hidden="true"></i> Ehrungen</a></li>
+								<li><a href="#!/mailadressen"><i class="fa fa-fw fa-at" aria-hidden="true"></i> E-Mail-Adressliste</a></li>
+								<li><a href="#!/birthdays"><i class="fa fa-fw fa-birthday-cake" aria-hidden="true"></i> Geburtstagskalendar</a></li>
 								<!-- <li><a href="#!/vorstand"><i class="fa fa-fw fa-graduation-cap" aria-hidden="true"></i> Vorstand</a></li> -->
 								<li role="separator" class="divider"></li>
 								<li class="dropdown-header">Statistik</li>
@@ -41,7 +44,7 @@
 								<li><a href="#!/statstime"><i class="fa fa-fw fa-line-chart" aria-hidden="true"></i> Historie</a></li>
 							</ul>
 						</li>
-						<!-- 
+						<!--
 						<li class="dropdown">
 							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button"
 							   aria-haspopup="true"
@@ -77,6 +80,9 @@
 
 		<div class="container theme-showcase" role="main" id="mainview" style="display:none;" ng-view></div> <!-- /container -->
 
+		<footer style="float:right;">
+			<small><a href="https://github.com/markus-hsk/spielmannszug-meschede" target=_blank>Vereinsverwaltung V{{version}}</a></small>
+		</footer>
 
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
@@ -87,6 +93,8 @@
 
 		<script src="./js/vendor/angular-chart.min.js"></script>
 		<script src="./js/vendor/angular-datepicker/src/js/angular-datepicker.js"></script>
+		<script src="./js/vendor/bootstrap-year-calendar/bootstrap-year-calendar.min.js"></script>
+		<script src="./js/vendor/bootstrap-year-calendar/bootstrap-year-calendar.de.js"></script>
 		<script src="./js/controllers/commonController.js"></script>
 		<script src="./js/controllers/memberListController.js"></script>
 		<script src="./js/controllers/memberDetailController.js"></script>
@@ -94,6 +102,8 @@
 		<script src="./js/controllers/statsHistoryController.js"></script>
 		<script src="./js/controllers/ehrungenController.js"></script>
 		<script src="./js/controllers/anwesenheitsController.js"></script>		
+		<script src="./js/controllers/mailAddressesController.js"></script>
+		<script src="./js/controllers/birthdayCalendarController.js"></script>
 		<script src="./js/directives/genderSign.js"></script>
 		<script src="./js/directives/contactInformation.js"></script>
 		<script src="./js/services/memberService.js"></script>
